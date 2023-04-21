@@ -7,3 +7,4 @@ document.querySelector('.choose-doctor').addEventListener('change', createVisitC
 document.querySelectorAll('.btn-close--modal').forEach(btn => {
     btn.addEventListener('click', createDefaultValue);
 });
+

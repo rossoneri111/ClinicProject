@@ -18,115 +18,141 @@
     <nav class="navbar navbar-expand-lg bg-success-subtle">
         <div class="container-fluid px-5">
             <a class="navbar-brand" href="#"><img width="70" height="80" src="./img/logo.png" alt="doctor"></a>
-            <button class="btn btn-enter btn-lg btn-outline-success" type="submit">Вход</button>
-            <button class="btn btn-create-visit btn-lg btn-outline-success bg-info d-none" type="submit">Создать визит</button>
+            <button class="btn btn-enter btn-lg btn-outline-success" type="submit">Sign In</button>
+            <button type="button" class="btn btn-success btn-create-visit d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Create a visit
+            </button>
         </div>
 
     </nav>
 
     <form class="w-50 mx-auto bg-warning-subtle p-2 position-relative d-none enter-form" style="top: -100px;">
      <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Ваш Email</label>
+    <label for="exampleInputEmail1" class="form-label">Enter Email</label>
     <input type="email" class="form-control user-email" id="exampleInputEmail1" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Пароль</label>
+        <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control user-password" id="exampleInputPassword1">
     </div>
-    <button type="submit" class="btn btn-primary access-btn">Войти</button>
-    <span class="text-danger fs-5 text ms-5 d-none wrong-enter">Неправильный Email или пароль</span>
+    <button type="submit" class="btn btn-primary access-btn">Access</button>
+    <span class="text-danger fs-5 text ms-5 d-none wrong-enter">Incorrect Email or Password</span>
     </form>
 
 </header>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="--bs-modal-width: 1150px">
         <div class="modal-content">
             <div class="modal-header p-2">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Выберити врача</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Create a visit</h1>
+                <button type="button" class="btn-close btn-close--modal" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <select class="choose-doctor form-select form-select-sm mb-3" aria-label=".form-select-lg example">
-                    <option value="cardiologist">Кардиолог</option>
-                    <option value="dentist">Стоматолог</option>
-                    <option value="therapist">Терапевт</option>
+                    <option value="choose-option">Choose a specialist</option>
+                    <option value="cardiologist">Cardiologist</option>
+                    <option value="dentist">Dentist</option>
+                    <option value="therapist">Therapist</option>
                 </select>
 
-                <div class="cardiologist-option">
+                <div class="cardiologist-option choose-specialist d-none">
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text">цель визита</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Purpose of the visit</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">краткое описание визита</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Short description of the visit</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <select class="choose-doctor form-select form-select-sm mb-3" aria-label=".form-select-lg example">
-                        <option value="regular">обычная</option>
-                        <option value="priority">приоритетная</option>
-                        <option value="urgent">неотложная</option>
+                    <select class="choose-urgency form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                        <option value="choose-urgency">Choose urgency</option>
+                        <option value="regular">Regular</option>
+                        <option value="priority">Priority</option>
+                        <option value="urgent">Ugrent</option>
                     </select>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">ФИО</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Patient name</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">обычное давление</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Blood pressure</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">индекс массы тела</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Body mass index</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">перенесенные заболевания сердечно-сосудистой системы</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Diseases of the cardiovascular system</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">возраст</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Patient Age</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
 
                 </div>
 
-                <div class="dentist-option d-none">
+                <div class="dentist-option choose-specialist d-none">
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text">цель визита</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Purpose of the visit</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">краткое описание визита</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Short description of the visit</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <select class="choose-doctor form-select form-select-sm mb-3" aria-label=".form-select-lg example">
-                        <option value="regular">обычная</option>
-                        <option value="priority">приоритетная</option>
-                        <option value="urgent">неотложная</option>
+                    <select class="choose-urgency form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                        <option value="choose-urgency">Choose urgency</option>
+                        <option value="regular">Regular</option>
+                        <option value="priority">Priority</option>
+                        <option value="urgent">Ugrent</option>
                     </select>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">ФИО</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Patient name</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">дата последнего посещения</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">Last visit data</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                </div>
+
+                <div class="therapist-option choose-specialist d-none">
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Purpose of the visit</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Short description of the visit</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <select class="choose-urgency form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                        <option value="choose-urgency">Choose urgency</option>
+                        <option value="regular">Regular</option>
+                        <option value="priority">Priority</option>
+                        <option value="urgent">Ugrent</option>
+                    </select>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Patient name</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Patient Age</span>
+                        <input type="text" class="form-control modal-form__data" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
 
                 </div>
 
             </div>
             <div class="modal-footer p-2">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-close--modal btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create a Visit Card</button>
             </div>
         </div>
     </div>

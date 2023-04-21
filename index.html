@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--    <link rel="stylesheet" href="./style.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Step Project Cards</title>
+</head>
+
+<body>
+
+<header position-absolute>
+
+    <nav class="navbar navbar-expand-lg bg-success-subtle">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand" href="#"><img width="70" height="80" src="./img/logo.png" alt="doctor"></a>
+            <button class="btn btn-enter btn-lg btn-outline-success" type="submit">Вход</button>
+            <button class="btn btn-create-visit btn-lg btn-outline-success bg-info d-none" type="submit">Создать визит</button>
+        </div>
+
+    </nav>
+
+    <form class="w-50 mx-auto bg-warning-subtle p-2 position-relative d-none enter-form" style="top: -100px;">
+     <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Ваш Email</label>
+    <input type="email" class="form-control user-email" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Пароль</label>
+        <input type="password" class="form-control user-password" id="exampleInputPassword1">
+    </div>
+    <button type="submit" class="btn btn-primary access-btn">Войти</button>
+    <span class="text-danger fs-5 text ms-5 d-none wrong-enter">Неправильный Email или пароль</span>
+    </form>
+
+</header>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="--bs-modal-width: 1150px">
+        <div class="modal-content">
+            <div class="modal-header p-2">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Выберити врача</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select class="choose-doctor form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                    <option value="cardiologist">Кардиолог</option>
+                    <option value="dentist">Стоматолог</option>
+                    <option value="therapist">Терапевт</option>
+                </select>
+
+                <div class="cardiologist-option">
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">цель визита</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">краткое описание визита</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <select class="choose-doctor form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                        <option value="regular">обычная</option>
+                        <option value="priority">приоритетная</option>
+                        <option value="urgent">неотложная</option>
+                    </select>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ФИО</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">обычное давление</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">индекс массы тела</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">перенесенные заболевания сердечно-сосудистой системы</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">возраст</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                </div>
+
+                <div class="dentist-option d-none">
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">цель визита</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">краткое описание визита</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <select class="choose-doctor form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                        <option value="regular">обычная</option>
+                        <option value="priority">приоритетная</option>
+                        <option value="urgent">неотложная</option>
+                    </select>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ФИО</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">дата последнего посещения</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer p-2">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script type="module" src="./index.js"></script>
+</body>
+
+</html>

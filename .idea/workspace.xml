@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5259fa54-4ea1-407a-b3d3-881b874e0be6" name="Changes" comment="my first commit">
+    <list default="true" id="5259fa54-4ea1-407a-b3d3-881b874e0be6" name="Changes" comment="sign In and modal window are created">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/getAccessFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/getAccessFunction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +64,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682069612058</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="sign In and modal window are created">
+      <created>1682083971476</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682083971476</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -85,6 +90,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="my first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="my first commit" />
+    <MESSAGE value="sign In and modal window are created" />
+    <option name="LAST_COMMIT_MESSAGE" value="sign In and modal window are created" />
   </component>
 </project>

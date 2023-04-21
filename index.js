@@ -94,6 +94,24 @@ class HttpService {
   }
 }
 
+class ClinicApp {
+  constructor() {
+    this.addListeners();
+  }
+
+  addListeners() {
+    const signInBtn = document.querySelector(".btn-enter");
+    signInBtn.addEventListener("click", getAccessToCabinet);
+
+    document
+      .querySelector(".access-btn")
+      .addEventListener("click", dataVerification);
+    document
+      .querySelector(".choose-doctor")
+      .addEventListener("change", createVisitCard);
+  }
+}
+
 document
   .querySelector(".btn-enter")
   .addEventListener("click", getAccessToCabinet);
@@ -106,3 +124,6 @@ document
 document.querySelectorAll(".btn-close--modal").forEach((btn) => {
   btn.addEventListener("click", createDefaultValue);
 });
+
+
+

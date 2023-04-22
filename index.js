@@ -101,6 +101,12 @@ class ClinicApp {
   addListeners() {
     const signInForm = document.querySelector("#signInForm");
     signInForm.addEventListener("submit", this.handlers.signInHandler);
+
+    const createVisitForm = document.querySelector("#createVisitForm");
+    createVisitForm.addEventListener(
+      "submit",
+      this.handlers.createVisitHandler
+    );
   }
 }
 
@@ -116,16 +122,21 @@ class Handlers {
     );
 
     if (response.ok) {
-      const signInBtn = document.querySelector(
-        '[name="#signInBtn"]'
-      );
+      const signInBtn = document.querySelector('[name="signInBtn"]');
       signInBtn.remove();
       this.remove();
       const token = await response.text();
+      clinicApp.token = token;
       sessionStorage.setItem("token", token);
     } else {
       console.log("Incorrect password!");
     }
+  }
+
+  async createVisitHandler(event) {
+    event.preventDefault();
+
+    console.log(new FormData(this));
   }
 }
 

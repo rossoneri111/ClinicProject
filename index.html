@@ -86,204 +86,214 @@
     >
       <div class="modal-dialog" style="--bs-modal-width: 1150px">
         <div class="modal-content">
-          <div class="modal-header p-2">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Create a visit
-            </h1>
-            <button
-              type="button"
-              class="btn-close btn-close--modal"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <select
-              class="choose-doctor form-select form-select-sm mb-3"
-              aria-label=".form-select-lg example"
-            >
-              <option value="choose-option">Choose a specialist</option>
-              <option value="cardiologist">Cardiologist</option>
-              <option value="dentist">Dentist</option>
-              <option value="therapist">Therapist</option>
-            </select>
-
-            <div class="cardiologist-option choose-specialist d-none">
-              <div class="input-group mb-3">
-                <span class="input-group-text">Purpose of the visit</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text"
-                  >Short description of the visit</span
-                >
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
+          <form id="createVisitForm">
+            <div class="modal-header p-2">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Create a visit
+              </h1>
+              <button
+                type="button"
+                class="btn-close btn-close--modal"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
               <select
-                class="choose-urgency form-select form-select-sm mb-3"
+                name="doctor"
+                class="choose-doctor form-select form-select-sm mb-3"
                 aria-label=".form-select-lg example"
               >
-                <option value="choose-urgency">Choose urgency</option>
-                <option value="regular">Regular</option>
-                <option value="priority">Priority</option>
-                <option value="urgent">Urgent</option>
+                <option value="choose-option">Choose a specialist</option>
+                <option value="cardiologist">Cardiologist</option>
+                <option value="dentist">Dentist</option>
+                <option value="therapist">Therapist</option>
               </select>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Patient name</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Blood pressure</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Body mass index</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text"
-                  >Diseases of the cardiovascular system</span
-                >
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Patient Age</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-            </div>
 
-            <div class="dentist-option choose-specialist d-none">
-              <div class="input-group mb-3">
-                <span class="input-group-text">Purpose of the visit</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text"
-                  >Short description of the visit</span
+              <div class="cardiologist-option choose-specialist d-none">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Purpose of the visit</span>
+                  <input
+                    name="title"
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    >Short description of the visit</span
+                  >
+                  <input
+                    name="description"
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <select
+                  name="urgency"
+                  class="choose-urgency form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
                 >
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
+                  <option value="choose-urgency">Choose urgency</option>
+                  <option value="regular">Regular</option>
+                  <option value="priority">Priority</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Patient name</span>
+                  <input
+                    name="name"
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Blood pressure</span>
+                  <input
+                    name="bp"
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Body mass index</span>
+                  <input
+                    name="bmi"
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    >Diseases of the cardiovascular system</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Patient Age</span>
+                  <input
+                    name="age"
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
               </div>
-              <select
-                class="choose-urgency form-select form-select-sm mb-3"
-                aria-label=".form-select-lg example"
-              >
-                <option value="choose-urgency">Choose urgency</option>
-                <option value="regular">Regular</option>
-                <option value="priority">Priority</option>
-                <option value="urgent">Ugrent</option>
-              </select>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Patient name</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Last visit data</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-            </div>
 
-            <div class="therapist-option choose-specialist d-none">
-              <div class="input-group mb-3">
-                <span class="input-group-text">Purpose of the visit</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text"
-                  >Short description of the visit</span
+              <div class="dentist-option choose-specialist d-none">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Purpose of the visit</span>
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    >Short description of the visit</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <select
+                  class="choose-urgency form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
                 >
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
+                  <option value="choose-urgency">Choose urgency</option>
+                  <option value="regular">Regular</option>
+                  <option value="priority">Priority</option>
+                  <option value="urgent">Ugrent</option>
+                </select>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Patient name</span>
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Last visit data</span>
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
               </div>
-              <select
-                class="choose-urgency form-select form-select-sm mb-3"
-                aria-label=".form-select-lg example"
-              >
-                <option value="choose-urgency">Choose urgency</option>
-                <option value="regular">Regular</option>
-                <option value="priority">Priority</option>
-                <option value="urgent">Ugrent</option>
-              </select>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Patient name</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Patient Age</span>
-                <input
-                  type="text"
-                  class="form-control modal-form__data"
-                  aria-label="Sizing example input"
-                />
+
+              <div class="therapist-option choose-specialist d-none">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Purpose of the visit</span>
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text"
+                    >Short description of the visit</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <select
+                  class="choose-urgency form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
+                >
+                  <option value="choose-urgency">Choose urgency</option>
+                  <option value="regular">Regular</option>
+                  <option value="priority">Priority</option>
+                  <option value="urgent">Ugrent</option>
+                </select>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Patient name</span>
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Patient Age</span>
+                  <input
+                    type="text"
+                    class="form-control modal-form__data"
+                    aria-label="Sizing example input"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer p-2">
-            <button
-              type="button"
-              class="btn btn-close--modal btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">
-              Create a Visit Card
-            </button>
-          </div>
+            <div class="modal-footer p-2">
+              <button
+                type="button"
+                class="btn btn-close--modal btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Create a Visit Card
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

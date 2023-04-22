@@ -116,8 +116,13 @@ class Handlers {
     );
 
     if (response.ok) {
+      const signInBtn = document.querySelector(
+        '[name="#signInBtn"]'
+      );
+      signInBtn.remove();
+      this.remove();
       const token = await response.text();
-      localStorage.setItem("token", token);
+      sessionStorage.setItem("token", token);
     } else {
       console.log("Incorrect password!");
     }

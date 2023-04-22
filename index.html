@@ -27,7 +27,6 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#signInModal"
-
           >
             Sign In RST
           </button>
@@ -284,6 +283,47 @@
               Create a Visit Card
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      tabindex="-1"
+      id="signInModal"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form id="signInForm">
+            <div class="form-floating">
+              <input
+                name="email"
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="name@example.com"
+              /><label for="email">Enter Email</label>
+            </div>
+            <div class="form-floating">
+              <input
+                name="password"
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+              /><label for="password">Enter Password</label>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#signInModal"
+            >
+              Login
+            </button>
+          </form>
         </div>
       </div>
     </div>

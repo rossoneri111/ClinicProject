@@ -90,215 +90,158 @@
         <div class="modal-content">
           <form id="createVisitForm">
             <div class="modal-header p-2">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Create a visit
-              </h1>
-              <button
-                type="button"
-                class="btn-close btn-close--modal"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Create a visit</h1>
+                <button type="button" class="btn-close btn-close--modal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <select
-                name="doctor"
-                class="choose-doctor form-select form-select-sm mb-3"
-                aria-label=".form-select-lg example"
-              >
-                <option value="choose-option">Choose a specialist</option>
-                <option value="cardiologist">Cardiologist</option>
-                <option value="dentist">Dentist</option>
-                <option value="therapist">Therapist</option>
-              </select>
-
-              <div class="cardiologist-option choose-specialist d-none">
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Purpose of the visit</span>
-                  <input
-                    name="title"
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text"
-                    >Short description of the visit</span
-                  >
-                  <input
-                    name="description"
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <select
-                  name="urgency"
-                  class="choose-urgency form-select form-select-sm mb-3"
-                  aria-label=".form-select-lg example"
-                >
-                  <option value="choose-urgency">Choose urgency</option>
-                  <option value="regular">Regular</option>
-                  <option value="priority">Priority</option>
-                  <option value="urgent">Urgent</option>
+                <select class="choose-doctor form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                    <option value="choose-option">Choose a specialist</option>
+                    <option value="cardiologist">Cardiologist</option>
+                    <option value="dentist">Dentist</option>
+                    <option value="therapist">Therapist</option>
                 </select>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Patient name</span>
-                  <input
-                    name="name"
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Blood pressure</span>
-                  <input
-                    name="bp"
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Body mass index</span>
-                  <input
-                    name="bmi"
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text"
-                    >Diseases of the cardiovascular system</span
-                  >
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Patient Age</span>
-                  <input
-                    name="age"
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-              </div>
 
-              <div class="dentist-option choose-specialist d-none">
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Purpose of the visit</span>
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text"
-                    >Short description of the visit</span
-                  >
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <select
-                  class="choose-urgency form-select form-select-sm mb-3"
-                  aria-label=".form-select-lg example"
-                >
-                  <option value="choose-urgency">Choose urgency</option>
-                  <option value="regular">Regular</option>
-                  <option value="priority">Priority</option>
-                  <option value="urgent">Ugrent</option>
-                </select>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Patient name</span>
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Last visit data</span>
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-              </div>
+                <div class="cardiologist-option choose-specialist d-none was-validated">
 
-              <div class="therapist-option choose-specialist d-none">
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Purpose of the visit</span>
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Purpose of the visit</span>
+                        <input type="text" class="form-control modal-form__data cardiologist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Short description of the visit</span>
+                        <input type="text" class="form-control modal-form__data cardiologist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <select class="choose-urgency form-select form-select-sm mb-3 cardiologist-option__select" aria-label=".form-select-lg example"
+                            required>
+                        <option value=""></option>
+                        <option value="regular">Regular</option>
+                        <option value="priority">Priority</option>
+                        <option value="urgent">Ugrent</option>
+                    </select>
+                    <p class="invalid-feedback">Choose an option, please!</p>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Patient name</span>
+                        <input type="text" class="form-control modal-form__data cardiologist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Blood pressure</span>
+                        <input type="text" class="form-control modal-form__data cardiologist-option__value" aria-label="Sizing example input"
+                               pattern="^(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)\s(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)$"
+                               required
+                               onkeyup="this.value=this.value.replace(/[^0-9\s]/g,'');">
+                        <p class="invalid-feedback"> Make sure the blood pressure can be from 50 ut to 160</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Body mass index</span>
+                        <input type="text" class="form-control modal-form__data cardiologist-option__value" aria-label="Sizing example input"
+                               pattern="^[0-9]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with numbers only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Diseases of the cardiovascular system</span>
+                        <input type="text" class="form-control modal-form__data cardiologist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Patient Age</span>
+                        <input type="text" class="form-control modal-form__data cardiologist-option__value" aria-label="Sizing example input"
+                               pattern="^(1[6-9]|[2-9][0-9]|100)$" required>
+                        <p class="invalid-feedback"> Please fill this line with numbers only from 16 up to 100!</p>
+                    </div>
+
                 </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text"
-                    >Short description of the visit</span
-                  >
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
+
+                <div class="dentist-option choose-specialist d-none was-validated">
+
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Purpose of the visit</span>
+                        <input type="text" class="form-control modal-form__data dentist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Short description of the visit</span>
+                        <input type="text" class="form-control modal-form__data dentist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <select class="choose-urgency form-select form-select-sm mb-3 dentist-option__select" aria-label=".form-select-lg example"
+                            required>
+                        <option value=""></option>
+                        <option value="regular">Regular</option>
+                        <option value="priority">Priority</option>
+                        <option value="urgent">Ugrent</option>
+                    </select>
+                    <p class="invalid-feedback">Choose an option, please!</p>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Patient name</span>
+                        <input type="text" class="form-control modal-form__data dentist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Last visit data</span>
+                        <input type="text" class="form-control modal-form__data dentist-option__value" aria-label="Sizing example input"
+                               pattern="^([0-2][0-9]|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$" required>
+                        <p class="invalid-feedback"> Please fill this line with numbers in format: DD.MM.YY
+                            (21.05.1989)!</p>
+                    </div>
+
                 </div>
-                <select
-                  class="choose-urgency form-select form-select-sm mb-3"
-                  aria-label=".form-select-lg example"
-                >
-                  <option value="choose-urgency">Choose urgency</option>
-                  <option value="regular">Regular</option>
-                  <option value="priority">Priority</option>
-                  <option value="urgent">Ugrent</option>
-                </select>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Patient name</span>
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
+
+                <div class="therapist-option choose-specialist d-none was-validated">
+
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Purpose of the visit</span>
+                        <input type="text" class="form-control modal-form__data therapist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Short description of the visit</span>
+                        <input type="text" class="form-control modal-form__data therapist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <select class="choose-urgency form-select form-select-sm mb-3 therapist-option__select" aria-label=".form-select-lg example"
+                            required>
+                        <option value=""></option>
+                        <option value="regular">Regular</option>
+                        <option value="priority">Priority</option>
+                        <option value="urgent">Ugrent</option>
+                    </select>
+                    <p class="invalid-feedback">Choose an option, please!</p>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Patient name</span>
+                        <input type="text" class="form-control modal-form__data therapist-option__value" aria-label="Sizing example input"
+                               pattern="^[a-zA-Zа-яА-ЯёЁ\s]+$" required>
+                        <p class="invalid-feedback"> Please fill this line with letters only!</p>
+                    </div>
+                    <div class="input-group mb-3 was-validated">
+                        <span class="input-group-text">Patient Age</span>
+                        <input type="text" class="form-control modal-form__data therapist-option__value" aria-label="Sizing example input"
+                               pattern="^(1[6-9]|[2-9][0-9]|100)$" required>
+                        <p class="invalid-feedback"> Please fill this line with numbers only from 16 up to 100!</p>
+                    </div>
+
                 </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Patient Age</span>
-                  <input
-                    type="text"
-                    class="form-control modal-form__data"
-                    aria-label="Sizing example input"
-                  />
-                </div>
-              </div>
+
             </div>
             <div class="modal-footer p-2">
-              <button
-                type="button"
-                class="btn btn-close--modal btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary">
-                Create a Visit Card
-              </button>
+                <button type="button" class="btn btn-close--modal btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-create-visit__card d-none">Create a Visit Card</button>
             </div>
-          </form>
         </div>
-      </div>
     </div>
+</div>
 
     <div
       class="modal fade"

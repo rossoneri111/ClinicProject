@@ -96,6 +96,8 @@ class ClinicApp {
   constructor() {
     this.handlers = new Handlers();
     this.addListeners();
+    this.token = this.getToken();
+    this.render();
   }
 
   addListeners() {
@@ -107,6 +109,60 @@ class ClinicApp {
       "submit",
       this.handlers.createVisitHandler
     );
+  }
+
+  getToken() {
+    return sessionStorage.getItem("token");
+  }
+
+  setToken(token) {
+    this.token = token;
+    sessionStorage.setItem("token", token);
+  }
+
+  render() {
+    const navbar = document.querySelector(".navbar-nav");
+    navbar.innerHTML = "";
+    this.token ? this.renderSignedIn(navbar) : this.renderNotSignedIn(navbar);
+  }
+
+  renderSignedIn(navbar) {
+    navbar.append(
+      new Button(
+        "createVisitBtn",
+        "Create Visit Class",
+        "modal",
+        "#createVisitModal"
+      ).render()
+    );
+  }
+
+  renderNotSignedIn(navbar) {
+    navbar.append(
+      new Button("signInBtn", "Sign In Class", "modal", "#signInModal").render()
+    );
+  }
+}
+
+class Button {
+  constructor(name, innerText, bsToggle, bsTarget) {
+    this.name = name;
+    this.innerText = innerText;
+    this.bsToggle = bsToggle;
+    this.bsTarget = bsTarget;
+  }
+
+  render() {
+    const btn = document.createElement("button");
+
+    btn.name = this.name;
+    btn.innerText = this.innerText;
+    btn.type = "button";
+    btn.classList.add("btn", "btn-primary");
+    btn.dataset.bsToggle = this.bsToggle;
+    btn.dataset.bsTarget = this.bsTarget;
+
+    return btn;
   }
 }
 
@@ -122,12 +178,9 @@ class Handlers {
     );
 
     if (response.ok) {
-      const signInBtn = document.querySelector('[name="signInBtn"]');
-      signInBtn.remove();
-      this.remove();
       const token = await response.text();
-      clinicApp.token = token;
-      sessionStorage.setItem("token", token);
+      clinicApp.setToken(token);
+      clinicApp.render();
     } else {
       console.log("Incorrect password!");
     }
@@ -216,7 +269,7 @@ class SignInModal extends Modal {
 
 const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);
-
+console.log(clinicApp);
 document
   .querySelector(".btn-enter")
   .addEventListener("click", getAccessToCabinet);

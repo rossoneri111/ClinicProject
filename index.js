@@ -42,7 +42,6 @@ class HttpService {
     ).json();
   }
   async postCard(token, cardData) {
-    const { title, description, doctor, bp, age, weight } = cardData;
     return await (
       await fetch(this.URL, {
         method: "POST",
@@ -50,20 +49,12 @@ class HttpService {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          title: title,
-          description: description,
-          doctor: doctor,
-          bp: bp,
-          age: age,
-          weight: weight,
-        }),
+        body: JSON.stringify({ cardData }),
       })
     ).json();
   }
 
   async updateCard(token, id, cardData) {
-    const { title, description, doctor, bp, age, weight } = cardData;
     return await (
       await fetch(`${this.URL}/${id}`, {
         method: "PUT",
@@ -71,15 +62,7 @@ class HttpService {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          id: id,
-          title: title,
-          description: description,
-          doctor: doctor,
-          bp: bp,
-          age: age,
-          weight: weight,
-        }),
+        body: JSON.stringify({ cardData }),
       })
     ).json();
   }

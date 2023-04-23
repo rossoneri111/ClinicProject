@@ -82,7 +82,6 @@ class ClinicApp {
     this.handlers = new Handlers();
     this.token = this.getToken();
     this.render();
-    this.addListeners();
   }
 
   addListeners() {
@@ -111,6 +110,8 @@ class ClinicApp {
     const navbar = document.querySelector(".navbar-nav");
     navbar.innerHTML = "";
     this.token ? this.renderSignedIn(navbar) : this.renderNotSignedIn(navbar);
+
+    this.addListeners();
   }
 
   renderSignedIn(navbar) {
@@ -164,19 +165,57 @@ class Handlers {
 
     const formData = new FormData(this);
 
-    const response = await httpService.signIn(formData);
+    try {
+      const response = await httpService.signIn(formData);
 
-    if (response.ok) {
-      const token = await response.text();
-      clinicApp.setToken(token);
-      clinicApp.render();
-    } else {
-      console.log("Incorrect password!");
+      if (response.ok) {
+        const token = await response.text();
+        clinicApp.setToken(token);
+        clinicApp.render();
+      } else {
+        throw new Error("Incorrect password!");
+      }
+    } catch (e) {
+      Handlers.errorHandler(e);
     }
   }
 
   createVisitHandler(event) {
     const createVisit = new CreateVisitModal();
+  }
+
+  static errorHandler(error) {
+    const errorAlert = document.body.appendChild(
+      Handlers.showAlert(error.message)
+    );
+    setTimeout(() => {
+      errorAlert.remove();
+    }, 5000);
+  }
+
+  static showAlert(message) {
+    const alertContainer = document.createElement("div");
+    alertContainer.classList.add(
+      "alert",
+      "alert-danger",
+      "alert-dismissible",
+      "w-50",
+      "mx-auto",
+      "fade",
+      "show"
+    );
+    alertContainer.role = "alert";
+    alertContainer.innerText = message;
+
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.classList.add("btn-close");
+    closeBtn.dataset.bsDismiss = "alert";
+    closeBtn.ariaLabel = "Close";
+
+    alertContainer.append(closeBtn);
+
+    return alertContainer;
   }
 }
 

@@ -43,7 +43,7 @@ class HttpService {
     ).json();
   }
   async postCard(token, cardData) {
-    const { title, description, doctor, bp, age, weight } = cardData;
+    const { title , description, doctor, bp, age, weight } = cardData;
     return await (
       await fetch(this.URL, {
         method: "POST",
@@ -130,20 +130,23 @@ class ClinicApp {
   }
 
   renderSignedIn(navbar) {
-    navbar.append(
-      new Button(
-        "createVisitBtn",
-        "Create Visit Class",
-        "modal",
-        "#createVisitModal"
-      ).render()
+    const createVisitBtn = new Button(
+      "createVisitBtn",
+      "Create Visit Class",
+      "modal",
+      "#createVisitModal"
     );
+    navbar.append(createVisitBtn.render());
   }
 
   renderNotSignedIn(navbar) {
-    navbar.append(
-      new Button("signInBtn", "Sign In Class", "modal", "#signInModal").render()
+    const signInBtn = new Button(
+      "signInBtn",
+      "Sign In Class",
+      "modal",
+      "#signInModal"
     );
+    navbar.append(signInBtn.render());
   }
 }
 

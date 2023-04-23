@@ -6,13 +6,16 @@ class HttpService {
     this.URL = "https://ajax.test-danit.com/api/v2/cards";
   }
 
-  async signIn(email, password) {
+  async signIn(signInData) {
     return await fetch(`${this.URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password }),
+      body: JSON.stringify({
+        email: signInData.get("email"),
+        password: signInData.get("password"),
+      }),
     });
   }
 
@@ -172,10 +175,9 @@ class Handlers {
   async signInHandler(event) {
     event.preventDefault();
 
-    const response = await httpService.signIn(
-      this["email"].value,
-      this["password"].value
-    );
+    const formData = new FormData(this);
+
+    const response = await httpService.signIn(formData);
 
     if (response.ok) {
       const token = await response.text();

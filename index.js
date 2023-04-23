@@ -1,4 +1,3 @@
-import { getAccessToCabinet, dataVerification } from "./getAccessFunction.js";
 import { createVisitCard, createDefaultValue } from "./modalWindowfunction.js";
 
 class HttpService {
@@ -43,7 +42,7 @@ class HttpService {
     ).json();
   }
   async postCard(token, cardData) {
-    const { title , description, doctor, bp, age, weight } = cardData;
+    const { title, description, doctor, bp, age, weight } = cardData;
     return await (
       await fetch(this.URL, {
         method: "POST",
@@ -275,12 +274,7 @@ class SignInModal extends Modal {
 const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);
 console.log(clinicApp);
-document
-  .querySelector(".btn-enter")
-  .addEventListener("click", getAccessToCabinet);
-document
-  .querySelector(".access-btn")
-  .addEventListener("click", dataVerification);
+
 document
   .querySelector(".choose-doctor")
   .addEventListener("change", createVisitCard);

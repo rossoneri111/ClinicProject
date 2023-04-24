@@ -1,0 +1,15 @@
+{
+  "name": "clinicproject",
+  "version": "1.0.0",
+  "description": "1. Нетус Максим - Header і все що з ним повязано.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}

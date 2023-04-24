@@ -1,159 +1,196 @@
-import { createVisitCard, createDefaultValue } from './modalWindowfunction.js'
+import { createVisitCard, createDefaultValue } from "./modalWindowfunction.js";
 
 class HttpService {
    constructor() {
-      this.URL = 'https://ajax.test-danit.com/api/v2/cards'
+      this.URL = "https://ajax.test-danit.com/api/v2/cards";
    }
 
    async signIn(signInData) {
-      return await fetch(`${this.URL}/login`, {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({
-            email: signInData.get('email'),
-            password: signInData.get('password'),
-         }),
-      })
+      try {
+         return await fetch(`${this.URL}/login`, {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               email: signInData.get("email"),
+               password: signInData.get("password"),
+            }),
+         });
+      } catch (e) {
+         Handlers.errorHandler(e);
+      }
    }
 
    async getAllCards(token) {
-      return await (
-         await fetch(this.URL, {
-            method: 'GET',
-            headers: {
-               'Content-Type': 'application/json',
-               Authorization: `Bearer ${token}`,
-            },
-         })
-      ).json()
+      try {
+         return await (
+            await fetch(this.URL, {
+               method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+               },
+            })
+         ).json();
+      } catch (e) {
+         Handlers.errorHandler(e);
+      }
    }
 
-   async getCard(token, id) {
-      return await (
-         await fetch(`${this.URL}/${id}`, {
-            method: 'GET',
-            headers: {
-               'Content-Type': 'application/json',
-               Authorization: `Bearer ${token}`,
-            },
-         })
-      ).json()
+   async getCard(token, cardId) {
+      try {
+         return await (
+            await fetch(`${this.URL}/${cardId}`, {
+               method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+               },
+            })
+         ).json();
+      } catch (e) {
+         Handlers.errorHandler(e);
+      }
    }
    async postCard(token, cardData) {
-      return await (
-         await fetch(this.URL, {
-            method: 'POST',
-            headers: {
-               'Content-Type': 'application/json',
-               Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ cardData }),
-         })
-      ).json()
+      try {
+         return await (
+            await fetch(this.URL, {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+               },
+               body: JSON.stringify({ cardData }),
+            })
+         ).json();
+      } catch (e) {
+         Handlers.errorHandler(e);
+      }
    }
 
-   async updateCard(token, id, cardData) {
-      return await (
-         await fetch(`${this.URL}/${id}`, {
-            method: 'PUT',
-            headers: {
-               'Content-Type': 'application/json',
-               Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ cardData }),
-         })
-      ).json()
+   async updateCard(token, cardId, cardData) {
+      try {
+         return await (
+            await fetch(`${this.URL}/${cardId}`, {
+               method: "PUT",
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+               },
+               body: JSON.stringify({ cardData }),
+            })
+         ).json();
+      } catch (e) {
+         Handlers.errorHandler(e);
+      }
    }
 
-   async deleteCard(token, id) {
-      return await fetch(`${this.URL}/${id}`, {
-         method: 'DELETE',
-         headers: {
-            Authorization: `Bearer ${token}`,
-         },
-      })
+   async deleteCard(token, cardId) {
+      try {
+         return await fetch(`${this.URL}/${cardId}`, {
+            method: "DELETE",
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         });
+      } catch (e) {
+         Handlers.errorHandler(e);
+      }
    }
 }
 
 class ClinicApp {
    constructor() {
-      this.handlers = new Handlers()
-      this.token = this.getToken()
-      this.render()
+      this.handlers = new Handlers();
+      this.token = this.getToken();
+      this.render();
    }
 
    addListeners() {
-      const signInForm = document.querySelector('#signInForm')
+      const signInForm = document.querySelector("#signInForm");
       if (signInForm)
-         signInForm.addEventListener('submit', this.handlers.signInHandler)
+         signInForm.addEventListener("submit", this.handlers.signInHandler);
 
-      const createVisitBtn = document.querySelector('[name="createVisitBtn"]')
+      const createVisitBtn = document.querySelector('[name="createVisitBtn"]');
       if (createVisitBtn)
          createVisitBtn.addEventListener(
-            'click',
+            "click",
             this.handlers.createVisitHandler
-         )
+         );
    }
 
    getToken() {
-      return sessionStorage.getItem('token')
+      return sessionStorage.getItem("token");
    }
 
    setToken(token) {
-      this.token = token
-      sessionStorage.setItem('token', token)
+      this.token = token;
+      sessionStorage.setItem("token", token);
    }
 
    render() {
-      const navbar = document.querySelector('.navbar-nav')
-      navbar.innerHTML = ''
-      this.token ? this.renderSignedIn(navbar) : this.renderNotSignedIn(navbar)
+      const navbar = document.querySelector(".navbar-nav");
+      navbar.innerHTML = "";
 
-      this.addListeners()
+      const cards = document.querySelector(".cards-content");
+      cards.innerHTML = "";
+
+      this.token
+         ? this.renderSignedIn(navbar, cards)
+         : this.renderNotSignedIn(navbar, cards);
+
+      this.addListeners();
    }
 
-   renderSignedIn(navbar) {
+   renderSignedIn(navbar, cards) {
       const createVisitBtn = new Button(
-         'createVisitBtn',
-         'Create Visit Class',
-         'modal',
-         '#createVisitModal'
-      )
-      navbar.append(createVisitBtn.render())
+         "createVisitBtn",
+         "Create Visit",
+         "modal",
+         "#createVisitModal"
+      );
+      navbar.append(createVisitBtn.render());
+
+      const cardsContent = new Cards.render();
+      cards.append(cardsContent);
    }
 
-   renderNotSignedIn(navbar) {
+   renderNotSignedIn(navbar, cards) {
       const signInBtn = new Button(
-         'signInBtn',
-         'Sign In Class',
-         'modal',
-         '#signInModal'
-      )
-      navbar.append(signInBtn.render())
+         "signInBtn",
+         "Sign In",
+         "modal",
+         "#signInModal"
+      );
+      navbar.append(signInBtn.render());
+
+      const cardsContent = document.createElement("h2");
+      cardsContent.innerText = "Please, sign in to get access to visits";
+      cards.append(cardsContent);
    }
 }
 
 class Button {
    constructor(name, innerText, bsToggle, bsTarget) {
-      this.name = name
-      this.innerText = innerText
-      this.bsToggle = bsToggle
-      this.bsTarget = bsTarget
+      this.name = name;
+      this.innerText = innerText;
+      this.bsToggle = bsToggle;
+      this.bsTarget = bsTarget;
    }
 
    render() {
-      const btn = document.createElement('button')
+      const btn = document.createElement("button");
 
-      btn.name = this.name
-      btn.innerText = this.innerText
-      btn.type = 'button'
-      btn.classList.add('btn', 'btn-primary')
-      btn.dataset.bsToggle = this.bsToggle
-      btn.dataset.bsTarget = this.bsTarget
+      btn.name = this.name;
+      btn.innerText = this.innerText;
+      btn.type = "button";
+      btn.classList.add("btn", "btn-primary");
+      btn.dataset.bsToggle = this.bsToggle;
+      btn.dataset.bsTarget = this.bsTarget;
 
-      return btn
+      return btn;
    }
 }
 
@@ -161,61 +198,61 @@ class Handlers {
    constructor() {}
 
    async signInHandler(event) {
-      event.preventDefault()
+      event.preventDefault();
 
-      const formData = new FormData(this)
+      const formData = new FormData(this);
 
       try {
-         const response = await httpService.signIn(formData)
+         const response = await httpService.signIn(formData);
 
          if (response.ok) {
-            const token = await response.text()
-            clinicApp.setToken(token)
-            clinicApp.render()
+            const token = await response.text();
+            clinicApp.setToken(token);
+            clinicApp.render();
          } else {
-            throw new Error('Incorrect password!')
+            throw new Error("Incorrect password!");
          }
       } catch (e) {
-         Handlers.errorHandler(e)
+         Handlers.errorHandler(e);
       }
    }
 
    createVisitHandler(event) {
-      const createVisit = new CreateVisitModal()
+      const createVisit = new CreateVisitModal();
    }
 
    static errorHandler(error) {
       const errorAlert = document.body.appendChild(
          Handlers.showAlert(error.message)
-      )
+      );
       setTimeout(() => {
-         errorAlert.remove()
-      }, 5000)
+         errorAlert.remove();
+      }, 5000);
    }
 
    static showAlert(message) {
-      const alertContainer = document.createElement('div')
+      const alertContainer = document.createElement("div");
       alertContainer.classList.add(
-         'alert',
-         'alert-danger',
-         'alert-dismissible',
-         'w-50',
-         'mx-auto',
-         'fade',
-         'show'
-      )
-      alertContainer.role = 'alert'
-      alertContainer.innerText = message
+         "alert",
+         "alert-danger",
+         "alert-dismissible",
+         "w-50",
+         "mx-auto",
+         "fade",
+         "show"
+      );
+      alertContainer.role = "alert";
+      alertContainer.innerText = message;
 
-      const closeBtn = document.createElement('button')
-      closeBtn.type = 'button'
-      closeBtn.classList.add('btn-close')
-      closeBtn.dataset.bsDismiss = 'alert'
-      closeBtn.ariaLabel = 'Close'
+      const closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.classList.add("btn-close");
+      closeBtn.dataset.bsDismiss = "alert";
+      closeBtn.ariaLabel = "Close";
 
-      alertContainer.append(closeBtn)
+      alertContainer.append(closeBtn);
 
-      return alertContainer
+      return alertContainer;
    }
 }
 
@@ -246,7 +283,7 @@ class Modal {
 // Not used
 class SignInModal extends Modal {
    constructor() {
-      super()
+      super();
    }
 
    // render() {
@@ -297,143 +334,148 @@ class SignInModal extends Modal {
 
 class CreateVisitModal extends Modal {
    constructor() {
-      super()
-      this.chooseDoctor = document.querySelector('.choose-doctor')
-      this.addListeners()
+      super();
+      this.chooseDoctor = document.querySelector(".choose-doctor");
+      this.addListeners();
    }
 
    addListeners() {
       this.chooseDoctor.addEventListener(
-         'change',
+         "change",
          this.createVisitCard.bind(this)
-      )
+      );
 
-      document.querySelectorAll('.btn-close--modal').forEach((btn) => {
-         btn.addEventListener('click', this.createDefaultValue.bind(this))
-      })
+      document.querySelectorAll(".btn-close--modal").forEach((btn) => {
+         btn.addEventListener("click", this.createDefaultValue.bind(this));
+      });
    }
 
    createVisitCard() {
-      this.clearForm()
-      if (this.chooseDoctor.value === 'cardiologist') {
+      this.clearForm();
+      if (this.chooseDoctor.value === "cardiologist") {
          document
-            .querySelector('.cardiologist-option')
-            .classList.remove('d-none')
-         this.activateCreateCardBtn()
-      } else if (this.chooseDoctor.value === 'dentist') {
-         document.querySelector('.dentist-option').classList.remove('d-none')
-         this.activateCreateCardBtn()
-      } else if (this.chooseDoctor.value === 'therapist') {
-         document.querySelector('.therapist-option').classList.remove('d-none')
-         this.activateCreateCardBtn()
+            .querySelector(".cardiologist-option")
+            .classList.remove("d-none");
+         this.activateCreateCardBtn();
+      } else if (this.chooseDoctor.value === "dentist") {
+         document.querySelector(".dentist-option").classList.remove("d-none");
+         this.activateCreateCardBtn();
+      } else if (this.chooseDoctor.value === "therapist") {
+         document.querySelector(".therapist-option").classList.remove("d-none");
+         this.activateCreateCardBtn();
       } else {
-         this.clearForm()
+         this.clearForm();
       }
    }
 
    createDefaultValue() {
-      this.chooseDoctor.value = 'choose-option'
-      this.clearForm()
+      this.chooseDoctor.value = "choose-option";
+      this.clearForm();
    }
 
    clearForm() {
-      document.querySelectorAll('.choose-specialist').forEach((specialist) => {
-         specialist.classList.add('d-none')
-      })
-      document.querySelectorAll('.modal-form__data').forEach((data) => {
-         data.value = ''
-      })
-      document.querySelectorAll('.choose-urgency').forEach((data) => {
-         data.value = 'choose-urgency'
-      })
-      document.querySelector('.btn-create-visit__card').classList.add('d-none')
+      document.querySelectorAll(".choose-specialist").forEach((specialist) => {
+         specialist.classList.add("d-none");
+      });
+      document.querySelectorAll(".modal-form__data").forEach((data) => {
+         data.value = "";
+      });
+      document.querySelectorAll(".choose-urgency").forEach((data) => {
+         data.value = "choose-urgency";
+      });
+      document.querySelector(".btn-create-visit__card").classList.add("d-none");
    }
 
    activateCreateCardBtn() {
-      const cardiologist = document.querySelector('.cardiologist-option')
-      const dentist = document.querySelector('.dentist-option')
-      const therapist = document.querySelector('.therapist-option')
+      const cardiologist = document.querySelector(".cardiologist-option");
+      const dentist = document.querySelector(".dentist-option");
+      const therapist = document.querySelector(".therapist-option");
 
-      if (!cardiologist.classList.contains('d-none')) {
+      if (!cardiologist.classList.contains("d-none")) {
          const cardiologistInputs = document.querySelectorAll(
-            '.cardiologist-option__value'
-         )
+            ".cardiologist-option__value"
+         );
          const cardiologistSelect = document.querySelector(
-            '.cardiologist-option__select'
-         )
+            ".cardiologist-option__select"
+         );
          if (
-            [...cardiologistInputs].every((input) => input.value !== '') &&
-            cardiologistSelect.value !== ''
+            [...cardiologistInputs].every((input) => input.value !== "") &&
+            cardiologistSelect.value !== ""
          ) {
             document
-               .querySelector('.btn-create-visit__card')
-               .classList.remove('d-none')
+               .querySelector(".btn-create-visit__card")
+               .classList.remove("d-none");
          } else {
             cardiologistInputs.forEach((e) => {
-               e.addEventListener('keyup', this.activateCreateCardBtn)
-            })
+               e.addEventListener("keyup", this.activateCreateCardBtn);
+            });
             cardiologistSelect.addEventListener(
-               'change',
+               "change",
                this.activateCreateCardBtn
-            )
+            );
             document
-               .querySelector('.btn-create-visit__card')
-               .classList.add('d-none')
+               .querySelector(".btn-create-visit__card")
+               .classList.add("d-none");
          }
       }
 
-      if (!dentist.classList.contains('d-none')) {
+      if (!dentist.classList.contains("d-none")) {
          const dentistInputs = document.querySelectorAll(
-            '.dentist-option__value'
-         )
-         const dentistSelect = document.querySelector('.dentist-option__select')
+            ".dentist-option__value"
+         );
+         const dentistSelect = document.querySelector(
+            ".dentist-option__select"
+         );
          if (
-            [...dentistInputs].every((input) => input.value !== '') &&
-            dentistSelect.value !== ''
+            [...dentistInputs].every((input) => input.value !== "") &&
+            dentistSelect.value !== ""
          ) {
             document
-               .querySelector('.btn-create-visit__card')
-               .classList.remove('d-none')
+               .querySelector(".btn-create-visit__card")
+               .classList.remove("d-none");
          } else {
             dentistInputs.forEach((e) => {
-               e.addEventListener('keyup', this.activateCreateCardBtn)
-            })
-            dentistSelect.addEventListener('change', this.activateCreateCardBtn)
+               e.addEventListener("keyup", this.activateCreateCardBtn);
+            });
+            dentistSelect.addEventListener(
+               "change",
+               this.activateCreateCardBtn
+            );
             document
-               .querySelector('.btn-create-visit__card')
-               .classList.add('d-none')
+               .querySelector(".btn-create-visit__card")
+               .classList.add("d-none");
          }
       }
 
-      if (!therapist.classList.contains('d-none')) {
+      if (!therapist.classList.contains("d-none")) {
          const therapistInputs = document.querySelectorAll(
-            '.therapist-option__value'
-         )
+            ".therapist-option__value"
+         );
          const therapistSelect = document.querySelector(
-            '.therapist-option__select'
-         )
+            ".therapist-option__select"
+         );
          if (
-            [...therapistInputs].every((input) => input.value !== '') &&
-            therapistSelect.value !== ''
+            [...therapistInputs].every((input) => input.value !== "") &&
+            therapistSelect.value !== ""
          ) {
             document
-               .querySelector('.btn-create-visit__card')
-               .classList.remove('d-none')
+               .querySelector(".btn-create-visit__card")
+               .classList.remove("d-none");
          } else {
             therapistInputs.forEach((e) => {
-               e.addEventListener('keyup', this.activateCreateCardBtn)
-            })
+               e.addEventListener("keyup", this.activateCreateCardBtn);
+            });
             therapistSelect.addEventListener(
-               'change',
+               "change",
                this.activateCreateCardBtn
-            )
+            );
             document
-               .querySelector('.btn-create-visit__card')
-               .classList.add('d-none')
+               .querySelector(".btn-create-visit__card")
+               .classList.add("d-none");
          }
       }
    }
 }
 
-const httpService = new HttpService()
-const clinicApp = new ClinicApp(httpService)
+const httpService = new HttpService();
+const clinicApp = new ClinicApp(httpService);

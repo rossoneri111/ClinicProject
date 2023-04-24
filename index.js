@@ -545,79 +545,63 @@ function getCardData() {
     const therapist = document.querySelector(".therapist-option");
 
     if (!cardiologist.classList.contains("d-none")) {
-        const purposeOfVisit = document.querySelector(
-            ".cardiologist-option__purpose"
-        ).value;
-        const descriptionOfVisit = document.querySelector(
-            ".cardiologist-option__description"
-        ).value;
-        const urgency = document.querySelector(
-            ".cardiologist-option__select"
-        ).value;
-        const patientName = document.querySelector(
-            ".cardiologist-option__name"
-        ).value;
-        const bloodPressure = document.querySelector(
-            ".cardiologist-option__pressure"
-        ).value;
-        const massIndex = document.querySelector(
-            ".cardiologist-option__massIndex"
-        ).value;
-        const diseases = document.querySelector(
-            ".cardiologist-option__diseases"
-        ).value;
-        const patientAge = document.querySelector(
-            ".cardiologist-option__age"
-        ).value;
+
+        const cardiologistCard = {
+            Patient: document.querySelector(".cardiologist-option__name").value,
+            Age: document.querySelector(".cardiologist-option__age").value,
+            Purpose: document.querySelector(".cardiologist-option__purpose").value,
+            Description: document.querySelector(".cardiologist-option__description").value,
+            Urgency: document.querySelector(".cardiologist-option__select").value,
+            Diseases: document.querySelector(".cardiologist-option__diseases").value,
+            Pressure: document.querySelector(".cardiologist-option__pressure").value,
+            'Mass Index': document.querySelector(".cardiologist-option__massIndex").value,
+        }
+
         clearForm();
 
-        console.log(`Patient: ${patientName} 
-          Blood Pressure: ${bloodPressure} 
-          Purpose Of visit: ${purposeOfVisit}
-          Short description: ${descriptionOfVisit}
-          Urgency: ${urgency}
-          Body mass Index: ${massIndex}
-          Diseases of the cardiovascular system: ${diseases}
-          Age: ${patientAge}`);
+        const card = new HttpService;
+
+        card.postCard(sessionStorage.getItem('token'), cardiologistCard)
+            .then(card => console.log(card))
+
+
     }
 
     if (!dentist.classList.contains("d-none")) {
-        const purposeOfVisit = document.querySelector(
-            ".dentist-option__purpose"
-        ).value;
-        const descriptionOfVisit = document.querySelector(
-            ".dentist-option__description"
-        ).value;
-        const urgency = document.querySelector(".dentist-option__select").value;
-        const patientName = document.querySelector(".dentist-option__name").value;
-        const patientData = document.querySelector(".dentist-option__data").value;
+
+        const dentistCard = {
+            Patient: document.querySelector(".dentist-option__name").value,
+            Purpose: document.querySelector(".dentist-option__purpose").value,
+            Description: document.querySelector(".dentist-option__description").value,
+            Urgency: document.querySelector(".dentist-option__select").value,
+            'Last visit data': document.querySelector(".dentist-option__data").value,
+        }
+
         clearForm();
 
-        console.log(`Patient: ${patientName} 
-          Last visit data: ${patientData} 
-          Purpose Of visit: ${purposeOfVisit}
-          Short description: ${descriptionOfVisit}
-          Urgency: ${urgency}`);
+        const card = new HttpService;
+
+        card.postCard(sessionStorage.getItem('token'), dentistCard)
+            .then(card => console.log(card))
+
     }
 
     if (!therapist.classList.contains("d-none")) {
-        const purposeOfVisit = document.querySelector(
-            ".therapist-option__purpose"
-        ).value;
-        const descriptionOfVisit = document.querySelector(
-            ".therapist-option__description"
-        ).value;
-        const urgency = document.querySelector(".therapist-option__select").value;
-        const patientName = document.querySelector(
-            ".therapist-option__name"
-        ).value;
-        const patientAge = document.querySelector(".therapist-option__age").value;
+
+        const therapistCard = {
+            Patient: document.querySelector(".therapist-option__name").value,
+            Purpose: document.querySelector(".therapist-option__purpose").value,
+            Description: document.querySelector(".therapist-option__description").value,
+            Urgency: document.querySelector(".therapist-option__select").value,
+            Age: document.querySelector(".therapist-option__age").value,
+        }
+
         clearForm();
 
-        console.log(`Patient: ${patientName} 
-          Age: ${patientAge} 
-          Purpose Of visit: ${purposeOfVisit}
-          Short description: ${descriptionOfVisit}
-          Urgency: ${urgency}`);
+        const card = new HttpService;
+
+        card.postCard(sessionStorage.getItem('token'), therapistCard)
+            .then(card => console.log(card))
+
     }
 }

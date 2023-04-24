@@ -113,6 +113,10 @@ class ClinicApp {
       if (signInForm)
          signInForm.addEventListener("submit", this.handlers.signInHandler);
 
+      const signOutForm = document.querySelector("#signOutForm");
+      if (signOutForm)
+         signOutForm.addEventListener("submit", this.handlers.signOutHandler);
+
       const createVisitBtn = document.querySelector('[name="createVisitBtn"]');
       if (createVisitBtn)
          createVisitBtn.addEventListener(
@@ -130,6 +134,11 @@ class ClinicApp {
       sessionStorage.setItem("token", token);
    }
 
+   cleanToken() {
+      sessionStorage.removeItem("token");
+      this.token = null;
+   }
+
    render() {
       const navbar = document.querySelector(".navbar-nav");
       navbar.innerHTML = "";
@@ -139,7 +148,7 @@ class ClinicApp {
 
       this.token
          ? this.renderSignedIn(navbar, cards)
-         : this.renderNotSignedIn(navbar);
+         : this.renderNotSignedIn(navbar, cards);
 
       this.addListeners();
    }
@@ -149,9 +158,19 @@ class ClinicApp {
          "createVisitBtn",
          "Create Visit",
          "modal",
-         "#createVisitModal"
+         "#createVisitModal",
+         ["btn-primary"]
       );
       navbar.append(createVisitBtn.render());
+
+      const signOutBtn = new Button(
+         "signOutBtn",
+         "Sign Out",
+         "modal",
+         "#signOutModal",
+         ["btn-danger"]
+      );
+      navbar.append(signOutBtn.render());
 
       const cardsData = await httpService.getAllCards(this.token);
       const cardsContent = new Cards(cardsData);
@@ -163,7 +182,8 @@ class ClinicApp {
          "signInBtn",
          "Sign In",
          "modal",
-         "#signInModal"
+         "#signInModal",
+         ["btn-info"]
       );
       navbar.append(signInBtn.render());
 
@@ -174,11 +194,12 @@ class ClinicApp {
 }
 
 class Button {
-   constructor(name, innerText, bsToggle, bsTarget) {
+   constructor(name, innerText, bsToggle, bsTarget, classList) {
       this.name = name;
       this.innerText = innerText;
       this.bsToggle = bsToggle;
       this.bsTarget = bsTarget;
+      this.classList = classList;
    }
 
    render() {
@@ -187,7 +208,7 @@ class Button {
       btn.name = this.name;
       btn.innerText = this.innerText;
       btn.type = "button";
-      btn.classList.add("btn", "btn-primary");
+      btn.classList.add("btn", ...this.classList);
       btn.dataset.bsToggle = this.bsToggle;
       btn.dataset.bsTarget = this.bsTarget;
 
@@ -216,6 +237,11 @@ class Handlers {
       } catch (e) {
          Handlers.errorHandler(e);
       }
+   }
+
+   signOutHandler() {
+      clinicApp.cleanToken();
+      clinicApp.render();
    }
 
    createVisitHandler(event) {

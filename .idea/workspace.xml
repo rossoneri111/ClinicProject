@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5259fa54-4ea1-407a-b3d3-881b874e0be6" name="Changes" comment="started Visit form">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="5259fa54-4ea1-407a-b3d3-881b874e0be6" name="Changes" comment="edited workspace: added prettier config, gitignore">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_04_2023_16_05_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_04_2023_16_05_[Changes]1/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_04_2023_16_05__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_04_2023_19_55_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_04_2023_19_55_[Changes]1/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_04_2023_19_55__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modalWindowfunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/modalWindowfunction.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +71,7 @@
       <workItem from="1682159390941" duration="1705000" />
       <workItem from="1682239718454" duration="76000" />
       <workItem from="1682323921817" duration="2152000" />
-      <workItem from="1682326144546" duration="1538000" />
+      <workItem from="1682326144546" duration="2123000" />
     </task>
     <task id="LOCAL-00001" summary="my first commit">
       <created>1682069612058</created>
@@ -108,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682161104608</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="edited workspace: added prettier config, gitignore">
+      <created>1682327864282</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682327864282</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +138,7 @@
     <MESSAGE value="added sign in handler" />
     <MESSAGE value="fixed sign in handler" />
     <MESSAGE value="started Visit form" />
-    <option name="LAST_COMMIT_MESSAGE" value="started Visit form" />
+    <MESSAGE value="edited workspace: added prettier config, gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="edited workspace: added prettier config, gitignore" />
   </component>
 </project>

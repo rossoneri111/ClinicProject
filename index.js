@@ -139,12 +139,12 @@ class ClinicApp {
 
       this.token
          ? this.renderSignedIn(navbar, cards)
-         : this.renderNotSignedIn(navbar, cards);
+         : this.renderNotSignedIn(navbar);
 
       this.addListeners();
    }
 
-   renderSignedIn(navbar, cards) {
+   async renderSignedIn(navbar, cards) {
       const createVisitBtn = new Button(
          "createVisitBtn",
          "Create Visit",
@@ -153,8 +153,9 @@ class ClinicApp {
       );
       navbar.append(createVisitBtn.render());
 
-      const cardsContent = new Cards.render();
-      cards.append(cardsContent);
+      const cardsData = await httpService.getAllCards(this.token);
+      const cardsContent = new Cards(cardsData);
+      cards.append(...cardsContent.render());
    }
 
    renderNotSignedIn(navbar, cards) {
@@ -253,6 +254,28 @@ class Handlers {
       alertContainer.append(closeBtn);
 
       return alertContainer;
+   }
+}
+
+class Cards {
+   constructor(cardData) {
+      this.cardData = cardData;
+   }
+
+   render() {
+      return this.cardData.reduce((cards, item) => {
+         const card = document.createElement("div");
+         const title = document.createElement("h4");
+         title.innerText = item.title;
+
+         const description = document.createElement("p");
+         description.innerText = item.description;
+
+         card.append(title, description);
+         cards.push(card);
+
+         return cards;
+      }, []);
    }
 }
 

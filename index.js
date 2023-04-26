@@ -528,3 +528,104 @@ class CreateVisitModal extends Modal {
 
 const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);
+
+class Visit {
+   static validateVisit() {
+      return true;
+   }
+}
+
+class VisitDentist extends Visit {
+   doctor;
+   clientFullName;
+
+   static validateVisitDentist() {
+      if (!this.validateVisit()) {
+         throw new Error(``);
+      }
+      return true;
+   }
+}
+
+class VisitCardiologist extends Visit {}
+
+class VisitTherapist extends Visit {}
+
+class UIElement {
+   constructor() {}
+
+   renderHtml() {
+      return `<div></div>`;
+   }
+
+   /**
+    * @param {HTMLElement} el
+    * @param {Function} listener
+    */
+   addListenerToElement(el, listener) {
+      //
+      //
+   }
+}
+
+class GenericApi {
+   collection;
+   constructor(collection) {
+      this.collection = collection;
+   }
+   update(id, newData = {}) {
+      const dataFromServer = { hello: `world` };
+      return Promise.resolve(Object.assign(dataFromServer, newData));
+   }
+}
+
+class VisitApi extends GenericApi {
+   constructor() {
+      super(`visits`);
+   }
+}
+
+class VisitCard extends UIElement {
+   fullName;
+   doctor;
+   visit;
+   /** @param {VisitDentist | VisitCardiologist | VisitTherapist} visit */
+
+   constructor(visit) {
+      super();
+      if (!VisitDentist.validateVisitDentist()) {
+         throw new Error(`visit should be a validate visit`);
+      }
+
+      this.visit = visit;
+      this.fullName = visit.clientFullName;
+      this.doctor = visit.doctor;
+   }
+
+   appendToDesk() {
+      const desk = document.getElementById(`desk`);
+      const visitCardHtml = this.renderHtml();
+      desk.innerHTML = desk.innerHTML + visitCardHtml;
+   }
+
+   buttonEditListener() {
+      //...
+   }
+
+   renderFullNameElement() {
+      return `<h2>${this.fullName}</h2>`;
+   }
+   editVisitListener() {
+      document.appendChild(new EditVisitDialog(this.visit));
+      //...
+      this.editVisit({});
+   }
+
+   editVisit(newFields = {}) {
+      const visitApi = new VisitApi();
+      const httpRequest = visitApi.update(this.visit.id, newFields);
+   }
+}
+
+const visitDentist = new VisitDentist();
+const visitCard = new VisitCard(visitDentist);

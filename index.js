@@ -601,6 +601,13 @@ class VisitCard extends UIElement {
       this.fullName = visit.clientFullName;
       this.doctor = visit.doctor;
    }
+   renderMinimizedCardHtml() {
+      return `
+<div class="visit-card">
+   <h3 class="visit-card__client-name">${this.visit.clientFullName}</h3>
+   <div class="visit-card__urgency">${this.visit.doctor}</div>
+</div>`;
+   }
 
    appendToDesk() {
       const desk = document.getElementById(`desk`);

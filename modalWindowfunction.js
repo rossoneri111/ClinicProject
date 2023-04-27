@@ -28,9 +28,9 @@ function clearForm() {
    document.querySelectorAll(".modal-form__data").forEach((data) => {
       data.value = "";
    });
-   document.querySelectorAll(".choose-urgency").forEach((data) => {
-      data.value = "choose-urgency";
-   });
+   // document.querySelectorAll(".choose-urgency").forEach((data) => {
+   //    data.value = "";
+   // })
    document.querySelector(".btn-create-visit__card").classList.add("d-none");
 }
 

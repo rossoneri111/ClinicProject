@@ -62,7 +62,7 @@ class HttpService {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
                },
-               body: JSON.stringify({ cardData }),
+               body: JSON.stringify(cardData),
             })
          ).json();
       } catch (e) {
@@ -79,7 +79,7 @@ class HttpService {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
                },
-               body: JSON.stringify({ cardData }),
+               body: JSON.stringify(cardData),
             })
          ).json();
       } catch (e) {

@@ -530,26 +530,94 @@ const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);
 
 class Visit {
-   static validateVisit() {
-      return true;
+   constructor(patient, purpose, description, urgency) {
+      this.patient = patient;
+      this.purpose = purpose;
+      this.description = description;
+      this.urgency = urgency;
+   }
+   validateVisit() {
+      if (
+         this.patient === "" &&
+         this.purpose === "" &&
+         this.description === "" &&
+         this.urgency != null &&
+         typeof this.urgency !== "undefined"
+      ) {
+         return true;
+      }
    }
 }
 
 class VisitDentist extends Visit {
-   doctor;
-   clientFullName;
+   constructor(patient, purpose, description, urgency, lastVisitData) {
+      super(patient, purpose, description, urgency);
+      this.lastVisitData = lastVisitData;
+   }
 
-   static validateVisitDentist() {
-      if (!this.validateVisit()) {
+   validateVisitDentist() {
+      if (
+         !this.validateVisit() &&
+         this.lastVisitData == null &&
+         this.lastVisitData === "undefined"
+      ) {
          throw new Error(``);
       }
       return true;
    }
 }
 
-class VisitCardiologist extends Visit {}
+class VisitCardiologist extends Visit {
+   constructor(
+      patient,
+      purpose,
+      description,
+      urgency,
+      age,
+      diseases,
+      pressure,
+      massIndex
+   ) {
+      super(patient, purpose, description, urgency);
+      this.age = age;
+      this.diseases = diseases;
+      this.pressure = pressure;
+      this.massIndex = massIndex;
+   }
+   validateVisitCardiologist() {
+      if (
+         !this.validateVisit() &&
+         isNaN(this.age) &&
+         this.age > 100 &&
+         this.age < 16 &&
+         !isNaN(this.diseases) &&
+         this.pressure < 50 &&
+         this.pressure > 160 &&
+         isNaN(this.massIndex)
+      ) {
+         throw new Error(``);
+      }
+      return true;
+   }
+}
 
-class VisitTherapist extends Visit {}
+class VisitTherapist extends Visit {
+   constructor(patient, purpose, description, urgency, age) {
+      super(patient, purpose, description, urgency);
+      this.age = age;
+   }
+   validateVisitTherapist() {
+      if (
+         !this.validateVisit() &&
+         isNaN(this.age) &&
+         this.age > 100 &&
+         this.age < 16
+      ) {
+         throw new Error(``);
+      }
+      return true;
+   }
+}
 
 class UIElement {
    constructor() {}

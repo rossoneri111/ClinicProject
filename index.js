@@ -530,92 +530,96 @@ const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);
 
 class Visit {
-   constructor(patient, purpose, description, urgency) {
+   patient;
+   purpose;
+   description;
+   urgency;
+
+   constructor(visitData) {
+      this.validateVisitData(visitData);
+
+      const { patient, purpose, description, urgency } = visitData;
+
       this.patient = patient;
       this.purpose = purpose;
       this.description = description;
       this.urgency = urgency;
    }
-   validateVisit() {
+   validateVisitData({ patient, purpose, description, urgency }) {
       if (
-         this.patient === "" &&
-         this.purpose === "" &&
-         this.description === "" &&
-         this.urgency != null &&
-         typeof this.urgency !== "undefined"
+          !patient || typeof patient !== "string" ||
+          !purpose || typeof purpose !== "string" ||
+          !description || typeof description !== "string" ||
+          !urgency || typeof urgency !== "string"
+
       ) {
-         return true;
+         throw new Error('Visit is not valid')
       }
    }
 }
 
 class VisitDentist extends Visit {
-   constructor(patient, purpose, description, urgency, lastVisitData) {
-      super(patient, purpose, description, urgency);
-      this.lastVisitData = lastVisitData;
+   lastVisitData;
+
+   constructor(visitDentistData) {
+      super(visitDentistData);
+      this.validateVisitDentist(visitDentistData)
+
+      this.lastVisitData = visitDentistData.lastVisitData;
    }
 
-   validateVisitDentist() {
-      if (
-         !this.validateVisit() &&
-         this.lastVisitData == null &&
-         this.lastVisitData === "undefined"
-      ) {
-         throw new Error(``);
+   validateVisitDentist({ lastVisitData }) {
+      if (lastVisitData === null || lastVisitData === undefined) {
+         throw new Error(`VisitDentist is not valid`);
       }
-      return true;
    }
 }
 
 class VisitCardiologist extends Visit {
-   constructor(
-      patient,
-      purpose,
-      description,
-      urgency,
-      age,
-      diseases,
-      pressure,
-      massIndex
-   ) {
-      super(patient, purpose, description, urgency);
+   age;
+   diseases;
+   pressure;
+   massIndex;
+
+   constructor(visitCardiologistData) {
+      super(visitCardiologistData);
+      this.validateVisitCardiologist(visitCardiologistData);
+
+      const { age, diseases, pressure, massIndex } = visitCardiologistData;
+
       this.age = age;
       this.diseases = diseases;
       this.pressure = pressure;
       this.massIndex = massIndex;
    }
-   validateVisitCardiologist() {
+   validateVisitCardiologist({ age, diseases, pressure, massIndex }) {
       if (
-         !this.validateVisit() &&
-         isNaN(this.age) &&
-         this.age > 100 &&
-         this.age < 16 &&
-         !isNaN(this.diseases) &&
-         this.pressure < 50 &&
-         this.pressure > 160 &&
-         isNaN(this.massIndex)
+          isNaN(age) ||
+          age > 100 ||
+          age < 16 ||
+          !isNaN(diseases) ||
+          pressure < 50 ||
+          pressure > 160 ||
+          isNaN(massIndex)
       ) {
-         throw new Error(``);
+         throw new Error(`VisitCardiologist is not valid`);
       }
-      return true;
    }
 }
 
 class VisitTherapist extends Visit {
-   constructor(patient, purpose, description, urgency, age) {
-      super(patient, purpose, description, urgency);
-      this.age = age;
+   age;
+
+   constructor(visitTherapistData) {
+      super(visitTherapistData);
+      this.validateVisitTherapist(visitTherapistData);
+
+      this.age = visitTherapistData.age;
    }
-   validateVisitTherapist() {
-      if (
-         !this.validateVisit() &&
-         isNaN(this.age) &&
-         this.age > 100 &&
-         this.age < 16
-      ) {
-         throw new Error(``);
+   validateVisitTherapist({ age }) {
+      if (isNaN(age) || age > 100 || age < 16) {
+         throw new Error(`VisitTherapist is not valid`);
       }
-      return true;
    }
 }
 

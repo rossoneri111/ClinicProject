@@ -397,7 +397,9 @@ class CreateVisitModal extends Modal {
          btn.addEventListener("click", this.createDefaultValue.bind(this));
       });
 
-      document.querySelector(".btn-create-visit__card").addEventListener("click", this.getCardData);
+      document
+         .querySelector(".btn-create-visit__card")
+         .addEventListener("click", this.getCardData);
    }
 
    createVisitCard() {
@@ -424,68 +426,65 @@ class CreateVisitModal extends Modal {
       const therapist = document.querySelector(".therapist-option");
 
       if (!cardiologist.classList.contains("d-none")) {
-         const cardiologistCard = {
-            Patient: document.querySelector(".cardiologist-option__name").value,
-            Age: document.querySelector(".cardiologist-option__age").value,
-            Purpose: document.querySelector(".cardiologist-option__purpose").value,
-            Description: document.querySelector(
-                ".cardiologist-option__description"
+         const cardiologistCard = new VisitCardiologist({
+            patient: document.querySelector(".cardiologist-option__name").value,
+            age: document.querySelector(".cardiologist-option__age").value,
+            purpose: document.querySelector(".cardiologist-option__purpose")
+               .value,
+            description: document.querySelector(
+               ".cardiologist-option__description"
             ).value,
-            Urgency: document.querySelector(".cardiologist-option__select").value,
-            Diseases: document.querySelector(".cardiologist-option__diseases")
-                .value,
-            Pressure: document.querySelector(".cardiologist-option__pressure")
-                .value,
-            "Mass Index": document.querySelector(".cardiologist-option__massIndex")
-                .value,
-         };
+            urgency: document.querySelector(".cardiologist-option__select")
+               .value,
+            diseases: document.querySelector(".cardiologist-option__diseases")
+               .value,
+            pressure: document.querySelector(".cardiologist-option__pressure")
+               .value,
+            massIndex: document.querySelector(".cardiologist-option__massIndex")
+               .value,
+         });
 
          clearForm();
 
-         const card = new HttpService();
-
-         card
-             .postCard(sessionStorage.getItem("token"), cardiologistCard)
-             .then((card) => console.log(card));
+         httpService
+            .postCard(sessionStorage.getItem("token"), cardiologistCard)
+            .then((card) => console.log(card));
       }
 
       if (!dentist.classList.contains("d-none")) {
-         const dentistCard = {
-            Patient: document.querySelector(".dentist-option__name").value,
-            Purpose: document.querySelector(".dentist-option__purpose").value,
-            Description: document.querySelector(".dentist-option__description")
-                .value,
-            Urgency: document.querySelector(".dentist-option__select").value,
-            "Last visit data": document.querySelector(".dentist-option__data")
-                .value,
-         };
+         const dentistCard = new VisitDentist({
+            patient: document.querySelector(".dentist-option__name").value,
+            purpose: document.querySelector(".dentist-option__purpose").value,
+            description: document.querySelector(".dentist-option__description")
+               .value,
+            urgency: document.querySelector(".dentist-option__select").value,
+            lastVisitData: document.querySelector(".dentist-option__data")
+               .value,
+         });
 
          clearForm();
 
-         const card = new HttpService();
-
-         card
-             .postCard(sessionStorage.getItem("token"), dentistCard)
-             .then((card) => console.log(card));
+         httpService
+            .postCard(sessionStorage.getItem("token"), dentistCard)
+            .then((card) => console.log(card));
       }
 
       if (!therapist.classList.contains("d-none")) {
-         const therapistCard = {
-            Patient: document.querySelector(".therapist-option__name").value,
-            Purpose: document.querySelector(".therapist-option__purpose").value,
-            Description: document.querySelector(".therapist-option__description")
-                .value,
-            Urgency: document.querySelector(".therapist-option__select").value,
-            Age: document.querySelector(".therapist-option__age").value,
-         };
+         const therapistCard = new VisitTherapist({
+            patient: document.querySelector(".therapist-option__name").value,
+            purpose: document.querySelector(".therapist-option__purpose").value,
+            description: document.querySelector(
+               ".therapist-option__description"
+            ).value,
+            urgency: document.querySelector(".therapist-option__select").value,
+            age: document.querySelector(".therapist-option__age").value,
+         });
 
          clearForm();
 
-         const card = new HttpService();
-
-         card
-             .postCard(sessionStorage.getItem("token"), therapistCard)
-             .then((card) => console.log(card));
+         httpService
+            .postCard(sessionStorage.getItem("token"), therapistCard)
+            .then((card) => console.log(card));
       }
    }
 

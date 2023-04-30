@@ -62,7 +62,7 @@ class HttpService {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
                },
-               body: JSON.stringify({ cardData }),
+               body: JSON.stringify(cardData),
             })
          ).json();
       } catch (e) {
@@ -79,7 +79,7 @@ class HttpService {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
                },
-               body: JSON.stringify({ cardData }),
+               body: JSON.stringify(cardData),
             })
          ).json();
       } catch (e) {
@@ -604,26 +604,98 @@ function getCardData() {
 }
 
 class Visit {
-   static validateVisit() {
-      return true;
+   patient;
+   purpose;
+   description;
+   urgency;
+
+   constructor(visitData) {
+      this.validateVisitData(visitData);
+
+      const { patient, purpose, description, urgency } = visitData;
+
+      this.patient = patient;
+      this.purpose = purpose;
+      this.description = description;
+      this.urgency = urgency;
+   }
+   validateVisitData({ patient, purpose, description, urgency }) {
+      if (
+          !patient || typeof patient !== "string" ||
+          !purpose || typeof purpose !== "string" ||
+          !description || typeof description !== "string" ||
+          !urgency || typeof urgency !== "string"
+
+      ) {
+         throw new Error('Visit is not valid')
+      }
    }
 }
 
 class VisitDentist extends Visit {
-   doctor;
-   clientFullName;
+   lastVisitData;
 
-   static validateVisitDentist() {
-      if (!this.validateVisit()) {
-         throw new Error(``);
+   constructor(visitDentistData) {
+      super(visitDentistData);
+      this.validateVisitDentist(visitDentistData)
+
+      this.lastVisitData = visitDentistData.lastVisitData;
+   }
+
+   validateVisitDentist({ lastVisitData }) {
+      if (lastVisitData === null || lastVisitData === undefined) {
+         throw new Error(`VisitDentist is not valid`);
       }
-      return true;
    }
 }
 
-class VisitCardiologist extends Visit {}
+class VisitCardiologist extends Visit {
+   age;
+   diseases;
+   pressure;
+   massIndex;
 
-class VisitTherapist extends Visit {}
+   constructor(visitCardiologistData) {
+      super(visitCardiologistData);
+      this.validateVisitCardiologist(visitCardiologistData);
+
+      const { age, diseases, pressure, massIndex } = visitCardiologistData;
+
+      this.age = age;
+      this.diseases = diseases;
+      this.pressure = pressure;
+      this.massIndex = massIndex;
+   }
+   validateVisitCardiologist({ age, diseases, pressure, massIndex }) {
+      if (
+          isNaN(age) ||
+          age > 100 ||
+          age < 16 ||
+          !isNaN(diseases) ||
+          pressure < 50 ||
+          pressure > 160 ||
+          isNaN(massIndex)
+      ) {
+         throw new Error(`VisitCardiologist is not valid`);
+      }
+   }
+}
+
+class VisitTherapist extends Visit {
+   age;
+
+   constructor(visitTherapistData) {
+      super(visitTherapistData);
+      this.validateVisitTherapist(visitTherapistData);
+
+      this.age = visitTherapistData.age;
+   }
+   validateVisitTherapist({ age }) {
+      if (isNaN(age) || age > 100 || age < 16) {
+         throw new Error(`VisitTherapist is not valid`);
+      }
+   }
+}
 
 class UIElement {
    constructor() {}
@@ -674,6 +746,13 @@ class VisitCard extends UIElement {
       this.visit = visit;
       this.fullName = visit.clientFullName;
       this.doctor = visit.doctor;
+   }
+   renderMinimizedCardHtml() {
+      return `
+<div class="visit-card">
+   <h3 class="visit-card__client-name">${this.visit.clientFullName}</h3>
+   <div class="visit-card__urgency">${this.visit.doctor}</div>
+</div>`;
    }
 
    appendToDesk() {

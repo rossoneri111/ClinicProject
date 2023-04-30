@@ -1,5 +1,4 @@
-import { createVisitCard, createDefaultValue } from "./modalWindowfunction.js";
-
+import { clearForm } from "./modalWindowfunction.js";
 class HttpService {
    constructor() {
       this.URL = "https://ajax.test-danit.com/api/v2/cards";
@@ -397,6 +396,8 @@ class CreateVisitModal extends Modal {
       document.querySelectorAll(".btn-close--modal").forEach((btn) => {
          btn.addEventListener("click", this.createDefaultValue.bind(this));
       });
+
+      document.querySelector(".btn-create-visit__card").addEventListener("click", this.getCardData);
    }
 
    createVisitCard() {
@@ -414,6 +415,77 @@ class CreateVisitModal extends Modal {
          this.activateCreateCardBtn();
       } else {
          this.clearForm();
+      }
+   }
+
+   getCardData() {
+      const cardiologist = document.querySelector(".cardiologist-option");
+      const dentist = document.querySelector(".dentist-option");
+      const therapist = document.querySelector(".therapist-option");
+
+      if (!cardiologist.classList.contains("d-none")) {
+         const cardiologistCard = {
+            Patient: document.querySelector(".cardiologist-option__name").value,
+            Age: document.querySelector(".cardiologist-option__age").value,
+            Purpose: document.querySelector(".cardiologist-option__purpose").value,
+            Description: document.querySelector(
+                ".cardiologist-option__description"
+            ).value,
+            Urgency: document.querySelector(".cardiologist-option__select").value,
+            Diseases: document.querySelector(".cardiologist-option__diseases")
+                .value,
+            Pressure: document.querySelector(".cardiologist-option__pressure")
+                .value,
+            "Mass Index": document.querySelector(".cardiologist-option__massIndex")
+                .value,
+         };
+
+         clearForm();
+
+         const card = new HttpService();
+
+         card
+             .postCard(sessionStorage.getItem("token"), cardiologistCard)
+             .then((card) => console.log(card));
+      }
+
+      if (!dentist.classList.contains("d-none")) {
+         const dentistCard = {
+            Patient: document.querySelector(".dentist-option__name").value,
+            Purpose: document.querySelector(".dentist-option__purpose").value,
+            Description: document.querySelector(".dentist-option__description")
+                .value,
+            Urgency: document.querySelector(".dentist-option__select").value,
+            "Last visit data": document.querySelector(".dentist-option__data")
+                .value,
+         };
+
+         clearForm();
+
+         const card = new HttpService();
+
+         card
+             .postCard(sessionStorage.getItem("token"), dentistCard)
+             .then((card) => console.log(card));
+      }
+
+      if (!therapist.classList.contains("d-none")) {
+         const therapistCard = {
+            Patient: document.querySelector(".therapist-option__name").value,
+            Purpose: document.querySelector(".therapist-option__purpose").value,
+            Description: document.querySelector(".therapist-option__description")
+                .value,
+            Urgency: document.querySelector(".therapist-option__select").value,
+            Age: document.querySelector(".therapist-option__age").value,
+         };
+
+         clearForm();
+
+         const card = new HttpService();
+
+         card
+             .postCard(sessionStorage.getItem("token"), therapistCard)
+             .then((card) => console.log(card));
       }
    }
 
@@ -529,80 +601,6 @@ class CreateVisitModal extends Modal {
 const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);
 
-// Temporary part Input ConsoleLog ###
-import {clearForm} from "./modalWindowfunction.js";
-
-document
-    .querySelector(".btn-create-visit__card")
-    .addEventListener("click", getCardData);
-
-function getCardData() {
-    const cardiologist = document.querySelector(".cardiologist-option");
-    const dentist = document.querySelector(".dentist-option");
-    const therapist = document.querySelector(".therapist-option");
-
-    if (!cardiologist.classList.contains("d-none")) {
-
-        const cardiologistCard = {
-            Patient: document.querySelector(".cardiologist-option__name").value,
-            Age: document.querySelector(".cardiologist-option__age").value,
-            Purpose: document.querySelector(".cardiologist-option__purpose").value,
-            Description: document.querySelector(".cardiologist-option__description").value,
-            Urgency: document.querySelector(".cardiologist-option__select").value,
-            Diseases: document.querySelector(".cardiologist-option__diseases").value,
-            Pressure: document.querySelector(".cardiologist-option__pressure").value,
-            'Mass Index': document.querySelector(".cardiologist-option__massIndex").value,
-        }
-
-        clearForm();
-
-        const card = new HttpService;
-
-        card.postCard(sessionStorage.getItem('token'), cardiologistCard)
-            .then(card => console.log(card))
-
-
-    }
-
-    if (!dentist.classList.contains("d-none")) {
-
-        const dentistCard = {
-            Patient: document.querySelector(".dentist-option__name").value,
-            Purpose: document.querySelector(".dentist-option__purpose").value,
-            Description: document.querySelector(".dentist-option__description").value,
-            Urgency: document.querySelector(".dentist-option__select").value,
-            'Last visit data': document.querySelector(".dentist-option__data").value,
-        }
-
-        clearForm();
-
-        const card = new HttpService;
-
-        card.postCard(sessionStorage.getItem('token'), dentistCard)
-            .then(card => console.log(card))
-
-    }
-
-    if (!therapist.classList.contains("d-none")) {
-
-        const therapistCard = {
-            Patient: document.querySelector(".therapist-option__name").value,
-            Purpose: document.querySelector(".therapist-option__purpose").value,
-            Description: document.querySelector(".therapist-option__description").value,
-            Urgency: document.querySelector(".therapist-option__select").value,
-            Age: document.querySelector(".therapist-option__age").value,
-        }
-
-        clearForm();
-
-        const card = new HttpService;
-
-        card.postCard(sessionStorage.getItem('token'), therapistCard)
-            .then(card => console.log(card))
-
-    }
-}
-
 class Visit {
    patient;
    purpose;
@@ -621,13 +619,16 @@ class Visit {
    }
    validateVisitData({ patient, purpose, description, urgency }) {
       if (
-          !patient || typeof patient !== "string" ||
-          !purpose || typeof purpose !== "string" ||
-          !description || typeof description !== "string" ||
-          !urgency || typeof urgency !== "string"
-
+         !patient ||
+         typeof patient !== "string" ||
+         !purpose ||
+         typeof purpose !== "string" ||
+         !description ||
+         typeof description !== "string" ||
+         !urgency ||
+         typeof urgency !== "string"
       ) {
-         throw new Error('Visit is not valid')
+         throw new Error("Visit is not valid");
       }
    }
 }
@@ -637,7 +638,7 @@ class VisitDentist extends Visit {
 
    constructor(visitDentistData) {
       super(visitDentistData);
-      this.validateVisitDentist(visitDentistData)
+      this.validateVisitDentist(visitDentistData);
 
       this.lastVisitData = visitDentistData.lastVisitData;
    }
@@ -668,13 +669,13 @@ class VisitCardiologist extends Visit {
    }
    validateVisitCardiologist({ age, diseases, pressure, massIndex }) {
       if (
-          isNaN(age) ||
-          age > 100 ||
-          age < 16 ||
-          !isNaN(diseases) ||
-          pressure < 50 ||
-          pressure > 160 ||
-          isNaN(massIndex)
+         isNaN(age) ||
+         age > 100 ||
+         age < 16 ||
+         !isNaN(diseases) ||
+         pressure < 50 ||
+         pressure > 160 ||
+         isNaN(massIndex)
       ) {
          throw new Error(`VisitCardiologist is not valid`);
       }

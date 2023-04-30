@@ -463,20 +463,23 @@ class CreateVisitModal extends Modal {
                } = card;
                const div = document.createElement("div");
                div.setAttribute("data-id", id);
-               div.classList.add("patient-card");
+               div.classList.add("patient-card", 'card', 'border-success', 'mb-3', 'p-1', 'w-25');
                div.innerHTML = `
-               <h2>${doctor} Card</h2>
-               <p>Patient name: ${patient}</p>
-               <p class="d-none">Patient age: ${age}</p>
-               <p class="d-none">Purpose of visit: ${purpose}</p>
-               <p class="d-none">Description: ${description}</p>
-               <p class="d-none">Urgency: ${urgency}</p>
-               <p class="d-none">Cardiovascular system diseases: ${diseases}</p>
-               <p class="d-none">Blood pressure: ${pressure}</p>
-               <p class="d-none">Body mass index: ${massIndex}</p>
-               <button>Delete</button>
-               <button>Edit</button>
-               <button class="showMore">Show more</button>
+                <p class="card-header bg-transparent border-success position-relative">${doctor} Card
+                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+                </p>
+               <p class="card-text">Patient name: ${patient}</p>
+               <p class="d-none card-text">Patient age: ${age}</p>
+               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
+               <p class="d-none card-text">Description: ${description}</p>
+               <p class="d-none card-text">Urgency: ${urgency}</p>
+               <p class="d-none card-text">Cardiovascular system diseases: ${diseases}</p>
+               <p class="d-none card-text">Blood pressure: ${pressure}</p>
+               <p class="d-none card-text">Body mass index: ${massIndex}</p>
+                <div class="card-footer bg-transparent border-success">
+                   <button class="btn btn-success">Edit</button>
+                   <button class="showMore btn btn-primary">Show more</button>
+                </div>
                `;
                document.querySelector(".cards-content").append(div);
             });
@@ -509,17 +512,20 @@ class CreateVisitModal extends Modal {
                } = card;
                const div = document.createElement("div");
                div.setAttribute("data-id", id);
-               div.classList.add("patient-card");
+               div.classList.add("patient-card", 'card', 'border-success', 'mb-3', 'p-1', 'w-25');
                div.innerHTML = `
-               <h2>${doctor} Card</h2>
-               <p>Patient name: ${patient}</p>
-               <p class="d-none">Purpose of visit: ${purpose}</p>
-               <p class="d-none">Description: ${description}</p>
-               <p class="d-none">Urgency: ${urgency}</p>
-               <p class="d-none">Last visit data: ${lastVisitData}</p>
-               <button>Delete</button>
-               <button>Edit</button>
-               <button class="showMore">Show more</button>
+                <p class="card-header bg-transparent border-success position-relative">${doctor} Card
+                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+                </p>
+               <p class="card-text">Patient name: ${patient}</p>
+               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
+               <p class="d-none card-text">Description: ${description}</p>
+               <p class="d-none card-text">Urgency: ${urgency}</p>
+               <p class="d-none card-text">Last visit data: ${lastVisitData}</p>
+                <div class="card-footer bg-transparent border-success">
+                   <button class="btn btn-success">Edit</button>
+                   <button class="showMore btn btn-primary">Show more</button>
+                </div>
                `;
                document.querySelector(".cards-content").append(div);
             });
@@ -552,17 +558,20 @@ class CreateVisitModal extends Modal {
                } = card;
                const div = document.createElement("div");
                div.setAttribute("data-id", id);
-               div.classList.add("patient-card");
+               div.classList.add("patient-card", 'card', 'border-success', 'mb-3', 'p-1', 'w-25');
                div.innerHTML = `
-               <h2>${doctor} Card</h2>
-               <p>Patient name: ${patient}</p>
-               <p class="d-none">Patient age: ${age}</p>
-               <p class="d-none">Purpose of visit: ${purpose}</p>
-               <p class="d-none">Description: ${description}</p>
-               <p class="d-none">Urgency: ${urgency}</p>
-               <button>Delete</button>
-               <button>Edit</button>
-               <button class="showMore">Show more</button>
+               <p class="card-header bg-transparent border-success position-relative">${doctor} Card
+                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+               </p>
+               <p class="card-text">Patient name: ${patient}</p>
+               <p class="d-none card-text">Patient age: ${age}</p>
+               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
+               <p class="d-none card-text">Description: ${description}</p>
+               <p class="d-none card-text">Urgency: ${urgency}</p>
+                <div class="card-footer bg-transparent border-success">
+                   <button class="btn btn-success">Edit</button>
+                   <button class="showMore btn btn-primary">Show more</button>
+                </div>
                `;
                document.querySelector(".cards-content").append(div);
             });
@@ -685,7 +694,7 @@ document.addEventListener("click", showFullCardInfo);
 
 function showFullCardInfo(e) {
    if (e.target.classList.contains("showMore")) {
-      const card = e.target.closest("div");
+      const card = e.target.closest(".patient-card");
       const children = card.children;
       for (let i = 0; i < children.length; i++) {
          children[i].classList.remove("d-none");

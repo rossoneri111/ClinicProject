@@ -167,7 +167,7 @@
                             class="choose-doctor form-select form-select-sm mb-3"
                             aria-label=".form-select-lg example"
                     >
-                        <option disabled="disabled" value="choose-option">
+                        <option disabled="disabled" selected value="choose-option">
                             Choose a specialist
                         </option>
                         <option value="cardiologist">Cardiologist</option>
@@ -312,6 +312,20 @@
                             </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
+                            <span class="input-group-text">Last visit data</span>
+                            <input
+                                    type="date"
+                                    class="form-control modal-form__data dentist-option__value dentist-option__data"
+                                    aria-label="Sizing example input"
+                                    pattern="^([0-2][0-9]|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$"
+                                    required
+                            />
+                            <p class="invalid-feedback">
+                                Please fill this line with numbers in format:
+                                DD.MM.YY (21.05.1989)!
+                            </p>
+                        </div>
+                        <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
                            >Short description of the visit</span
                            >
@@ -350,20 +364,6 @@
                             />
                             <p class="invalid-feedback">
                                 Please fill this line with letters only!
-                            </p>
-                        </div>
-                        <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Last visit data</span>
-                            <input
-                                    type="date"
-                                    class="form-control modal-form__data dentist-option__value dentist-option__data"
-                                    aria-label="Sizing example input"
-                                    pattern="^([0-2][0-9]|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with numbers in format:
-                                DD.MM.YY (21.05.1989)!
                             </p>
                         </div>
                     </div>

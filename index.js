@@ -448,7 +448,23 @@ class CreateVisitModal extends Modal {
 
          httpService
             .postCard(sessionStorage.getItem("token"), cardiologistCard)
-            .then((card) => console.log(card));
+             .then(card => {
+                const {doctor = 'Cardiologist', patient, age, purpose, description, urgency, diseases, pressure, massIndex, id} = card;
+                const div = document.createElement("div");
+                div.setAttribute('data-id', id);
+                div.innerHTML = `
+               <h2>${doctor} Card</h2>
+               <p>Patient name: ${patient}</p>
+               <p>Patient age: ${age}</p>
+               <p>Purpose of visit: ${purpose}</p>
+               <p>Description: ${description}</p>
+               <p>Urgency: ${urgency}</p>
+               <p>Cardiovascular system diseases: ${diseases}</p>
+               <p>Blood pressure: ${pressure}</p>
+               <p>Body mass index: ${massIndex}</p>
+               `;
+                document.querySelector('.cards-content').append(div);
+             })
       }
 
       if (!dentist.classList.contains("d-none")) {
@@ -466,7 +482,20 @@ class CreateVisitModal extends Modal {
 
          httpService
             .postCard(sessionStorage.getItem("token"), dentistCard)
-            .then((card) => console.log(card));
+             .then(card => {
+                const {doctor = 'Dentist', patient, purpose, description, urgency, lastVisitData, id} = card;
+                const div = document.createElement("div");
+                div.setAttribute('data-id', id);
+                div.innerHTML = `
+               <h2>${doctor} Card</h2>
+               <p>Patient name: ${patient}</p>
+               <p>Purpose of visit: ${purpose}</p>
+               <p>Description: ${description}</p>
+               <p>Urgency: ${urgency}</p>
+               <p>Last visit data: ${lastVisitData}</p>
+               `;
+                document.querySelector('.cards-content').append(div);
+             })
       }
 
       if (!therapist.classList.contains("d-none")) {
@@ -484,7 +513,20 @@ class CreateVisitModal extends Modal {
 
          httpService
             .postCard(sessionStorage.getItem("token"), therapistCard)
-            .then((card) => console.log(card));
+            .then(card => {
+               const {doctor = 'Therapist', patient, purpose, description, urgency, age, id} = card;
+               const div = document.createElement("div");
+               div.setAttribute('data-id', id);
+               div.innerHTML = `
+               <h2>${doctor} Card</h2>
+               <p>Patient name: ${patient}</p>
+               <p>Patient age: ${age}</p>
+               <p>Purpose of visit: ${purpose}</p>
+               <p>Description: ${description}</p>
+               <p>Urgency: ${urgency}</p>
+               `;
+               document.querySelector('.cards-content').append(div);
+            })
       }
    }
 

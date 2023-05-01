@@ -289,42 +289,8 @@ class Cards {
 
    render() {
       return this.cardData.reduce((cards, item) => {
-         const {
-            doctor = "Therapist",
-            patient,
-            purpose,
-            description,
-            urgency,
-            age,
-            id,
-         } = item;
-         const div = document.createElement("div");
-         div.setAttribute("data-id", id);
-         div.classList.add(
-            "patient-card",
-            "card",
-            "border-success",
-            "mb-3",
-            "p-1",
-            "w-25"
-         );
-         div.innerHTML = `
-               <p class="card-header bg-transparent border-success position-relative">${doctor} Card
-                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
-               </p>
-               <p class="card-text">Patient name: ${patient}</p>
-               <p class="d-none card-text">Patient age: ${age}</p>
-               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
-               <p class="d-none card-text">Description: ${description}</p>
-               <p class="d-none card-text">Urgency: ${urgency}</p>
-                <div class="card-footer bg-transparent border-success">
-                   <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary">Show more</button>
-                </div>
-               `;
-
-         cards.push(div);
-
+         const card = new VisitCard(item);
+         cards.push(card.render());
          return cards;
       }, []);
    }
@@ -475,48 +441,8 @@ class CreateVisitModal extends Modal {
          httpService
             .postCard(sessionStorage.getItem("token"), cardiologistCard)
             .then((card) => {
-               const {
-                  doctor = "Cardiologist",
-                  patient,
-                  age,
-                  purpose,
-                  description,
-                  urgency,
-                  diseases,
-                  pressure,
-                  massIndex,
-                  id,
-               } = card;
-               const div = document.createElement("div");
-               div.setAttribute("data-id", id);
-               div.classList.add(
-                  "patient-card",
-                  "card",
-                  "border-success",
-                  "mb-3",
-                  "p-1",
-                  "w-25"
-               );
-               div.innerHTML = `
-                <p class="card-header bg-transparent border-success position-relative">${doctor} Card
-                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
-                </p>
-               <p class="card-text">Patient name: ${patient}</p>
-               <div class="collapse" id=${id}>
-                  <p class="card-text">Patient age: ${age}</p>
-                  <p class="card-text">Purpose of visit: ${purpose}</p>
-                  <p class="card-text">Description: ${description}</p>
-                  <p class="card-text">Urgency: ${urgency}</p>
-                  <p class="card-text">Cardiovascular system diseases: ${diseases}</p>
-                  <p class="card-text">Blood pressure: ${pressure}</p>
-                  <p class="card-text">Body mass index: ${massIndex}</p>
-               </div>
-                <div class="card-footer bg-transparent border-success">
-                    <button class="btn btn-success">Edit</button>
-                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">Show More/Less</button>
-                </div>
-               `;
-               document.querySelector(".cards-content").append(div);
+               const div = new VisitCard(card);
+               document.querySelector(".cards-content").append(div.render());
             });
       }
 
@@ -536,42 +462,8 @@ class CreateVisitModal extends Modal {
          httpService
             .postCard(sessionStorage.getItem("token"), dentistCard)
             .then((card) => {
-               const {
-                  doctor = "Dentist",
-                  patient,
-                  purpose,
-                  description,
-                  urgency,
-                  lastVisitData,
-                  id,
-               } = card;
-               const div = document.createElement("div");
-               div.setAttribute("data-id", id);
-               div.classList.add(
-                  "patient-card",
-                  "card",
-                  "border-success",
-                  "mb-3",
-                  "p-1",
-                  "w-25"
-               );
-               div.innerHTML = `
-                <p class="card-header bg-transparent border-success position-relative">${doctor} Card
-                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
-                </p>
-               <p class="card-text">Patient name: ${patient}</p>
-               <div class="collapse" id=${id}>
-                   <p class="card-text">Purpose of visit: ${purpose}</p>
-                   <p class="card-text">Description: ${description}</p>
-                   <p class="card-text">Urgency: ${urgency}</p>
-                   <p class="card-text">Last visit data: ${lastVisitData}</p>
-               </div>
-                <div class="card-footer bg-transparent border-success">
-                   <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">Show More/Less</button>
-                </div>
-               `;
-               document.querySelector(".cards-content").append(div);
+               const div = new VisitCard(card);
+               document.querySelector(".cards-content").append(div.render());
             });
       }
 
@@ -591,42 +483,8 @@ class CreateVisitModal extends Modal {
          httpService
             .postCard(sessionStorage.getItem("token"), therapistCard)
             .then((card) => {
-               const {
-                  doctor = "Therapist",
-                  patient,
-                  purpose,
-                  description,
-                  urgency,
-                  age,
-                  id,
-               } = card;
-               const div = document.createElement("div");
-               div.setAttribute("data-id", id);
-               div.classList.add(
-                  "patient-card",
-                  "card",
-                  "border-success",
-                  "mb-3",
-                  "p-1",
-                  "w-25"
-               );
-               div.innerHTML = `
-               <p class="card-header bg-transparent border-success position-relative">${doctor} Card
-                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
-               </p>
-               <p class="card-text">Patient name: ${patient}</p>
-               <div class="collapse" id=${id}>
-                  <p class="card-text">Patient age: ${age}</p>
-                  <p class="card-text">Purpose of visit: ${purpose}</p>
-                  <p class="card-text">Description: ${description}</p>
-                  <p class="card-text">Urgency: ${urgency}</p>
-               </div>
-                <div class="card-footer bg-transparent border-success">
-                   <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">Show More/Less</button>
-                </div>
-               `;
-               document.querySelector(".cards-content").append(div);
+               const div = new VisitCard(card);
+               document.querySelector(".cards-content").append(div.render());
             });
       }
    }
@@ -761,7 +619,6 @@ class Visit {
    purpose;
    description;
    urgency;
-
    constructor(visitData) {
       this.validateVisitData(visitData);
 
@@ -790,7 +647,7 @@ class Visit {
 
 class VisitDentist extends Visit {
    lastVisitData;
-
+   doctor = "Dentist";
    constructor(visitDentistData) {
       super(visitDentistData);
       this.validateVisitDentist(visitDentistData);
@@ -810,7 +667,7 @@ class VisitCardiologist extends Visit {
    diseases;
    pressure;
    massIndex;
-
+   doctor = "Cardiologist";
    constructor(visitCardiologistData) {
       super(visitCardiologistData);
       this.validateVisitCardiologist(visitCardiologistData);
@@ -839,11 +696,10 @@ class VisitCardiologist extends Visit {
 
 class VisitTherapist extends Visit {
    age;
-
+   doctor = "Therapist";
    constructor(visitTherapistData) {
       super(visitTherapistData);
       this.validateVisitTherapist(visitTherapistData);
-
       this.age = visitTherapistData.age;
    }
    validateVisitTherapist({ age }) {
@@ -853,62 +709,126 @@ class VisitTherapist extends Visit {
    }
 }
 
-class UIElement {
-   constructor() {}
-
-   renderHtml() {
-      return `<div></div>`;
-   }
-
-   /**
-    * @param {HTMLElement} el
-    * @param {Function} listener
-    */
-   addListenerToElement(el, listener) {
-      //
-      //
-   }
-}
-
-class GenericApi {
-   collection;
-   constructor(collection) {
-      this.collection = collection;
-   }
-   update(id, newData = {}) {
-      const dataFromServer = { hello: `world` };
-      return Promise.resolve(Object.assign(dataFromServer, newData));
-   }
-}
-
-class VisitApi extends GenericApi {
-   constructor() {
-      super(`visits`);
-   }
-}
-
-class VisitCard extends UIElement {
-   fullName;
-   doctor;
+class VisitCard {
    visit;
    /** @param {VisitDentist | VisitCardiologist | VisitTherapist} visit */
 
    constructor(visit) {
-      super();
-      if (!VisitDentist.validateVisitDentist()) {
-         throw new Error(`visit should be a validate visit`);
-      }
-
+      // if (!VisitDentist.validateVisitDentist()) {
+      //    throw new Error(`visit should be a validate visit`);
+      // }
       this.visit = visit;
-      this.fullName = visit.clientFullName;
-      this.doctor = visit.doctor;
+      const { patient, purpose, description, urgency, id, doctor } = visit;
+
+      this.id = id;
+      this.doctor = doctor;
+      this.patient = patient;
+      this.purpose = purpose;
+      this.description = description;
+      this.urgency = urgency;
    }
-   renderMinimizedCardHtml() {
-      return `
-<div class="visit-card">
-   <h3 class="visit-card__client-name">${this.visit.clientFullName}</h3>
-   <div class="visit-card__urgency">${this.visit.doctor}</div>
-</div>`;
+
+   render() {
+      const div = document.createElement("div");
+      div.setAttribute("data-id", this.id);
+      div.classList.add(
+         "patient-card",
+         "card",
+         "border-success",
+         "mb-3",
+         "p-1",
+         "w-25"
+      );
+      div.innerHTML = this.#getVisitCardHtml();
+
+      // const buttonDelete = div.querySelector(".btn__delete");
+      // buttonDelete.addEventListener("click", this.deleteVisit);
+      //
+      // const buttonEdit = div.querySelector(".btn__edit");
+      // buttonEdit.addEventListener("click", this.openEditModal);
+
+      // document.querySelector(".cards-content").append(div);
+      return div;
+   }
+
+   #getVisitCardHtml() {
+      switch (this.visit.doctor) {
+         case "Dentist":
+            return `
+                <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+                </p>
+               <p class="card-text">Patient name: ${this.visit.patient}</p>
+               <div class="collapse" id=${this.visit.id}>
+                   <p class="card-text">Purpose of visit: ${this.visit.purpose}</p>
+                   <p class="card-text">Description: ${this.visit.description}</p>
+                   <p class="card-text">Urgency: ${this.visit.urgency}</p>
+                   <p class="card-text">Last visit data: ${this.visit.lastVisitData}</p>
+               </div>
+                <div class="card-footer bg-transparent border-success">
+                   <button class="btn btn-success">Edit</button>
+                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
+                </div>
+               `;
+         case "Cardiologist":
+            return `
+
+               <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+            <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+            </p>
+            <p class="card-text">Patient name: ${this.visit.patient}</p>
+            <div class="collapse" id=${this.visit.id}>
+               <p class="card-text">Patient age: ${this.visit.age}</p>
+               <p class="card-text">Purpose of visit: ${this.visit.purpose}</p>
+               <p class="card-text">Description: ${this.visit.description}</p>
+               <p class="card-text">Urgency: ${this.visit.urgency}</p>
+               <p class="card-text">Cardiovascular system diseases: ${this.visit.diseases}</p>
+               <p class="card-text">Blood pressure: ${this.visit.pressure}</p>
+               <p class="card-text">Body mass index: ${this.visit.massIndex}</p>
+            </div>
+            </div>
+            <div class="card-footer bg-transparent border-success">
+               <button class="btn btn-success">Edit</button>
+               <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
+            </div>
+               `;
+
+         case "Therapist":
+            // @todo: finish
+            return `
+               <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+               </p>
+               <p class="card-text">Patient name: ${this.visit.patient}</p>
+               <div class="collapse" id=${this.visit.id}>
+                  <p class="card-text">Patient age: ${this.visit.age}</p>
+                  <p class="card-text">Purpose of visit: ${this.visit.purpose}</p>
+                  <p class="card-text">Description: ${this.visit.description}</p>
+                  <p class="card-text">Urgency: ${this.visit.urgency}</p>
+               </div>
+                <div class="card-footer bg-transparent border-success">
+                   <button class="btn btn-success">Edit</button>
+                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
+                </div>
+               `;
+         default:
+            break;
+      }
+   }
+
+   async deleteVisit() {
+      const response = await httpService.deleteCard(
+         sessionStorage.getItem("token"),
+         this.id
+      );
+      if (response.status === 200) {
+         const cardDiv = document.querySelector(`[data-id="${this.id}"]`);
+         if (!cardDiv) {
+            throw new Error("");
+         }
+
+         cardDiv.remove();
+      }
    }
 
    appendToDesk() {
@@ -921,9 +841,6 @@ class VisitCard extends UIElement {
       //...
    }
 
-   renderFullNameElement() {
-      return `<h2>${this.fullName}</h2>`;
-   }
    editVisitListener() {
       document.appendChild(new EditVisitDialog(this.visit));
       //...
@@ -936,5 +853,28 @@ class VisitCard extends UIElement {
    }
 }
 
-const visitDentist = new VisitDentist();
-const visitCard = new VisitCard(visitDentist);
+class VisitDentistCard extends VisitCard {
+   constructor(visit) {
+      super(visit);
+      this.lastVisitData = visit.lastVisitData;
+   }
+}
+
+class VisitTherapistCard extends VisitCard {
+   constructor(visit) {
+      super(visit);
+      this.age = visit.age;
+   }
+}
+
+class VisitCardiologistCard extends VisitCard {
+   constructor(visit) {
+      super(visit);
+      const { age, diseases, pressure, massIndex } = visit;
+
+      this.age = age;
+      this.diseases = diseases;
+      this.pressure = pressure;
+      this.massIndex = massIndex;
+   }
+}

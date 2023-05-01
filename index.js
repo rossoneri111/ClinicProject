@@ -502,7 +502,7 @@ class CreateVisitModal extends Modal {
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${patient}</p>
-               <div class="collapse" id="collapseExample">
+               <div class="collapse" id=${id}>
                   <p class="card-text">Patient age: ${age}</p>
                   <p class="card-text">Purpose of visit: ${purpose}</p>
                   <p class="card-text">Description: ${description}</p>
@@ -513,7 +513,7 @@ class CreateVisitModal extends Modal {
                </div>
                 <div class="card-footer bg-transparent border-success">
                     <button class="btn btn-success">Edit</button>
-                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show More/Less</button>
+                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">Show More/Less</button>
                 </div>
                `;
                document.querySelector(".cards-content").append(div);
@@ -560,7 +560,7 @@ class CreateVisitModal extends Modal {
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${patient}</p>
-               <div class="collapse" id="collapseExample">
+               <div class="collapse" id=${id}>
                    <p class="card-text">Purpose of visit: ${purpose}</p>
                    <p class="card-text">Description: ${description}</p>
                    <p class="card-text">Urgency: ${urgency}</p>
@@ -568,7 +568,7 @@ class CreateVisitModal extends Modal {
                </div>
                 <div class="card-footer bg-transparent border-success">
                    <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show More/Less</button>
+                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">Show More/Less</button>
                 </div>
                `;
                document.querySelector(".cards-content").append(div);
@@ -615,7 +615,7 @@ class CreateVisitModal extends Modal {
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
                </p>
                <p class="card-text">Patient name: ${patient}</p>
-               <div class="collapse" id="collapseExample">
+               <div class="collapse" id=${id}>
                   <p class="card-text">Patient age: ${age}</p>
                   <p class="card-text">Purpose of visit: ${purpose}</p>
                   <p class="card-text">Description: ${description}</p>
@@ -623,7 +623,7 @@ class CreateVisitModal extends Modal {
                </div>
                 <div class="card-footer bg-transparent border-success">
                    <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show More/Less</button>
+                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">Show More/Less</button>
                 </div>
                `;
                document.querySelector(".cards-content").append(div);

@@ -741,8 +741,13 @@ class VisitCard {
       );
       div.innerHTML = this.#getVisitCardHtml();
 
-      // const buttonDelete = div.querySelector(".btn__delete");
-      // buttonDelete.addEventListener("click", this.deleteVisit);
+      try {
+         const buttonDelete = div.querySelector(".btn__delete");
+         buttonDelete.addEventListener("click", this.deleteVisit.bind(this));
+      } catch (e) {
+         console.log(e.message);
+      }
+
       //
       // const buttonEdit = div.querySelector(".btn__edit");
       // buttonEdit.addEventListener("click", this.openEditModal);
@@ -756,7 +761,7 @@ class VisitCard {
          case "Dentist":
             return `
                 <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
-                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+                   <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${this.visit.patient}</p>
                <div class="collapse" id=${this.visit.id}>
@@ -774,7 +779,7 @@ class VisitCard {
             return `
 
                <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
-            <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+            <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
             </p>
             <p class="card-text">Patient name: ${this.visit.patient}</p>
             <div class="collapse" id=${this.visit.id}>
@@ -797,7 +802,7 @@ class VisitCard {
             // @todo: finish
             return `
                <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
-                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+                   <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
                </p>
                <p class="card-text">Patient name: ${this.visit.patient}</p>
                <div class="collapse" id=${this.visit.id}>

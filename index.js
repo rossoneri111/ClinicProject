@@ -289,15 +289,41 @@ class Cards {
 
    render() {
       return this.cardData.reduce((cards, item) => {
-         const card = document.createElement("div");
-         const title = document.createElement("h4");
-         title.innerText = item.title;
+         const {
+            doctor = "Therapist",
+            patient,
+            purpose,
+            description,
+            urgency,
+            age,
+            id,
+         } = item;
+         const div = document.createElement("div");
+         div.setAttribute("data-id", id);
+         div.classList.add(
+            "patient-card",
+            "card",
+            "border-success",
+            "mb-3",
+            "p-1",
+            "w-25"
+         );
+         div.innerHTML = `
+               <p class="card-header bg-transparent border-success position-relative">${doctor} Card
+                   <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
+               </p>
+               <p class="card-text">Patient name: ${patient}</p>
+               <p class="d-none card-text">Patient age: ${age}</p>
+               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
+               <p class="d-none card-text">Description: ${description}</p>
+               <p class="d-none card-text">Urgency: ${urgency}</p>
+                <div class="card-footer bg-transparent border-success">
+                   <button class="btn btn-success">Edit</button>
+                   <button class="showMore btn btn-primary">Show more</button>
+                </div>
+               `;
 
-         const description = document.createElement("p");
-         description.innerText = item.description;
-
-         card.append(title, description);
-         cards.push(card);
+         cards.push(div);
 
          return cards;
       }, []);
@@ -463,7 +489,14 @@ class CreateVisitModal extends Modal {
                } = card;
                const div = document.createElement("div");
                div.setAttribute("data-id", id);
-               div.classList.add("patient-card", 'card', 'border-success', 'mb-3', 'p-1', 'w-25');
+               div.classList.add(
+                  "patient-card",
+                  "card",
+                  "border-success",
+                  "mb-3",
+                  "p-1",
+                  "w-25"
+               );
                div.innerHTML = `
                 <p class="card-header bg-transparent border-success position-relative">${doctor} Card
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
@@ -512,7 +545,14 @@ class CreateVisitModal extends Modal {
                } = card;
                const div = document.createElement("div");
                div.setAttribute("data-id", id);
-               div.classList.add("patient-card", 'card', 'border-success', 'mb-3', 'p-1', 'w-25');
+               div.classList.add(
+                  "patient-card",
+                  "card",
+                  "border-success",
+                  "mb-3",
+                  "p-1",
+                  "w-25"
+               );
                div.innerHTML = `
                 <p class="card-header bg-transparent border-success position-relative">${doctor} Card
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
@@ -558,7 +598,14 @@ class CreateVisitModal extends Modal {
                } = card;
                const div = document.createElement("div");
                div.setAttribute("data-id", id);
-               div.classList.add("patient-card", 'card', 'border-success', 'mb-3', 'p-1', 'w-25');
+               div.classList.add(
+                  "patient-card",
+                  "card",
+                  "border-success",
+                  "mb-3",
+                  "p-1",
+                  "w-25"
+               );
                div.innerHTML = `
                <p class="card-header bg-transparent border-success position-relative">${doctor} Card
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">

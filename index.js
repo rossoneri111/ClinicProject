@@ -158,7 +158,7 @@ class ClinicApp {
          "Create Visit",
          "modal",
          "#createVisitModal",
-         ["btn-primary"]
+         ["btn-primary", "me-3"]
       );
       navbar.append(createVisitBtn.render());
 

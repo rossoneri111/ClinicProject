@@ -502,16 +502,18 @@ class CreateVisitModal extends Modal {
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${patient}</p>
-               <p class="d-none card-text">Patient age: ${age}</p>
-               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
-               <p class="d-none card-text">Description: ${description}</p>
-               <p class="d-none card-text">Urgency: ${urgency}</p>
-               <p class="d-none card-text">Cardiovascular system diseases: ${diseases}</p>
-               <p class="d-none card-text">Blood pressure: ${pressure}</p>
-               <p class="d-none card-text">Body mass index: ${massIndex}</p>
+               <div class="collapse" id="collapseExample">
+                  <p class="card-text">Patient age: ${age}</p>
+                  <p class="card-text">Purpose of visit: ${purpose}</p>
+                  <p class="card-text">Description: ${description}</p>
+                  <p class="card-text">Urgency: ${urgency}</p>
+                  <p class="card-text">Cardiovascular system diseases: ${diseases}</p>
+                  <p class="card-text">Blood pressure: ${pressure}</p>
+                  <p class="card-text">Body mass index: ${massIndex}</p>
+               </div>
                 <div class="card-footer bg-transparent border-success">
-                   <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary">Show more</button>
+                    <button class="btn btn-success">Edit</button>
+                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show More/Less</button>
                 </div>
                `;
                document.querySelector(".cards-content").append(div);
@@ -558,13 +560,15 @@ class CreateVisitModal extends Modal {
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${patient}</p>
-               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
-               <p class="d-none card-text">Description: ${description}</p>
-               <p class="d-none card-text">Urgency: ${urgency}</p>
-               <p class="d-none card-text">Last visit data: ${lastVisitData}</p>
+               <div class="collapse" id="collapseExample">
+                   <p class="card-text">Purpose of visit: ${purpose}</p>
+                   <p class="card-text">Description: ${description}</p>
+                   <p class="card-text">Urgency: ${urgency}</p>
+                   <p class="card-text">Last visit data: ${lastVisitData}</p>
+               </div>
                 <div class="card-footer bg-transparent border-success">
                    <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary">Show more</button>
+                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show More/Less</button>
                 </div>
                `;
                document.querySelector(".cards-content").append(div);
@@ -611,13 +615,15 @@ class CreateVisitModal extends Modal {
                    <img class="position-absolute top-0 end-0" width="25" height="25" src="./img/delete.svg" alt="delete">
                </p>
                <p class="card-text">Patient name: ${patient}</p>
-               <p class="d-none card-text">Patient age: ${age}</p>
-               <p class="d-none card-text">Purpose of visit: ${purpose}</p>
-               <p class="d-none card-text">Description: ${description}</p>
-               <p class="d-none card-text">Urgency: ${urgency}</p>
+               <div class="collapse" id="collapseExample">
+                  <p class="card-text">Patient age: ${age}</p>
+                  <p class="card-text">Purpose of visit: ${purpose}</p>
+                  <p class="card-text">Description: ${description}</p>
+                  <p class="card-text">Urgency: ${urgency}</p>
+               </div>
                 <div class="card-footer bg-transparent border-success">
                    <button class="btn btn-success">Edit</button>
-                   <button class="showMore btn btn-primary">Show more</button>
+                   <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show More/Less</button>
                 </div>
                `;
                document.querySelector(".cards-content").append(div);
@@ -734,21 +740,18 @@ class CreateVisitModal extends Modal {
    }
 }
 
-document.addEventListener("click", showFullCardInfo);
-// document.querySelectorAll(".patient-card").forEach((i) => {
-//    i.addEventListener("click", showFullCardInfo);
-// });
-
-function showFullCardInfo(e) {
-   if (e.target.classList.contains("showMore")) {
-      const card = e.target.closest(".patient-card");
-      const children = card.children;
-      for (let i = 0; i < children.length; i++) {
-         children[i].classList.remove("d-none");
-      }
-      e.target.classList.add("d-none");
-   }
-}
+// document.addEventListener("click", showFullCardInfo);
+//
+// function showFullCardInfo(e) {
+//    if (e.target.classList.contains("showMore")) {
+//       const card = e.target.closest(".patient-card");
+//       const children = card.children;
+//       for (let i = 0; i < children.length; i++) {
+//          children[i].classList.remove("d-none");
+//       }
+//       e.target.classList.add("d-none");
+//    }
+// }
 
 const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);

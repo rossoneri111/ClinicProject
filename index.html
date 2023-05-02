@@ -1,553 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-            crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./style.css"/>
-    <title>Clinic App</title>
-</head>
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+         crossorigin="anonymous"
+      />
+      <link rel="stylesheet" href="./style.css" />
+      <title>Clinic App</title>
+   </head>
 
-<body>
-<header>
-    <nav
+   <body>
+      <header>
+         <nav
             class="navbar navbar-expand-lg bg-success-subtle container-fluid justify-content-between px-4"
-    >
-        <a class="navbar-brand" href="#"
-        ><img width="70" height="80" src="./img/logo.png" alt="doctor"
-        /></a>
+         >
+            <a class="navbar-brand" href="#"
+            ><img width="120" height="80" src="./img/clinicgif2.gif" alt="doctor"
+            /></a>
+            <a class="navbar-brand" href="#"
+               ><img width="70" height="80" src="./img/logo.png" alt="doctor"
+            /></a>
+            <div class="navbar-nav"></div>
+         </nav>
+      </header>
+      <main>
+         <section class="cards container">
+            <form
+               class="row row-cols-lg-auto g-3 justify-content-center align-items-center my-2"
+               id="filterCards"
+            >
+               <div class="col-12">
+                  <label
+                     class="visually-hidden"
+                     for="inlineFormInputGroupUsername"
+                     >Search...</label
+                  >
+                  <div class="input-group">
+                     <input
+                        type="text"
+                        name="searchRequest"
+                        class="form-control"
+                        id="inlineFormInputGroupUsername"
+                        placeholder="Input title or description..."
+                     />
+                  </div>
+               </div>
 
-        <div class="navbar-nav"></div>
-    </nav>
-</header>
-<main>
-    <section class="cards container">
-        <form
-                class="row row-cols-lg-auto g-3 justify-content-center align-items-center my-2"
-                id="filterCards"
-        >
-            <div class="col-12">
-                <label
-                        class="visually-hidden"
-                        for="inlineFormInputGroupUsername"
-                >Search...</label
-                >
-                <div class="input-group">
-                    <input
-                            type="text"
-                            class="form-control"
-                            id="inlineFormInputGroupUsername"
-                            placeholder="Input title or description..."
-                    />
-                </div>
-            </div>
+               <div class="col-12">
+                  <div class="form-check">
+                     <input
+                        name="urgency"
+                        class="form-check-input"
+                        type="checkbox"
+                        value="regular"
+                        id="urgencyRegular"
+                        checked
+                     />
+                     <label class="form-check-label" for="urgencyRegular">
+                        Regular
+                     </label>
+                  </div>
+                  <div class="form-check">
+                     <input
+                        name="urgency"
+                        class="form-check-input"
+                        type="checkbox"
+                        value="priority"
+                        id="urgencyPriority"
+                        checked
+                     />
+                     <label class="form-check-label" for="urgencyPriority">
+                        Priority
+                     </label>
+                  </div>
+                  <div class="form-check">
+                     <input
+                        name="urgency"
+                        class="form-check-input"
+                        type="checkbox"
+                        value="urgent"
+                        id="urgencyUrgent"
+                        checked
+                     />
+                     <label class="form-check-label" for="urgencyUrgent">
+                        Urgent
+                     </label>
+                  </div>
+               </div>
 
-            <div class="col-12">
-                <div class="form-check">
-                    <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="low"
-                            id="priorityLow"
-                            checked
-                    />
-                    <label class="form-check-label" for="priorityLow">
-                        Low
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="normal"
-                            id="priorityNormal"
-                            checked
-                    />
-                    <label class="form-check-label" for="priorityNormal">
-                        Normal
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="high"
-                            id="priorityHigh"
-                            checked
-                    />
-                    <label class="form-check-label" for="priorityHigh">
-                        High
-                    </label>
-                </div>
-            </div>
-
-            <div class="col-12">
-                <div class="form-check">
-                    <div class="form-check">
+               <div class="col-12">
+                  <div class="form-check">
+                     <div class="form-check">
                         <input
-                                class="form-check-input"
-                                type="radio"
-                                name="status"
-                                id="statusAll"
-                                value="all"
-                                checked
+                           class="form-check-input"
+                           type="radio"
+                           name="status"
+                           id="statusAll"
+                           value="all"
+                           checked
                         />
                         <label class="form-check-label" for="statusAll">
-                            All
+                           All
                         </label>
-                    </div>
-                    <div class="form-check">
+                     </div>
+                     <div class="form-check">
                         <input
-                                class="form-check-input"
-                                type="radio"
-                                name="status"
-                                id="statusOpen"
-                                value="open"
+                           class="form-check-input"
+                           type="radio"
+                           name="status"
+                           id="statusOpen"
+                           value="open"
                         />
                         <label class="form-check-label" for="statusOpen">
-                            Open
+                           Open
                         </label>
-                    </div>
-                    <div class="form-check">
+                     </div>
+                     <div class="form-check">
                         <input
-                                class="form-check-input"
-                                type="radio"
-                                name="status"
-                                id="statusDone"
-                                value="open"
+                           class="form-check-input"
+                           type="radio"
+                           name="status"
+                           id="statusDone"
+                           value="done"
                         />
                         <label class="form-check-label" for="statusDone">
-                            Done
+                           Done
                         </label>
-                    </div>
-                </div>
-            </div>
+                     </div>
+                  </div>
+               </div>
 
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Filter</button>
-            </div>
-        </form>
-        <div
-                class="cards-content container d-flex justify-content-center gap-3 flex-wrap"
-                id="cards"
-        ></div>
-    </section>
-</main>
-<footer></footer>
-<div
-        class="modal fade"
-        id="createVisitModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
->
-    <div class="modal-dialog" style="--bs-modal-width: 1150px">
-        <div class="modal-content">
-            <form id="createVisitForm">
-                <div class="modal-header p-2">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+               <div class="col-12">
+                  <button type="submit" class="btn btn-primary" disabled>
+                     Filter
+                  </button>
+               </div>
+            </form>
+            <div
+               class="cards-content container d-flex justify-content-center gap-3 flex-wrap"
+               id="cards"
+            ></div>
+         </section>
+      </main>
+      <footer></footer>
+      <div
+         class="modal fade"
+         id="createVisitModal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true"
+      >
+         <div class="modal-dialog" style="--bs-modal-width: 1150px">
+            <div class="modal-content">
+               <form id="createVisitForm">
+                  <div class="modal-header p-2">
+                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                         Create a visit
-                    </h1>
-                    <button
-                            type="button"
-                            class="btn-close btn-close--modal"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <select
-                            class="choose-doctor form-select form-select-sm mb-3"
-                            aria-label=".form-select-lg example"
-                    >
-                        <option disabled="disabled" selected value="choose-option">
-                            Choose a specialist
+                     </h1>
+                     <button
+                        type="button"
+                        class="btn-close btn-close--modal"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                     ></button>
+                  </div>
+                  <div class="modal-body">
+                     <select
+                        class="choose-doctor form-select form-select-sm mb-3"
+                        aria-label=".form-select-lg example"
+                     >
+                        <option
+                           disabled="disabled"
+                           selected
+                           value="choose-option"
+                        >
+                           Choose a specialist
                         </option>
                         <option value="cardiologist">Cardiologist</option>
                         <option value="dentist">Dentist</option>
                         <option value="therapist">Therapist</option>
-                    </select>
+                     </select>
 
-                    <div
-                            class="cardiologist-option choose-specialist d-none was-validated"
-                    >
+                     <div
+                        class="cardiologist-option choose-specialist d-none was-validated"
+                     >
                         <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
-                           >Purpose of the visit</span
+                              >Purpose of the visit</span
                            >
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data cardiologist-option__value cardiologist-option__purpose"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data cardiologist-option__value cardiologist-option__purpose"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
-                           >Short description of the visit</span
+                              >Short description of the visit</span
                            >
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data cardiologist-option__value cardiologist-option__description"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data cardiologist-option__value cardiologist-option__description"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <select
-                                class="choose-urgency form-select form-select-sm mb-3 cardiologist-option__select"
-                                aria-label=".form-select-lg example"
-                                required
+                           class="choose-urgency form-select form-select-sm mb-3 cardiologist-option__select"
+                           aria-label=".form-select-lg example"
+                           required
                         >
-                            <option value=""></option>
-                            <option value="regular">Regular</option>
-                            <option value="priority">Priority</option>
-                            <option value="urgent">Ugrent</option>
+                           <option value=""></option>
+                           <option value="regular">Regular</option>
+                           <option value="priority">Priority</option>
+                           <option value="urgent">Urgent</option>
                         </select>
                         <p class="invalid-feedback">
-                            Choose an option, please!
+                           Choose an option, please!
                         </p>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Patient name</span>
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data cardiologist-option__value cardiologist-option__name"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <span class="input-group-text">Patient name</span>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data cardiologist-option__value cardiologist-option__name"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Blood pressure</span>
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data cardiologist-option__value cardiologist-option__pressure"
-                                    aria-label="Sizing example input"
-                                    pattern="^(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)\s(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)$"
-                                    required
-                                    onkeyup="this.value=this.value.replace(/[^0-9\s]/g,'');"
-                            />
-                            <p class="invalid-feedback">
-                                Make sure the blood pressure can be from 50 ut to
-                                160
-                            </p>
+                           <span class="input-group-text">Blood pressure</span>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data cardiologist-option__value cardiologist-option__pressure"
+                              aria-label="Sizing example input"
+                              pattern="^(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)\s(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)$"
+                              required
+                              onkeyup="this.value=this.value.replace(/[^0-9\s]/g,'');"
+                           />
+                           <p class="invalid-feedback">
+                              Make sure the blood pressure can be from 50 ut to
+                              160
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Body mass index</span>
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data cardiologist-option__value cardiologist-option__massIndex"
-                                    aria-label="Sizing example input"
-                                    pattern="^[0-9]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with numbers only!
-                            </p>
+                           <span class="input-group-text">Body mass index</span>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data cardiologist-option__value cardiologist-option__massIndex"
+                              aria-label="Sizing example input"
+                              pattern="^[0-9]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with numbers only!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
-                           >Diseases of the cardiovascular system</span
+                              >Diseases of the cardiovascular system</span
                            >
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data cardiologist-option__value cardiologist-option__diseases"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data cardiologist-option__value cardiologist-option__diseases"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Patient Age</span>
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data cardiologist-option__value cardiologist-option__age"
-                                    aria-label="Sizing example input"
-                                    pattern="^(1[6-9]|[2-9][0-9]|100)$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with numbers only from 16 up
-                                to 100!
-                            </p>
+                           <span class="input-group-text">Patient Age</span>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data cardiologist-option__value cardiologist-option__age"
+                              aria-label="Sizing example input"
+                              pattern="^(1[6-9]|[2-9][0-9]|100)$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with numbers only from 16 up
+                              to 100!
+                           </p>
                         </div>
-                    </div>
+                     </div>
 
-                    <div
-                            class="dentist-option choose-specialist d-none was-validated"
-                    >
+                     <div
+                        class="dentist-option choose-specialist d-none was-validated"
+                     >
                         <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
-                           >Purpose of the visit</span
+                              >Purpose of the visit</span
                            >
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data dentist-option__value dentist-option__purpose"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data dentist-option__value dentist-option__purpose"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Last visit data</span>
-                            <input
-                                    type="date"
-                                    class="form-control modal-form__data dentist-option__value dentist-option__data"
-                                    max="<?= date('Y-m-d'); ?>"
-                                    aria-label="Sizing example input"
-                                    pattern="^([0-2][0-9]|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with numbers in format:
-                                DD.MM.YY (21.05.1989)!
-                            </p>
+                           <span class="input-group-text">Last visit data</span>
+                           <input
+                              type="date"
+                              class="form-control modal-form__data dentist-option__value dentist-option__data"
+                              max="<?= date('Y-m-d'); ?>"
+                              aria-label="Sizing example input"
+                              pattern="^([0-2][0-9]|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with numbers in format:
+                              DD.MM.YY (21.05.1989)!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
-                           >Short description of the visit</span
+                              >Short description of the visit</span
                            >
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data dentist-option__value dentist-option__description"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data dentist-option__value dentist-option__description"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <select
-                                class="choose-urgency form-select form-select-sm mb-3 dentist-option__select"
-                                aria-label=".form-select-lg example"
-                                required
+                           class="choose-urgency form-select form-select-sm mb-3 dentist-option__select"
+                           aria-label=".form-select-lg example"
+                           required
                         >
-                            <option value=""></option>
-                            <option value="regular">Regular</option>
-                            <option value="priority">Priority</option>
-                            <option value="urgent">Ugrent</option>
+                           <option value=""></option>
+                           <option value="regular">Regular</option>
+                           <option value="priority">Priority</option>
+                           <option value="urgent">Urgent</option>
                         </select>
                         <p class="invalid-feedback">
-                            Choose an option, please!
+                           Choose an option, please!
                         </p>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Patient name</span>
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data dentist-option__value dentist-option__name"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <span class="input-group-text">Patient name</span>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data dentist-option__value dentist-option__name"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
-                    </div>
+                     </div>
 
-                    <div
-                            class="therapist-option choose-specialist d-none was-validated"
-                    >
+                     <div
+                        class="therapist-option choose-specialist d-none was-validated"
+                     >
                         <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
-                           >Purpose of the visit</span
+                              >Purpose of the visit</span
                            >
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data therapist-option__value therapist-option__purpose"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data therapist-option__value therapist-option__purpose"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
                            <span class="input-group-text"
-                           >Short description of the visit</span
+                              >Short description of the visit</span
                            >
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data therapist-option__value therapist-option__description"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data therapist-option__value therapist-option__description"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <select
-                                class="choose-urgency form-select form-select-sm mb-3 therapist-option__select"
-                                aria-label=".form-select-lg example"
-                                required
+                           class="choose-urgency form-select form-select-sm mb-3 therapist-option__select"
+                           aria-label=".form-select-lg example"
+                           required
                         >
-                            <option value=""></option>
-                            <option value="regular">Regular</option>
-                            <option value="priority">Priority</option>
-                            <option value="urgent">Ugrent</option>
+                           <option value=""></option>
+                           <option value="regular">Regular</option>
+                           <option value="priority">Priority</option>
+                           <option value="urgent">Urgent</option>
                         </select>
                         <p class="invalid-feedback">
-                            Choose an option, please!
+                           Choose an option, please!
                         </p>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Patient name</span>
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data therapist-option__value therapist-option__name"
-                                    aria-label="Sizing example input"
-                                    pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with letters only!
-                            </p>
+                           <span class="input-group-text">Patient name</span>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data therapist-option__value therapist-option__name"
+                              aria-label="Sizing example input"
+                              pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with letters only!
+                           </p>
                         </div>
                         <div class="input-group mb-3 was-validated">
-                            <span class="input-group-text">Patient Age</span>
-                            <input
-                                    type="text"
-                                    class="form-control modal-form__data therapist-option__value therapist-option__age"
-                                    aria-label="Sizing example input"
-                                    pattern="^(1[6-9]|[2-9][0-9]|100)$"
-                                    required
-                            />
-                            <p class="invalid-feedback">
-                                Please fill this line with numbers only from 16 up
-                                to 100!
-                            </p>
+                           <span class="input-group-text">Patient Age</span>
+                           <input
+                              type="text"
+                              class="form-control modal-form__data therapist-option__value therapist-option__age"
+                              aria-label="Sizing example input"
+                              pattern="^(1[6-9]|[2-9][0-9]|100)$"
+                              required
+                           />
+                           <p class="invalid-feedback">
+                              Please fill this line with numbers only from 16 up
+                              to 100!
+                           </p>
                         </div>
-                    </div>
-                </div>
-                <div class="modal-footer p-2">
-                    <button
-                            type="button"
-                            class="btn btn-close--modal btn-secondary"
-                            data-bs-dismiss="modal"
-                    >
+                     </div>
+                  </div>
+                  <div class="modal-footer p-2">
+                     <button
+                        type="button"
+                        class="btn btn-close--modal btn-secondary"
+                        data-bs-dismiss="modal"
+                     >
                         Close
-                    </button>
-                    <button
-                            type="button"
-                            class="btn btn-primary btn-create-visit__card d-none"
-                    >
+                     </button>
+                     <button
+                        type="button"
+                        class="btn btn-primary btn-create-visit__card d-none"
+                     >
                         Create a Visit Card
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+                     </button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
 
-<div
-        class="modal fade"
-        tabindex="-1"
-        id="signInModal"
-        style="display: none"
-        aria-hidden="true"
->
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form id="signInForm">
-                <div class="form-floating">
-                    <input
-                            name="email"
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            placeholder="name@example.com"
-                    /><label for="email">Enter Email</label>
-                </div>
-                <div class="form-floating">
-                    <input
-                            name="password"
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            placeholder="Password"
-                    /><label for="password">Enter Password</label>
-                </div>
-                <button
-                        type="submit"
-                        class="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#signInModal"
-                >
-                    Login
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
+      <div
+         class="modal fade"
+         tabindex="-1"
+         id="signInModal"
+         style="display: none"
+         aria-hidden="true"
+      >
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <form id="signInForm">
+                  <div class="form-floating">
+                     <input
+                        name="email"
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="name@example.com"
+                     /><label for="email">Enter Email</label>
+                  </div>
+                  <div class="form-floating">
+                     <input
+                        name="password"
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="Password"
+                     /><label for="password">Enter Password</label>
+                  </div>
+                  <button
+                     type="submit"
+                     class="btn btn-primary"
+                     data-bs-toggle="modal"
+                     data-bs-target="#signInModal"
+                  >
+                     Login
+                  </button>
+               </form>
+            </div>
+         </div>
+      </div>
 
-<div
-        class="modal fade"
-        tabindex="-1"
-        id="signOutModal"
-        style="display: none"
-        aria-hidden="true"
->
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form id="signOutForm">
-                <div class="modal-header">
-                    <h5 class="modal-title">Sign Out</h5>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to sign out?</p>
-                </div>
-                <div class="modal-footer">
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                    >
+      <div
+         class="modal fade"
+         tabindex="-1"
+         id="signOutModal"
+         style="display: none"
+         aria-hidden="true"
+      >
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <form id="signOutForm">
+                  <div class="modal-header">
+                     <h5 class="modal-title">Sign Out</h5>
+                     <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                     ></button>
+                  </div>
+                  <div class="modal-body">
+                     <p>Are you sure you want to sign out?</p>
+                  </div>
+                  <div class="modal-footer">
+                     <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                     >
                         Cancel
-                    </button>
-                    <button type="submit" class="btn btn-danger">
+                     </button>
+                     <button type="submit" class="btn btn-danger">
                         Sign Out
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"
-></script>
-<script type="module" src="./index.js"></script>
-</body>
+                     </button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <script
+         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+         crossorigin="anonymous"
+      ></script>
+      <script type="module" src="./index.js"></script>
+   </body>
 </html>

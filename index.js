@@ -1,5 +1,4 @@
 import { clearForm } from "./modalWindowfunction.js";
-
 class HttpService {
    constructor() {
       this.URL = "https://ajax.test-danit.com/api/v2/cards";
@@ -53,7 +52,6 @@ class HttpService {
          Handlers.errorHandler(e);
       }
    }
-
    async postCard(token, cardData) {
       try {
          return await (
@@ -287,9 +285,39 @@ class Handlers {
 class Cards {
    constructor(cardData) {
       this.cardData = cardData;
+      if (this.cardData.length) this.addListeners();
+   }
+
+   addListeners() {
+      const filterForm = document.querySelector("#filterCards");
+      const filterBtn = filterForm.querySelector("button");
+      if (filterBtn.disabled) {
+         filterBtn.disabled = false;
+         filterForm.addEventListener("submit", this.filter);
+      }
+   }
+
+   filter(event) {
+      event.preventDefault();
+      const filterData = new FormData(this);
+      const cards = [...document.querySelector("#cards").children];
+      const searchRequest = filterData.get("searchRequest");
+      const urgency = filterData.getAll("urgency");
+      const status = filterData.get("status");
+
+      cards.forEach((card) => {
+         urgency.includes(card.dataset.urgency)
+            ? card.classList.remove("d-none")
+            : card.classList.add("d-none");
+      });
+
+      console.log(searchRequest, urgency, status);
+      console.log(cards);
    }
 
    render() {
+      if (this.cardData.length) this.addListeners();
+
       return this.cardData.reduce((cards, item) => {
          const card = new VisitCard(item);
          cards.push(card.render());
@@ -298,85 +326,8 @@ class Cards {
    }
 }
 
-// Not used
-class Modal {
-   constructor() {}
-
-   // render() {
-   //   const modal = document.createElement("div");
-   //   modal.classList.add("modal", "fade");
-   //   modal.tabIndex = -1;
-   //   modal.role = "dialog";
-   //   modal.ariaHidden = "true";
-   //
-   //   const modalDialog = document.createElement("div");
-   //   modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
-   //
-   //   const modalContent = document.createElement("div");
-   //   modalContent.classList.add("modal-content");
-   //
-   //   modalDialog.append(modalContent);
-   //   modal.append(modalDialog);
-   //
-   //   return modal;
-   // }
-}
-
-// Not used
-class SignInModal extends Modal {
+class CreateVisitModal {
    constructor() {
-      super();
-   }
-
-   // render() {
-   //   const modal = super.render();
-   //   modal.id = "signInModal";
-   //
-   //   const modalContent = modal.querySelector(".modal-content");
-   //   const form = document.createElement("form");
-   //
-   //   const emailContainer = document.createElement("div");
-   //   emailContainer.classList.add("form-floating");
-   //   const emailLabel = document.createElement("label");
-   //   emailLabel.htmlFor = "email";
-   //   emailLabel.innerText = "Enter Email";
-   //   const emailInput = document.createElement("input");
-   //   emailInput.type = "email";
-   //   emailInput.classList.add("form-control");
-   //   emailInput.id = "email";
-   //   emailInput.placeholder = "name@example.com";
-   //   emailContainer.append(emailInput, emailLabel);
-   //
-   //   const passwordContainer = document.createElement("div");
-   //   passwordContainer.classList.add("form-floating");
-   //   const passwordLabel = document.createElement("label");
-   //   passwordLabel.htmlFor = "password";
-   //   passwordLabel.innerText = "Enter Password";
-   //   const passwordInput = document.createElement("input");
-   //   passwordInput.type = "password";
-   //   passwordInput.classList.add("form-control");
-   //   passwordInput.id = "password";
-   //   passwordInput.placeholder = "Password";
-   //   passwordContainer.append(passwordInput, passwordLabel);
-   //
-   //   const signInActionBtn = document.createElement("button");
-   //   signInActionBtn.type = "submit";
-   //   signInActionBtn.classList.add("btn", "btn-primary");
-   //   signInActionBtn.innerText = "Login";
-   //   signInActionBtn.dataset.bsToggle = "modal";
-   //   signInActionBtn.dataset.bsTarget = "#signInModal";
-   //
-   //   form.append(emailContainer, passwordContainer, signInActionBtn);
-   //
-   //   modalContent.append(form);
-   //
-   //   return modal;
-   // }
-}
-
-class CreateVisitModal extends Modal {
-   constructor() {
-      super();
       this.chooseDoctor = document.querySelector(".choose-doctor");
       this.addListeners();
    }
@@ -621,7 +572,6 @@ class Visit {
    purpose;
    description;
    urgency;
-
    constructor(visitData) {
       this.validateVisitData(visitData);
 
@@ -632,7 +582,6 @@ class Visit {
       this.description = description;
       this.urgency = urgency;
    }
-
    validateVisitData({ patient, purpose, description, urgency }) {
       if (
          !patient ||
@@ -652,7 +601,6 @@ class Visit {
 class VisitDentist extends Visit {
    lastVisitData;
    doctor = "Dentist";
-
    constructor(visitDentistData) {
       super(visitDentistData);
       this.validateVisitDentist(visitDentistData);
@@ -673,7 +621,6 @@ class VisitCardiologist extends Visit {
    pressure;
    massIndex;
    doctor = "Cardiologist";
-
    constructor(visitCardiologistData) {
       super(visitCardiologistData);
       this.validateVisitCardiologist(visitCardiologistData);
@@ -685,7 +632,6 @@ class VisitCardiologist extends Visit {
       this.pressure = pressure;
       this.massIndex = massIndex;
    }
-
    validateVisitCardiologist({ age, diseases, pressure, massIndex }) {
       if (
          isNaN(age) ||
@@ -704,13 +650,11 @@ class VisitCardiologist extends Visit {
 class VisitTherapist extends Visit {
    age;
    doctor = "Therapist";
-
    constructor(visitTherapistData) {
       super(visitTherapistData);
       this.validateVisitTherapist(visitTherapistData);
       this.age = visitTherapistData.age;
    }
-
    validateVisitTherapist({ age }) {
       if (isNaN(age) || age > 100 || age < 16) {
          throw new Error(`VisitTherapist is not valid`);
@@ -720,7 +664,6 @@ class VisitTherapist extends Visit {
 
 class VisitCard {
    visit;
-
    /** @param {VisitDentist | VisitCardiologist | VisitTherapist} visit */
 
    constructor(visit) {
@@ -740,16 +683,11 @@ class VisitCard {
 
    render() {
       const div = document.createElement("div");
-      div.setAttribute("data-id", this.id);
-      div.classList.add(
-         "patient-card",
-         "card",
-         "border-success",
-         "mb-3",
-         "p-1",
-         "w-25"
-      );
+      div.dataset.id = this.id;
+      div.dataset.urgency = this.urgency;
+      div.classList.add("patient-card", "card", "mb-3", "p-1", "w-25");
       div.innerHTML = this.#getVisitCardHtml();
+      this.changeBorderColor(div);
 
       try {
          const buttonDelete = div.querySelector(".btn__delete");
@@ -770,7 +708,7 @@ class VisitCard {
       switch (this.visit.doctor) {
          case "Dentist":
             return `
-                <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+                <p class="card-header bg-transparent border-warning position-relative">${this.visit.doctor} Card
                    <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${this.visit.patient}</p>
@@ -780,7 +718,7 @@ class VisitCard {
                    <p class="card-text">Urgency: ${this.visit.urgency}</p>
                    <p class="card-text">Last visit data: ${this.visit.lastVisitData}</p>
                </div>
-                <div class="card-footer bg-transparent border-success">
+                <div class="card-footer bg-transparent border-warning">
                    <button class="btn btn-success">Edit</button>
                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
                 </div>
@@ -788,7 +726,7 @@ class VisitCard {
          case "Cardiologist":
             return `
 
-               <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+               <p class="card-header bg-transparent border-danger position-relative">${this.visit.doctor} Card
             <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
             </p>
             <p class="card-text">Patient name: ${this.visit.patient}</p>
@@ -802,14 +740,13 @@ class VisitCard {
                <p class="card-text">Body mass index: ${this.visit.massIndex}</p>
             </div>
             </div>
-            <div class="card-footer bg-transparent border-success">
+            <div class="card-footer bg-transparent border-danger">
                <button class="btn btn-success">Edit</button>
                <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
             </div>
                `;
 
          case "Therapist":
-            // @todo: finish
             return `
                <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
                    <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
@@ -832,6 +769,10 @@ class VisitCard {
    }
 
    async deleteVisit() {
+      const confirmResult = confirm("Do you want to delete this card?");
+      if (!confirmResult) {
+         return;
+      }
       const response = await httpService.deleteCard(
          sessionStorage.getItem("token"),
          this.id
@@ -841,8 +782,19 @@ class VisitCard {
          if (!cardDiv) {
             throw new Error("");
          }
-
          cardDiv.remove();
+      }
+   }
+
+   changeBorderColor(div) {
+      if (this.visit.doctor === `Therapist`) {
+         div.classList.add("border-success");
+      }
+      if (this.visit.doctor === `Dentist`) {
+         div.classList.add("border-warning");
+      }
+      if (this.visit.doctor === `Cardiologist`) {
+         div.classList.add("border-danger");
       }
    }
 
@@ -893,6 +845,3 @@ class VisitCardiologistCard extends VisitCard {
       this.massIndex = massIndex;
    }
 }
-
-import { dragnDrop } from "./DragnDropFunction.js";
-dragnDrop();

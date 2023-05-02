@@ -735,7 +735,6 @@ class VisitCard {
                `;
 
          case "Therapist":
-            // @todo: finish
             return `
                <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
                    <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
@@ -758,6 +757,10 @@ class VisitCard {
    }
 
    async deleteVisit() {
+      const confirmResult = confirm('Do you want to delete this card?');
+      if (!confirmResult) {
+         return
+      }
       const response = await httpService.deleteCard(
          sessionStorage.getItem("token"),
          this.id
@@ -767,8 +770,7 @@ class VisitCard {
          if (!cardDiv) {
             throw new Error("");
          }
-
-         cardDiv.remove();
+            cardDiv.remove();
       }
    }
 

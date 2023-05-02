@@ -303,6 +303,13 @@ class Cards {
       const searchRequest = filterData.get("searchRequest");
       const urgency = filterData.getAll("urgency");
       const status = filterData.get("status");
+
+      cards.forEach((card) => {
+         urgency.includes(card.dataset.urgency)
+            ? card.classList.remove("d-none")
+            : card.classList.add("d-none");
+      });
+
       console.log(searchRequest, urgency, status);
       console.log(cards);
    }

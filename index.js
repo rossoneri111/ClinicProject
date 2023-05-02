@@ -685,7 +685,7 @@ class VisitCard {
       const div = document.createElement("div");
       div.dataset.id = this.id;
       div.dataset.urgency = this.urgency;
-      div.classList.add("patient-card", "card", "border-success", "mb-3", "p-1", "w-25");
+      div.classList.add("patient-card", "card", "mb-3", "p-1", "w-25");
       div.innerHTML = this.#getVisitCardHtml();
       this.changeBorderColor(div);
 
@@ -708,7 +708,7 @@ class VisitCard {
       switch (this.visit.doctor) {
          case "Dentist":
             return `
-                <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+                <p class="card-header bg-transparent border-warning position-relative">${this.visit.doctor} Card
                    <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${this.visit.patient}</p>
@@ -718,7 +718,7 @@ class VisitCard {
                    <p class="card-text">Urgency: ${this.visit.urgency}</p>
                    <p class="card-text">Last visit data: ${this.visit.lastVisitData}</p>
                </div>
-                <div class="card-footer bg-transparent border-success">
+                <div class="card-footer bg-transparent border-warning">
                    <button class="btn btn-success">Edit</button>
                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
                 </div>
@@ -726,7 +726,7 @@ class VisitCard {
          case "Cardiologist":
             return `
 
-               <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+               <p class="card-header bg-transparent border-danger position-relative">${this.visit.doctor} Card
             <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
             </p>
             <p class="card-text">Patient name: ${this.visit.patient}</p>
@@ -740,7 +740,7 @@ class VisitCard {
                <p class="card-text">Body mass index: ${this.visit.massIndex}</p>
             </div>
             </div>
-            <div class="card-footer bg-transparent border-success">
+            <div class="card-footer bg-transparent border-danger">
                <button class="btn btn-success">Edit</button>
                <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
             </div>

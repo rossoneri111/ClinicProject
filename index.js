@@ -285,7 +285,20 @@ class Handlers {
 class Cards {
    constructor(cardData) {
       this.cardData = cardData;
+      if (this.cardData.length) this.addListeners();
    }
+
+   addListeners() {
+      const filterForm = document.querySelector("#filterCards");
+      const filterBtn = filterForm.querySelector("button");
+      console.log(Boolean(this.cardData.length));
+      if (filterBtn.disabled) {
+         filterBtn.disabled = false;
+         filterForm.addEventListener("submit", this.filter);
+      }
+   }
+
+   filter() {}
 
    render() {
       return this.cardData.reduce((cards, item) => {
@@ -296,85 +309,8 @@ class Cards {
    }
 }
 
-// Not used
-class Modal {
-   constructor() {}
-
-   // render() {
-   //   const modal = document.createElement("div");
-   //   modal.classList.add("modal", "fade");
-   //   modal.tabIndex = -1;
-   //   modal.role = "dialog";
-   //   modal.ariaHidden = "true";
-   //
-   //   const modalDialog = document.createElement("div");
-   //   modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
-   //
-   //   const modalContent = document.createElement("div");
-   //   modalContent.classList.add("modal-content");
-   //
-   //   modalDialog.append(modalContent);
-   //   modal.append(modalDialog);
-   //
-   //   return modal;
-   // }
-}
-
-// Not used
-class SignInModal extends Modal {
+class CreateVisitModal {
    constructor() {
-      super();
-   }
-
-   // render() {
-   //   const modal = super.render();
-   //   modal.id = "signInModal";
-   //
-   //   const modalContent = modal.querySelector(".modal-content");
-   //   const form = document.createElement("form");
-   //
-   //   const emailContainer = document.createElement("div");
-   //   emailContainer.classList.add("form-floating");
-   //   const emailLabel = document.createElement("label");
-   //   emailLabel.htmlFor = "email";
-   //   emailLabel.innerText = "Enter Email";
-   //   const emailInput = document.createElement("input");
-   //   emailInput.type = "email";
-   //   emailInput.classList.add("form-control");
-   //   emailInput.id = "email";
-   //   emailInput.placeholder = "name@example.com";
-   //   emailContainer.append(emailInput, emailLabel);
-   //
-   //   const passwordContainer = document.createElement("div");
-   //   passwordContainer.classList.add("form-floating");
-   //   const passwordLabel = document.createElement("label");
-   //   passwordLabel.htmlFor = "password";
-   //   passwordLabel.innerText = "Enter Password";
-   //   const passwordInput = document.createElement("input");
-   //   passwordInput.type = "password";
-   //   passwordInput.classList.add("form-control");
-   //   passwordInput.id = "password";
-   //   passwordInput.placeholder = "Password";
-   //   passwordContainer.append(passwordInput, passwordLabel);
-   //
-   //   const signInActionBtn = document.createElement("button");
-   //   signInActionBtn.type = "submit";
-   //   signInActionBtn.classList.add("btn", "btn-primary");
-   //   signInActionBtn.innerText = "Login";
-   //   signInActionBtn.dataset.bsToggle = "modal";
-   //   signInActionBtn.dataset.bsTarget = "#signInModal";
-   //
-   //   form.append(emailContainer, passwordContainer, signInActionBtn);
-   //
-   //   modalContent.append(form);
-   //
-   //   return modal;
-   // }
-}
-
-class CreateVisitModal extends Modal {
-   constructor() {
-      super();
       this.chooseDoctor = document.querySelector(".choose-doctor");
       this.addListeners();
    }
@@ -883,7 +819,3 @@ class VisitCardiologistCard extends VisitCard {
       this.massIndex = massIndex;
    }
 }
-
-
-
-

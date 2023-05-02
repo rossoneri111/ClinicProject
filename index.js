@@ -845,3 +845,6 @@ class VisitCardiologistCard extends VisitCard {
       this.massIndex = massIndex;
    }
 }
+
+import { dragnDrop } from "./DragnDropFunction.js";
+dragnDrop();

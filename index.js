@@ -667,15 +667,9 @@ class VisitCard {
    render() {
       const div = document.createElement("div");
       div.setAttribute("data-id", this.id);
-      div.classList.add(
-         "patient-card",
-         "card",
-         "border-success",
-         "mb-3",
-         "p-1",
-         "w-25"
-      );
+      div.classList.add("patient-card", "card", "mb-3", "p-1", "w-25");
       div.innerHTML = this.#getVisitCardHtml();
+      this.changeBorderColor(div);
 
       try {
          const buttonDelete = div.querySelector(".btn__delete");
@@ -757,9 +751,9 @@ class VisitCard {
    }
 
    async deleteVisit() {
-      const confirmResult = confirm('Do you want to delete this card?');
+      const confirmResult = confirm("Do you want to delete this card?");
       if (!confirmResult) {
-         return
+         return;
       }
       const response = await httpService.deleteCard(
          sessionStorage.getItem("token"),
@@ -770,7 +764,19 @@ class VisitCard {
          if (!cardDiv) {
             throw new Error("");
          }
-            cardDiv.remove();
+         cardDiv.remove();
+      }
+   }
+
+   changeBorderColor(div) {
+      if (this.visit.doctor === `Therapist`) {
+         div.classList.add("border-success");
+      }
+      if (this.visit.doctor === `Dentist`) {
+         div.classList.add("border-warning");
+      }
+      if (this.visit.doctor === `Cardiologist`) {
+         div.classList.add("border-danger");
       }
    }
 

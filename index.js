@@ -1,4 +1,5 @@
 import { clearForm } from "./modalWindowfunction.js";
+
 class HttpService {
    constructor() {
       this.URL = "https://ajax.test-danit.com/api/v2/cards";
@@ -52,6 +53,7 @@ class HttpService {
          Handlers.errorHandler(e);
       }
    }
+
    async postCard(token, cardData) {
       try {
          return await (
@@ -619,6 +621,7 @@ class Visit {
    purpose;
    description;
    urgency;
+
    constructor(visitData) {
       this.validateVisitData(visitData);
 
@@ -629,6 +632,7 @@ class Visit {
       this.description = description;
       this.urgency = urgency;
    }
+
    validateVisitData({ patient, purpose, description, urgency }) {
       if (
          !patient ||
@@ -648,6 +652,7 @@ class Visit {
 class VisitDentist extends Visit {
    lastVisitData;
    doctor = "Dentist";
+
    constructor(visitDentistData) {
       super(visitDentistData);
       this.validateVisitDentist(visitDentistData);
@@ -668,6 +673,7 @@ class VisitCardiologist extends Visit {
    pressure;
    massIndex;
    doctor = "Cardiologist";
+
    constructor(visitCardiologistData) {
       super(visitCardiologistData);
       this.validateVisitCardiologist(visitCardiologistData);
@@ -679,6 +685,7 @@ class VisitCardiologist extends Visit {
       this.pressure = pressure;
       this.massIndex = massIndex;
    }
+
    validateVisitCardiologist({ age, diseases, pressure, massIndex }) {
       if (
          isNaN(age) ||
@@ -697,11 +704,13 @@ class VisitCardiologist extends Visit {
 class VisitTherapist extends Visit {
    age;
    doctor = "Therapist";
+
    constructor(visitTherapistData) {
       super(visitTherapistData);
       this.validateVisitTherapist(visitTherapistData);
       this.age = visitTherapistData.age;
    }
+
    validateVisitTherapist({ age }) {
       if (isNaN(age) || age > 100 || age < 16) {
          throw new Error(`VisitTherapist is not valid`);
@@ -711,6 +720,7 @@ class VisitTherapist extends Visit {
 
 class VisitCard {
    visit;
+
    /** @param {VisitDentist | VisitCardiologist | VisitTherapist} visit */
 
    constructor(visit) {
@@ -884,6 +894,5 @@ class VisitCardiologistCard extends VisitCard {
    }
 }
 
-
-
-
+import { dragnDrop } from "./DragnDropFunction.js";
+dragnDrop();

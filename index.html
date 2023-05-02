@@ -44,6 +44,7 @@
                   <div class="input-group">
                      <input
                         type="text"
+                        name="searchRequest"
                         class="form-control"
                         id="inlineFormInputGroupUsername"
                         placeholder="Input title or description..."
@@ -54,38 +55,41 @@
                <div class="col-12">
                   <div class="form-check">
                      <input
+                        name="urgency"
                         class="form-check-input"
                         type="checkbox"
-                        value="low"
-                        id="priorityLow"
+                        value="regular"
+                        id="urgencyRegular"
                         checked
                      />
-                     <label class="form-check-label" for="priorityLow">
-                        Low
+                     <label class="form-check-label" for="urgencyRegular">
+                        Regular
                      </label>
                   </div>
                   <div class="form-check">
                      <input
+                        name="urgency"
                         class="form-check-input"
                         type="checkbox"
-                        value="normal"
-                        id="priorityNormal"
+                        value="priority"
+                        id="urgencyPriority"
                         checked
                      />
-                     <label class="form-check-label" for="priorityNormal">
-                        Normal
+                     <label class="form-check-label" for="urgencyPriority">
+                        Priority
                      </label>
                   </div>
                   <div class="form-check">
                      <input
+                        name="urgency"
                         class="form-check-input"
                         type="checkbox"
-                        value="high"
-                        id="priorityHigh"
+                        value="urgent"
+                        id="urgencyUrgent"
                         checked
                      />
-                     <label class="form-check-label" for="priorityHigh">
-                        High
+                     <label class="form-check-label" for="urgencyUrgent">
+                        Urgent
                      </label>
                   </div>
                </div>
@@ -123,7 +127,7 @@
                            type="radio"
                            name="status"
                            id="statusDone"
-                           value="open"
+                           value="done"
                         />
                         <label class="form-check-label" for="statusDone">
                            Done
@@ -224,7 +228,7 @@
                            <option value=""></option>
                            <option value="regular">Regular</option>
                            <option value="priority">Priority</option>
-                           <option value="urgent">Ugrent</option>
+                           <option value="urgent">Urgent</option>
                         </select>
                         <p class="invalid-feedback">
                            Choose an option, please!
@@ -357,7 +361,7 @@
                            <option value=""></option>
                            <option value="regular">Regular</option>
                            <option value="priority">Priority</option>
-                           <option value="urgent">Ugrent</option>
+                           <option value="urgent">Urgent</option>
                         </select>
                         <p class="invalid-feedback">
                            Choose an option, please!
@@ -418,7 +422,7 @@
                            <option value=""></option>
                            <option value="regular">Regular</option>
                            <option value="priority">Priority</option>
-                           <option value="urgent">Ugrent</option>
+                           <option value="urgent">Urgent</option>
                         </select>
                         <p class="invalid-feedback">
                            Choose an option, please!

@@ -291,16 +291,33 @@ class Cards {
    addListeners() {
       const filterForm = document.querySelector("#filterCards");
       const filterBtn = filterForm.querySelector("button");
-      console.log(Boolean(this.cardData.length));
       if (filterBtn.disabled) {
          filterBtn.disabled = false;
          filterForm.addEventListener("submit", this.filter);
       }
    }
 
-   filter() {}
+   filter(event) {
+      event.preventDefault();
+      const filterData = new FormData(this);
+      const cards = [...document.querySelector("#cards").children];
+      const searchRequest = filterData.get("searchRequest");
+      const urgency = filterData.getAll("urgency");
+      const status = filterData.get("status");
+
+      cards.forEach((card) => {
+         urgency.includes(card.dataset.urgency)
+            ? card.classList.remove("d-none")
+            : card.classList.add("d-none");
+      });
+
+      console.log(searchRequest, urgency, status);
+      console.log(cards);
+   }
 
    render() {
+      if (this.cardData.length) this.addListeners();
+
       return this.cardData.reduce((cards, item) => {
          const card = new VisitCard(item);
          cards.push(card.render());
@@ -666,8 +683,9 @@ class VisitCard {
 
    render() {
       const div = document.createElement("div");
-      div.setAttribute("data-id", this.id);
-      div.classList.add("patient-card", "card", "mb-3", "p-1", "w-25");
+      div.dataset.id = this.id;
+      div.dataset.urgency = this.urgency;
+      div.classList.add("patient-card", "card", "border-success", "mb-3", "p-1", "w-25");
       div.innerHTML = this.#getVisitCardHtml();
       this.changeBorderColor(div);
 

@@ -11,3 +11,16 @@ body {
 .btn__delete {
     cursor: pointer;
 }
+
+.card {
+    background-image: url("../img/cardbg6.png");
+
+}
+
+.card-header {
+    font-weight: 800;
+}
+
+.card-text {
+    font-weight: 500;
+}

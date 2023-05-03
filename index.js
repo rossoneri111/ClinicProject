@@ -1,4 +1,5 @@
-import { clearForm } from "./modalWindowfunction.js";
+import { clearForm, createVisitCard } from "./modalWindowfunction.js";
+
 class HttpService {
    constructor() {
       this.URL = "https://ajax.test-danit.com/api/v2/cards";
@@ -52,6 +53,7 @@ class HttpService {
          Handlers.errorHandler(e);
       }
    }
+
    async postCard(token, cardData) {
       try {
          return await (
@@ -80,7 +82,7 @@ class HttpService {
                },
                body: JSON.stringify(cardData),
             })
-         ).json();
+         );
       } catch (e) {
          Handlers.errorHandler(e);
       }
@@ -572,6 +574,7 @@ class Visit {
    purpose;
    description;
    urgency;
+
    constructor(visitData) {
       this.validateVisitData(visitData);
 
@@ -582,6 +585,7 @@ class Visit {
       this.description = description;
       this.urgency = urgency;
    }
+
    validateVisitData({ patient, purpose, description, urgency }) {
       if (
          !patient ||
@@ -601,6 +605,7 @@ class Visit {
 class VisitDentist extends Visit {
    lastVisitData;
    doctor = "Dentist";
+
    constructor(visitDentistData) {
       super(visitDentistData);
       this.validateVisitDentist(visitDentistData);
@@ -621,6 +626,7 @@ class VisitCardiologist extends Visit {
    pressure;
    massIndex;
    doctor = "Cardiologist";
+
    constructor(visitCardiologistData) {
       super(visitCardiologistData);
       this.validateVisitCardiologist(visitCardiologistData);
@@ -632,6 +638,7 @@ class VisitCardiologist extends Visit {
       this.pressure = pressure;
       this.massIndex = massIndex;
    }
+
    validateVisitCardiologist({ age, diseases, pressure, massIndex }) {
       if (
          isNaN(age) ||
@@ -650,11 +657,13 @@ class VisitCardiologist extends Visit {
 class VisitTherapist extends Visit {
    age;
    doctor = "Therapist";
+
    constructor(visitTherapistData) {
       super(visitTherapistData);
       this.validateVisitTherapist(visitTherapistData);
       this.age = visitTherapistData.age;
    }
+
    validateVisitTherapist({ age }) {
       if (isNaN(age) || age > 100 || age < 16) {
          throw new Error(`VisitTherapist is not valid`);
@@ -664,6 +673,7 @@ class VisitTherapist extends Visit {
 
 class VisitCard {
    visit;
+
    /** @param {VisitDentist | VisitCardiologist | VisitTherapist} visit */
 
    constructor(visit) {
@@ -719,7 +729,7 @@ class VisitCard {
                    <p class="card-text">Last visit data: ${this.visit.lastVisitData}</p>
                </div>
                 <div class="card-footer bg-transparent border-warning">
-                   <button class="btn btn-success">Edit</button>
+                   <button class="btn btn-success btn-edit" data-bs-toggle="modal" data-bs-target="#dentist-edit">Edit</button>
                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
                 </div>
                `;
@@ -741,7 +751,7 @@ class VisitCard {
             </div>
             </div>
             <div class="card-footer bg-transparent border-danger">
-               <button class="btn btn-success">Edit</button>
+               <button class="btn btn-success btn-edit" data-bs-toggle="modal" data-bs-target="#cardiologist-edit">Edit</button>
                <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
             </div>
                `;
@@ -759,7 +769,7 @@ class VisitCard {
                   <p class="card-text">Urgency: ${this.visit.urgency}</p>
                </div>
                 <div class="card-footer bg-transparent border-success">
-                   <button class="btn btn-success">Edit</button>
+                   <button class="btn btn-success btn-edit" data-bs-toggle="modal" data-bs-target="#therapist-edit">Edit</button>
                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
                 </div>
                `;
@@ -847,4 +857,187 @@ class VisitCardiologistCard extends VisitCard {
 }
 
 import { dragnDrop } from "./DragnDropFunction.js";
+
 dragnDrop();
+
+function dddd() {
+   const f = new HttpService();
+   f.deleteCard(sessionStorage.getItem("token"), 169654);
+}
+
+// dddd()
+
+// 1. Найти кнопку edit на карточке и добавить обработчик события 'click'
+// const btnEdit = document.querySelector('.btn-edit');
+
+document.querySelector(".cards-content").addEventListener("click", editCard);
+
+function editCard(e) {
+   if (e.target.classList.contains("btn-edit")) {
+      if (
+         e.target.closest(".patient-card").children[0].innerText ===
+         "Dentist Card"
+      ) {
+         const id = e.target
+            .closest(".card-footer")
+            .closest(".patient-card")
+            .getAttribute("data-id");
+
+
+         const name = e.target.closest('.card-footer').closest('.patient-card').children[1].textContent.split(': ')[1];
+         const purpose = e.target.closest('.card-footer').previousElementSibling.children[0].textContent.split(': ')[1];
+         const description = e.target.closest('.card-footer').previousElementSibling.children[1].textContent.split(': ')[1];
+         const urgency = e.target.closest('.card-footer').previousElementSibling.children[2].textContent.split(': ')[1];
+         const data = e.target.closest('.card-footer').previousElementSibling.children[3].textContent.split(': ')[1];
+
+         document.querySelector('.dentist-option__purpose-edit').value = purpose;
+         document.querySelector('.dentist-option__data-edit').value = data;
+         document.querySelector('.dentist-option__description-edit').value = description;
+         document.querySelector('.dentist-option__select-edit').value = urgency;
+         document.querySelector('.dentist-option__name-edit').value = name;
+
+         document.querySelector('.dentist-save__changes').addEventListener('click', function (e) {
+            const changedData = {
+               name: document.querySelector('.dentist-option__name-edit').value,
+               purpose: document.querySelector('.dentist-option__purpose-edit').value,
+               description: document.querySelector('.dentist-option__description-edit').value,
+               urgency: document.querySelector('.dentist-option__select-edit').value,
+               data: document.querySelector('.dentist-option__data-edit').value,
+               doctor: 'dentist'
+            }
+
+
+
+            httpService
+                .updateCard(sessionStorage.getItem("token"), id, changedData)
+                .then(res => {
+                   if(res.ok) {
+
+                   }
+                })
+
+
+            //     .then((card) => {
+            //        console.log(card)
+            //        const div = new VisitCard(card)
+            //        document.querySelector(".cards-content").append(div.render());
+            //     })
+            //
+            // httpService
+            //     .deleteCard(sessionStorage.getItem("token"), id)
+            //     .then(i => console.log(i))
+
+
+         })
+
+      }
+
+      if (
+         e.target.closest(".patient-card").children[0].innerText ===
+         "Cardiologist Card"
+      ) {
+         const id = e.target
+             .closest(".card-footer")
+             .closest(".patient-card")
+             .getAttribute("data-id");
+
+         const name = e.target
+            .closest(".card-footer")
+            .closest(".patient-card")
+            .children[1].textContent.split(": ")[1];
+         const age = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[0].textContent.split(": ")[1];
+         const purpose = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[1].textContent.split(": ")[1];
+         const description = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[2].textContent.split(": ")[1];
+         const urgency = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[3].textContent.split(": ")[1];
+         const diseases = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[4].textContent.split(": ")[1];
+         const preasure = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[5].textContent.split(": ")[1];
+         const massIndex = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[6].textContent.split(": ")[1];
+
+         document.querySelector('.cardiologist-option__purpose-edit').value = purpose;
+         document.querySelector('.cardiologist-option__description-edit').value = description;
+         document.querySelector('.cardiologist-option__select-edit').value = urgency;
+         document.querySelector('.cardiologist-option__name-edit').value = name;
+         document.querySelector('.cardiologist-option__pressure-edit').value = preasure;
+         document.querySelector('.cardiologist-option__massIndex-edit').value = massIndex;
+         document.querySelector('.cardiologist-option__diseases-edit').value = diseases;
+         document.querySelector('.cardiologist-option__age-edit').value = age;
+
+         document.querySelector('.cardiologist-save__changes').addEventListener('click', function (e) {
+            const changedData = {
+               name: document.querySelector('.cardiologist-option__name-edit').value,
+               purpose: document.querySelector('.cardiologist-option__purpose-edit').value,
+               description: document.querySelector('.cardiologist-option__description-edit').value,
+               urgency: document.querySelector('.cardiologist-option__select-edit').value,
+               pressure: document.querySelector('.cardiologist-option__pressure-edit').value,
+               'Mass Index': document.querySelector('.cardiologist-option__massIndex-edit').value,
+               diseases: document.querySelector('.cardiologist-option__diseases-edit').value,
+               age: document.querySelector('.cardiologist-option__age-edit').value,
+            }
+
+            // console.log(id)
+         })
+      }
+
+      if (
+         e.target.closest(".patient-card").children[0].innerText ===
+         "Therapist Card"
+      ) {
+         const id = e.target
+             .closest(".card-footer")
+             .closest(".patient-card")
+             .getAttribute("data-id");
+
+         const name = e.target
+            .closest(".card-footer")
+            .closest(".patient-card")
+            .children[1].textContent.split(": ")[1];
+         const age = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[0].textContent.split(": ")[1];
+         const purpose = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[1].textContent.split(": ")[1];
+         const description = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[2].textContent.split(": ")[1];
+         const urgency = e.target
+            .closest(".card-footer")
+            .previousElementSibling.children[3].textContent.split(": ")[1];
+
+         document.querySelector('.therapist-option__purpose-edit').value = purpose;
+         document.querySelector('.therapist-option__age-edit').value = age;
+         document.querySelector('.therapist-option__description-edit').value = description;
+         document.querySelector('.therapist-option__select-edit').value = urgency;
+         document.querySelector('.therapist-option__name-edit').value = name;
+
+         document.querySelector('.therapist-save__changes').addEventListener('click', function (e) {
+            const changedData = {
+               name: document.querySelector('.therapist-option__name-edit').value,
+               purpose: document.querySelector('.therapist-option__purpose-edit').value,
+               description: document.querySelector('.therapist-option__description-edit').value,
+               urgency: document.querySelector('.therapist-option__select-edit').value,
+               age: document.querySelector('.therapist-option__age-edit').value,
+            }
+            // console.log(id)
+         })
+
+      }
+   }
+
+}
+
+

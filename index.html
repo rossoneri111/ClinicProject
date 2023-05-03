@@ -377,7 +377,6 @@
                            </p>
                         </div>
                      </div>
-
                      <div
                         class="therapist-option choose-specialist d-none was-validated"
                      >
@@ -552,6 +551,313 @@
             </div>
          </div>
       </div>
+
+      <div class="modal fade" id="dentist-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="title">Dentist</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                  <div class="input-group mb-3 was-validated">
+                           <span class="input-group-text"
+                           >Purpose of the visit</span
+                           >
+                     <input
+                             type="text"
+                             class="form-control modal-form__data dentist-option__purpose-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Last visit data</span>
+                     <input
+                             type="date"
+                             class="form-control modal-form__data dentist-option__data-edit"
+                             max="<?= date('Y-m-d'); ?>"
+                             aria-label="Sizing example input"
+                             pattern="^([0-2][0-9]|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with numbers in format:
+                        DD.MM.YY (21.05.1989)!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                           <span class="input-group-text"
+                           >Short description of the visit</span
+                           >
+                     <input
+                             type="text"
+                             class="form-control modal-form__data dentist-option__description-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <select
+                          class="choose-urgency form-select form-select-sm mb-3 dentist-option__select-edit"
+                          aria-label=".form-select-lg example"
+                          required
+                  >
+                     <option value=""></option>
+                     <option value="regular">Regular</option>
+                     <option value="priority">Priority</option>
+                     <option value="urgent">Urgent</option>
+                  </select>
+                  <p class="invalid-feedback">
+                     Choose an option, please!
+                  </p>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Patient name</span>
+                     <input
+                             type="text"
+                             class="form-control modal-form__data dentist-option__name-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-primary dentist-save__changes" data-bs-dismiss="modal" aria-label="Close">Save changes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="modal fade" id="cardiologist-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="">Cardiologist</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+
+                  <div class="input-group mb-3 was-validated">
+                           <span class="input-group-text"
+                           >Purpose of the visit</span
+                           >
+                     <input
+                             type="text"
+                             class="form-control modal-form__data cardiologist-option__purpose-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                           <span class="input-group-text"
+                           >Short description of the visit</span
+                           >
+                     <input
+                             type="text"
+                             class="form-control modal-form__data cardiologist-option__description-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <select
+                          class="choose-urgency form-select form-select-sm mb-3 cardiologist-option__select-edit"
+                          aria-label=".form-select-lg example"
+                          required
+                  >
+                     <option value=""></option>
+                     <option value="regular">Regular</option>
+                     <option value="priority">Priority</option>
+                     <option value="urgent">Urgent</option>
+                  </select>
+                  <p class="invalid-feedback">
+                     Choose an option, please!
+                  </p>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Patient name</span>
+                     <input
+                             type="text"
+                             class="form-control modal-form__data cardiologist-option__name-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Blood pressure</span>
+                     <input
+                             type="text"
+                             class="form-control modal-form__data cardiologist-option__pressure-edit"
+                             aria-label="Sizing example input"
+                             pattern="^(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)\s(5[0-9]|[6-9][0-9]|[1-9][0-9]{2}|1[0-5][0-9]|160)$"
+                             required
+                             onkeyup="this.value=this.value.replace(/[^0-9\s]/g,'');"
+                     />
+                     <p class="invalid-feedback">
+                        Make sure the blood pressure can be from 50 ut to
+                        160
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Body mass index</span>
+                     <input
+                             type="text"
+                             class="form-control modal-form__data cardiologist-option__massIndex-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[0-9]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with numbers only!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                           <span class="input-group-text"
+                           >Diseases of the cardiovascular system</span
+                           >
+                     <input
+                             type="text"
+                             class="form-control modal-form__data cardiologist-option__diseases-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Patient Age</span>
+                     <input
+                             type="text"
+                             class="form-control modal-form__data cardiologist-option__age-edit"
+                             aria-label="Sizing example input"
+                             pattern="^(1[6-9]|[2-9][0-9]|100)$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with numbers only from 16 up
+                        to 100!
+                     </p>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-primary cardiologist-save__changes" data-bs-dismiss="modal" aria-label="Close">Save changes</button>
+               </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="modal fade" id="therapist-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h1 class="modal-title fs-5">Therapist</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+
+                  <div class="input-group mb-3 was-validated">
+                           <span class="input-group-text"
+                           >Purpose of the visit</span
+                           >
+                     <input
+                             type="text"
+                             class="form-control modal-form__data therapist-option__purpose-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                           <span class="input-group-text"
+                           >Short description of the visit</span
+                           >
+                     <input
+                             type="text"
+                             class="form-control modal-form__data therapist-option__description-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <select
+                          class="choose-urgency form-select form-select-sm mb-3 therapist-option__select-edit"
+                          aria-label=".form-select-lg example"
+                          required
+                  >
+                     <option value=""></option>
+                     <option value="regular">Regular</option>
+                     <option value="priority">Priority</option>
+                     <option value="urgent">Urgent</option>
+                  </select>
+                  <p class="invalid-feedback">
+                     Choose an option, please!
+                  </p>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Patient name</span>
+                     <input
+                             type="text"
+                             class="form-control modal-form__data therapist-option__name-edit"
+                             aria-label="Sizing example input"
+                             pattern="^[a-zA-Zа-яА-ЯёЁіІїЇґҐэЭъЪьЬ\s]+$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with letters only!
+                     </p>
+                  </div>
+                  <div class="input-group mb-3 was-validated">
+                     <span class="input-group-text">Patient Age</span>
+                     <input
+                             type="text"
+                             class="form-control modal-form__data therapist-option__age-edit"
+                             aria-label="Sizing example input"
+                             pattern="^(1[6-9]|[2-9][0-9]|100)$"
+                             required
+                     />
+                     <p class="invalid-feedback">
+                        Please fill this line with numbers only from 16 up
+                        to 100!
+                     </p>
+                  </div>
+
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-primary therapist-save__changes" data-bs-dismiss="modal" aria-label="Close">Save changes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+
       <script
          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
          integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

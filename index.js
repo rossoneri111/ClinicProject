@@ -292,29 +292,40 @@ class Cards {
 
    addListeners() {
       const filterForm = document.querySelector("#filterCards");
-      const filterBtn = filterForm.querySelector("button");
+      const filterBtn = filterForm.querySelector(".btn-primary");
+      const resetBtn = filterForm.querySelector(".btn-danger");
+
       if (filterBtn.disabled) {
          filterBtn.disabled = false;
          filterForm.addEventListener("submit", this.filter);
       }
+
+      if (resetBtn.disabled) {
+         resetBtn.disabled = false;
+         filterForm.addEventListener("reset", this.filter);
+      }
    }
 
    filter(event) {
-      event.preventDefault();
       const filterData = new FormData(this);
       const cards = [...document.querySelector("#cards").children];
-      const searchRequest = filterData.get("searchRequest");
+      const searchRequest = filterData.get("searchRequest").toLowerCase();
       const urgency = filterData.getAll("urgency");
       const status = filterData.get("status");
 
       cards.forEach((card) => {
+         const name = card.dataset.name;
+         const desc = card.dataset.desc;
+         (name.includes(searchRequest) || desc.includes(searchRequest)) &&
          urgency.includes(card.dataset.urgency)
             ? card.classList.remove("d-none")
             : card.classList.add("d-none");
       });
 
+      if (event.type === "submit") event.preventDefault();
+
+      // temporary using for checking filter requests
       console.log(searchRequest, urgency, status);
-      console.log(cards);
    }
 
    render() {
@@ -695,6 +706,8 @@ class VisitCard {
       const div = document.createElement("div");
       div.dataset.id = this.id;
       div.dataset.urgency = this.urgency;
+      div.dataset.name = this.patient;
+      div.dataset.desc = this.description;
       div.classList.add("patient-card", "card", "mb-3", "p-1", "w-25");
       div.innerHTML = this.#getVisitCardHtml();
       this.changeBorderColor(div);

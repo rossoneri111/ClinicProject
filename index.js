@@ -290,15 +290,21 @@ class Cards {
 
    addListeners() {
       const filterForm = document.querySelector("#filterCards");
-      const filterBtn = filterForm.querySelector("button");
+      const filterBtn = filterForm.querySelector(".btn-primary");
+      const resetBtn = filterForm.querySelector(".btn-danger");
+
       if (filterBtn.disabled) {
          filterBtn.disabled = false;
          filterForm.addEventListener("submit", this.filter);
       }
+
+      if (resetBtn.disabled) {
+         resetBtn.disabled = false;
+         filterForm.addEventListener("reset", this.filter);
+      }
    }
 
    filter(event) {
-      event.preventDefault();
       const filterData = new FormData(this);
       const cards = [...document.querySelector("#cards").children];
       const searchRequest = filterData.get("searchRequest").toLowerCase();
@@ -313,6 +319,8 @@ class Cards {
             ? card.classList.remove("d-none")
             : card.classList.add("d-none");
       });
+
+      if (event.type === "submit") event.preventDefault();
 
       // temporary using for checking filter requests
       console.log(searchRequest, urgency, status);

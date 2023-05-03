@@ -731,7 +731,7 @@ class VisitCard {
       switch (this.visit.doctor) {
          case "Dentist":
             return `
-                <p class="card-header bg-transparent border-warning position-relative">${this.visit.doctor} Card
+                <p class="card-header bg-transparent border-warning border-2 position-relative">${this.visit.doctor} Card
                    <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
                 </p>
                <p class="card-text">Patient name: ${this.visit.patient}</p>
@@ -741,7 +741,7 @@ class VisitCard {
                    <p class="card-text">Urgency: ${this.visit.urgency}</p>
                    <p class="card-text">Last visit data: ${this.visit.lastVisitData}</p>
                </div>
-                <div class="card-footer bg-transparent border-warning">
+                <div class="card-footer bg-transparent border-warning border-2">
                    <button class="btn btn-success btn-edit" data-bs-toggle="modal" data-bs-target="#dentist-edit">Edit</button>
                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
                 </div>
@@ -749,7 +749,7 @@ class VisitCard {
          case "Cardiologist":
             return `
 
-               <p class="card-header bg-transparent border-danger position-relative">${this.visit.doctor} Card
+               <p class="card-header bg-transparent border-danger border-2 position-relative">${this.visit.doctor} Card
             <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
             </p>
             <p class="card-text">Patient name: ${this.visit.patient}</p>
@@ -763,7 +763,7 @@ class VisitCard {
                <p class="card-text">Body mass index: ${this.visit.massIndex}</p>
             </div>
             </div>
-            <div class="card-footer bg-transparent border-danger">
+            <div class="card-footer bg-transparent border-danger border-2">
                <button class="btn btn-success btn-edit" data-bs-toggle="modal" data-bs-target="#cardiologist-edit">Edit</button>
                <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
             </div>
@@ -771,7 +771,7 @@ class VisitCard {
 
          case "Therapist":
             return `
-               <p class="card-header bg-transparent border-success position-relative">${this.visit.doctor} Card
+               <p class="card-header bg-transparent border-success border-2 position-relative">${this.visit.doctor} Card
                    <img class="position-absolute top-0 end-0 btn__delete" width="25" height="25" src="./img/delete.svg" alt="delete">
                </p>
                <p class="card-text">Patient name: ${this.visit.patient}</p>
@@ -781,7 +781,7 @@ class VisitCard {
                   <p class="card-text">Description: ${this.visit.description}</p>
                   <p class="card-text">Urgency: ${this.visit.urgency}</p>
                </div>
-                <div class="card-footer bg-transparent border-success">
+                <div class="card-footer bg-transparent border-success border-2">
                    <button class="btn btn-success btn-edit" data-bs-toggle="modal" data-bs-target="#therapist-edit">Edit</button>
                    <button class="showMore btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#${this.visit.id}" aria-expanded="false" aria-controls="${this.visit.id}">Show More/Less</button>
                 </div>
@@ -811,13 +811,13 @@ class VisitCard {
 
    changeBorderColor(div) {
       if (this.visit.doctor === `Therapist`) {
-         div.classList.add("border-success");
+         div.classList.add("border-success", "border-5");
       }
       if (this.visit.doctor === `Dentist`) {
-         div.classList.add("border-warning");
+         div.classList.add("border-warning", "border-5");
       }
       if (this.visit.doctor === `Cardiologist`) {
-         div.classList.add("border-danger");
+         div.classList.add("border-danger", "border-5");
       }
    }
 

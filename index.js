@@ -314,20 +314,21 @@ class Cards {
       const filterData = new FormData(this);
       const cards = [...document.querySelector("#cards").children];
       const searchRequest = filterData.get("searchRequest").toLowerCase();
-      const urgency = filterData.getAll("urgency");
-      const status = filterData.get("status");
+      const urgencyRequest = filterData.getAll("urgency");
+      const statusRequest = filterData.get("status");
 
       cards.forEach((card) => {
          const name = card.dataset.name;
          const desc = card.dataset.desc;
+         const urgency = card.dataset.urgency;
+         const status = card.dataset.status;
+
          (name.includes(searchRequest) || desc.includes(searchRequest)) &&
-         urgency.includes(card.dataset.urgency)
+         urgencyRequest.includes(urgency) &&
+         statusRequest.includes(status)
             ? card.classList.remove("d-none")
             : card.classList.add("d-none");
       });
-
-      // temporary using for checking filter requests
-      console.log(searchRequest, urgency, status);
    }
 
    render() {
@@ -603,6 +604,7 @@ class Visit {
    purpose;
    description;
    urgency;
+   status = "open";
 
    constructor(visitData) {
       this.validateVisitData(visitData);
@@ -710,9 +712,11 @@ class VisitCard {
       //    throw new Error(`visit should be a validate visit`);
       // }
       this.visit = visit;
-      const { patient, purpose, description, urgency, id, doctor } = visit;
+      const { patient, purpose, description, urgency, id, doctor, status } =
+         visit;
 
       this.id = id;
+      this.status = status;
       this.doctor = doctor;
       this.patient = patient;
       this.purpose = purpose;
@@ -723,6 +727,7 @@ class VisitCard {
    render() {
       const div = document.createElement("div");
       div.dataset.id = this.id;
+      div.dataset.status = this.status;
       div.dataset.urgency = this.urgency;
       div.dataset.name = this.patient;
       div.dataset.desc = this.description;
@@ -754,6 +759,7 @@ class VisitCard {
                 </p>
                <p class="card-text">Patient name: <span class="patient-name">${this.visit.patient}</span></p>
                <div class="collapse" id=${this.visit.id}>
+                   <p class="card-text">Status: <span class="patient-status">${this.visit.status}</span></p>
                    <p class="card-text">Purpose of visit: <span class="patient-purpose">${this.visit.purpose}</span></p>
                    <p class="card-text">Description: <span class="patient-description">${this.visit.description}</span></p>
                    <p class="card-text">Urgency: <span class="patient-urgency">${this.visit.urgency}</span></p>
@@ -772,6 +778,7 @@ class VisitCard {
             </p>
             <p class="card-text">Patient name: <span class="patient-name">${this.visit.patient}</span></p>
             <div class="collapse" id=${this.visit.id}>
+               <p class="card-text">Status: <span class="patient-status">${this.visit.status}</span></p>
                <p class="card-text">Patient age: <span class="patient-age">${this.visit.age}</span></p>
                <p class="card-text">Purpose of visit: <span class="patient-purpose">${this.visit.purpose}</span></p>
                <p class="card-text">Description: <span class="patient-description">${this.visit.description}</span></p>
@@ -794,6 +801,7 @@ class VisitCard {
                </p>
                <p class="card-text">Patient name: <span class="patient-name">${this.visit.patient}</span></p>
                <div class="collapse" id=${this.visit.id}>
+                  <p class="card-text">Status: <span class="patient-status">${this.visit.status}</span></p>
                   <p class="card-text">Patient age: <span class="patient-age">${this.visit.age}</span></p>
                   <p class="card-text">Purpose of visit: <span class="patient-purpose">${this.visit.purpose}</span></p>
                   <p class="card-text">Description: <span class="patient-description">${this.visit.description}</span></p>

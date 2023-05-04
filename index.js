@@ -604,17 +604,24 @@ class Visit {
    purpose;
    description;
    urgency;
-   status = "open";
+   status;
 
    constructor(visitData) {
       this.validateVisitData(visitData);
 
-      const { patient, purpose, description, urgency } = visitData;
+      const {
+         patient,
+         purpose,
+         description,
+         status = "open",
+         urgency,
+      } = visitData;
 
       this.patient = patient;
       this.purpose = purpose;
       this.description = description;
       this.urgency = urgency;
+      this.status = status;
    }
 
    validateVisitData({ patient, purpose, description, urgency }) {
@@ -901,7 +908,7 @@ dragnDrop();
 
 function dddd() {
    const f = new HttpService();
-   f.deleteCard(sessionStorage.getItem("token"), 169733);
+   f.deleteCard(sessionStorage.getItem("token"), 169805);
 }
 
 // dddd()
@@ -928,6 +935,9 @@ function editCard(e) {
          const description = e.target
             .closest(".patient-card")
             .querySelector(".patient-description").innerText;
+         const visitStatus = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-status").innerText;
          const urgency = e.target
             .closest(".patient-card")
             .querySelector(".patient-urgency").innerText;
@@ -940,6 +950,8 @@ function editCard(e) {
          document.querySelector(".dentist-option__data-edit").value = data;
          document.querySelector(".dentist-option__description-edit").value =
             description;
+         document.querySelector(".dentist-option__status-edit").value =
+            visitStatus;
          document.querySelector(".dentist-option__select-edit").value = urgency;
          document.querySelector(".dentist-option__name-edit").value = name;
 
@@ -955,6 +967,8 @@ function editCard(e) {
                   description: document.querySelector(
                      ".dentist-option__description-edit"
                   ).value,
+                  status: document.querySelector(".dentist-option__status-edit")
+                     .value,
                   urgency: document.querySelector(
                      ".dentist-option__select-edit"
                   ).value,
@@ -980,6 +994,10 @@ function editCard(e) {
                            .querySelector(`[data-id="${id}"]`)
                            .querySelector(".patient-description").innerText =
                            changedData.description;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-status").innerText =
+                           changedData.status;
                         document
                            .querySelector(`[data-id="${id}"]`)
                            .querySelector(".patient-urgency").innerText =
@@ -1014,6 +1032,9 @@ function editCard(e) {
          const description = e.target
             .closest(".patient-card")
             .querySelector(".patient-description").innerText;
+         const visitStatus = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-status").innerText;
          const urgency = e.target
             .closest(".patient-card")
             .querySelector(".patient-urgency").innerText;
@@ -1032,6 +1053,8 @@ function editCard(e) {
          document.querySelector(
             ".cardiologist-option__description-edit"
          ).value = description;
+         document.querySelector(".cardiologist-option__status-edit").value =
+            visitStatus;
          document.querySelector(".cardiologist-option__select-edit").value =
             urgency;
          document.querySelector(".cardiologist-option__name-edit").value = name;
@@ -1055,6 +1078,9 @@ function editCard(e) {
                   ).value,
                   description: document.querySelector(
                      ".cardiologist-option__description-edit"
+                  ).value,
+                  status: document.querySelector(
+                     ".cardiologist-option__status-edit"
                   ).value,
                   urgency: document.querySelector(
                      ".cardiologist-option__select-edit"
@@ -1089,6 +1115,10 @@ function editCard(e) {
                            .querySelector(`[data-id="${id}"]`)
                            .querySelector(".patient-description").innerText =
                            changedData.description;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-status").innerText =
+                           changedData.status;
                         document
                            .querySelector(`[data-id="${id}"]`)
                            .querySelector(".patient-urgency").innerText =
@@ -1135,6 +1165,9 @@ function editCard(e) {
          const description = e.target
             .closest(".patient-card")
             .querySelector(".patient-description").innerText;
+         const visitStatus = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-status").innerText;
          const urgency = e.target
             .closest(".patient-card")
             .querySelector(".patient-urgency").innerText;
@@ -1144,6 +1177,8 @@ function editCard(e) {
          document.querySelector(".therapist-option__age-edit").value = age;
          document.querySelector(".therapist-option__description-edit").value =
             description;
+         document.querySelector(".therapist-option__status-edit").value =
+            visitStatus;
          document.querySelector(".therapist-option__select-edit").value =
             urgency;
          document.querySelector(".therapist-option__name-edit").value = name;
@@ -1160,6 +1195,9 @@ function editCard(e) {
                   ).value,
                   description: document.querySelector(
                      ".therapist-option__description-edit"
+                  ).value,
+                  status: document.querySelector(
+                     ".therapist-option__status-edit"
                   ).value,
                   urgency: document.querySelector(
                      ".therapist-option__select-edit"
@@ -1185,6 +1223,10 @@ function editCard(e) {
                            .querySelector(`[data-id="${id}"]`)
                            .querySelector(".patient-description").innerText =
                            changedData.description;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-urgency").innerText =
+                           changedData.status;
                         document
                            .querySelector(`[data-id="${id}"]`)
                            .querySelector(".patient-urgency").innerText =

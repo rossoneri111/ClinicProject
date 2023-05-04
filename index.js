@@ -285,7 +285,6 @@ class Handlers {
 class Cards {
    constructor(cardData) {
       this.cardData = cardData;
-      if (this.cardData.length) this.addListeners();
    }
 
    addListeners() {
@@ -295,16 +294,23 @@ class Cards {
 
       if (filterBtn.disabled) {
          filterBtn.disabled = false;
-         filterForm.addEventListener("submit", this.filter);
+         filterForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            this.filter.call(e.target, e);
+         });
       }
 
       if (resetBtn.disabled) {
          resetBtn.disabled = false;
-         filterForm.addEventListener("reset", this.filter);
+         filterForm.addEventListener("reset", (e) => {
+            setTimeout(() => {
+               this.filter.call(e.target, e);
+            }, 0);
+         });
       }
    }
 
-   filter(event) {
+   filter() {
       const filterData = new FormData(this);
       const cards = [...document.querySelector("#cards").children];
       const searchRequest = filterData.get("searchRequest").toLowerCase();
@@ -319,8 +325,6 @@ class Cards {
             ? card.classList.remove("d-none")
             : card.classList.add("d-none");
       });
-
-      if (event.type === "submit") event.preventDefault();
 
       // temporary using for checking filter requests
       console.log(searchRequest, urgency, status);

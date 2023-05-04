@@ -173,7 +173,6 @@ class ClinicApp {
 
       const cardsData = await httpService.getAllCards(this.token);
       const cardsContent = new Cards(cardsData);
-      console.log(cardsContent.render());
       cards.append(...cardsContent.render());
    }
 
@@ -286,6 +285,7 @@ class Handlers {
 class Cards {
    constructor(cardData) {
       this.cardData = cardData;
+      if (this.cardData.length) this.addListeners();
    }
 
    addListeners() {

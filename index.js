@@ -74,13 +74,13 @@ class HttpService {
    async updateCard(token, cardId, cardData) {
       try {
          return await fetch(`${this.URL}/${cardId}`, {
-               method: "PUT",
-               headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-               },
-               body: JSON.stringify(cardData),
-            })
+            method: "PUT",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(cardData),
+         });
       } catch (e) {
          Handlers.errorHandler(e);
       }
@@ -285,7 +285,6 @@ class Handlers {
 class Cards {
    constructor(cardData) {
       this.cardData = cardData;
-      if (this.cardData.length) this.addListeners();
    }
 
    addListeners() {
@@ -295,45 +294,58 @@ class Cards {
 
       if (filterBtn.disabled) {
          filterBtn.disabled = false;
-         filterForm.addEventListener("submit", this.filter);
+         filterForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            this.filter.call(e.target, e);
+         });
       }
 
       if (resetBtn.disabled) {
          resetBtn.disabled = false;
-         filterForm.addEventListener("reset", this.filter);
+         filterForm.addEventListener("reset", (e) => {
+            setTimeout(() => {
+               this.filter.call(e.target, e);
+            }, 0);
+         });
       }
    }
 
-   filter(event) {
+   filter() {
       const filterData = new FormData(this);
       const cards = [...document.querySelector("#cards").children];
       const searchRequest = filterData.get("searchRequest").toLowerCase();
-      const urgency = filterData.getAll("urgency");
-      const status = filterData.get("status");
+      const urgencyRequest = filterData.getAll("urgency");
+      const statusRequest = filterData.get("status");
 
       cards.forEach((card) => {
          const name = card.dataset.name;
          const desc = card.dataset.desc;
+         const urgency = card.dataset.urgency;
+         const status = card.dataset.status;
+
          (name.includes(searchRequest) || desc.includes(searchRequest)) &&
-         urgency.includes(card.dataset.urgency)
+         urgencyRequest.includes(urgency) &&
+         statusRequest.includes(status)
             ? card.classList.remove("d-none")
             : card.classList.add("d-none");
       });
-
-      if (event.type === "submit") event.preventDefault();
-
-      // temporary using for checking filter requests
-      console.log(searchRequest, urgency, status);
    }
 
    render() {
-      if (this.cardData.length) this.addListeners();
+      if (this.cardData.length) {
+         this.addListeners();
 
-      return this.cardData.reduce((cards, item) => {
-         const card = new VisitCard(item);
-         cards.push(card.render());
-         return cards;
-      }, []);
+         return this.cardData.reduce((cards, item) => {
+            const card = new VisitCard(item);
+            cards.push(card.render());
+            return cards;
+         }, []);
+      } else {
+         const cardsPlaceholder = document.createElement("h2");
+         cardsPlaceholder.innerText = "No visits data";
+         cardsPlaceholder.id = "cardsPlaceholder";
+         return [cardsPlaceholder];
+      }
    }
 }
 
@@ -406,7 +418,10 @@ class CreateVisitModal {
             .postCard(sessionStorage.getItem("token"), cardiologistCard)
             .then((card) => {
                const div = new VisitCard(card);
-               document.querySelector(".cards-content").append(div.render());
+               const cardsContent = document.querySelector(".cards-content");
+               cardsContent.querySelector("#cardsPlaceholder")
+                  ? cardsContent.replaceChildren(div.render())
+                  : cardsContent.append(div.render());
             });
       }
 
@@ -427,7 +442,10 @@ class CreateVisitModal {
             .postCard(sessionStorage.getItem("token"), dentistCard)
             .then((card) => {
                const div = new VisitCard(card);
-               document.querySelector(".cards-content").append(div.render());
+               const cardsContent = document.querySelector(".cards-content");
+               cardsContent.querySelector("#cardsPlaceholder")
+                  ? cardsContent.replaceChildren(div.render())
+                  : cardsContent.append(div.render());
             });
       }
 
@@ -448,7 +466,10 @@ class CreateVisitModal {
             .postCard(sessionStorage.getItem("token"), therapistCard)
             .then((card) => {
                const div = new VisitCard(card);
-               document.querySelector(".cards-content").append(div.render());
+               const cardsContent = document.querySelector(".cards-content");
+               cardsContent.querySelector("#cardsPlaceholder")
+                  ? cardsContent.replaceChildren(div.render())
+                  : cardsContent.append(div.render());
             });
       }
    }
@@ -583,6 +604,7 @@ class Visit {
    purpose;
    description;
    urgency;
+   status = "open";
 
    constructor(visitData) {
       this.validateVisitData(visitData);
@@ -690,9 +712,11 @@ class VisitCard {
       //    throw new Error(`visit should be a validate visit`);
       // }
       this.visit = visit;
-      const { patient, purpose, description, urgency, id, doctor } = visit;
+      const { patient, purpose, description, urgency, id, doctor, status } =
+         visit;
 
       this.id = id;
+      this.status = status;
       this.doctor = doctor;
       this.patient = patient;
       this.purpose = purpose;
@@ -703,6 +727,7 @@ class VisitCard {
    render() {
       const div = document.createElement("div");
       div.dataset.id = this.id;
+      div.dataset.status = this.status;
       div.dataset.urgency = this.urgency;
       div.dataset.name = this.patient;
       div.dataset.desc = this.description;
@@ -734,6 +759,7 @@ class VisitCard {
                 </p>
                <p class="card-text">Patient name: <span class="patient-name">${this.visit.patient}</span></p>
                <div class="collapse" id=${this.visit.id}>
+                   <p class="card-text">Status: <span class="patient-status">${this.visit.status}</span></p>
                    <p class="card-text">Purpose of visit: <span class="patient-purpose">${this.visit.purpose}</span></p>
                    <p class="card-text">Description: <span class="patient-description">${this.visit.description}</span></p>
                    <p class="card-text">Urgency: <span class="patient-urgency">${this.visit.urgency}</span></p>
@@ -752,6 +778,7 @@ class VisitCard {
             </p>
             <p class="card-text">Patient name: <span class="patient-name">${this.visit.patient}</span></p>
             <div class="collapse" id=${this.visit.id}>
+               <p class="card-text">Status: <span class="patient-status">${this.visit.status}</span></p>
                <p class="card-text">Patient age: <span class="patient-age">${this.visit.age}</span></p>
                <p class="card-text">Purpose of visit: <span class="patient-purpose">${this.visit.purpose}</span></p>
                <p class="card-text">Description: <span class="patient-description">${this.visit.description}</span></p>
@@ -774,6 +801,7 @@ class VisitCard {
                </p>
                <p class="card-text">Patient name: <span class="patient-name">${this.visit.patient}</span></p>
                <div class="collapse" id=${this.visit.id}>
+                  <p class="card-text">Status: <span class="patient-status">${this.visit.status}</span></p>
                   <p class="card-text">Patient age: <span class="patient-age">${this.visit.age}</span></p>
                   <p class="card-text">Purpose of visit: <span class="patient-purpose">${this.visit.purpose}</span></p>
                   <p class="card-text">Description: <span class="patient-description">${this.visit.description}</span></p>
@@ -878,8 +906,7 @@ function dddd() {
 
 // dddd()
 
-
-document.querySelector("body").addEventListener("click", editCard);
+document.querySelector(".cards-content").addEventListener("click", editCard);
 
 function editCard(e) {
    if (e.target.classList.contains("btn-edit")) {
@@ -892,42 +919,78 @@ function editCard(e) {
             .closest(".patient-card")
             .getAttribute("data-id");
 
+         const name = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-name").innerText;
+         const purpose = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-purpose").innerText;
+         const description = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-description").innerText;
+         const urgency = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-urgency").innerText;
+         const data = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-last-visit").innerText;
 
-         const name = e.target.closest('.patient-card').querySelector('.patient-name').innerText;
-         const purpose = e.target.closest('.patient-card').querySelector('.patient-purpose').innerText;
-         const description = e.target.closest('.patient-card').querySelector('.patient-description').innerText;
-         const urgency = e.target.closest('.patient-card').querySelector('.patient-urgency').innerText;
-         const data = e.target.closest('.patient-card').querySelector('.patient-last-visit').innerText;
+         document.querySelector(".dentist-option__purpose-edit").value =
+            purpose;
+         document.querySelector(".dentist-option__data-edit").value = data;
+         document.querySelector(".dentist-option__description-edit").value =
+            description;
+         document.querySelector(".dentist-option__select-edit").value = urgency;
+         document.querySelector(".dentist-option__name-edit").value = name;
 
-         document.querySelector('.dentist-option__purpose-edit').value = purpose;
-         document.querySelector('.dentist-option__data-edit').value = data;
-         document.querySelector('.dentist-option__description-edit').value = description;
-         document.querySelector('.dentist-option__select-edit').value = urgency;
-         document.querySelector('.dentist-option__name-edit').value = name;
+         document
+            .querySelector(".dentist-save__changes")
+            .addEventListener("click", function (e) {
+               const changedData = new VisitDentist({
+                  patient: document.querySelector(".dentist-option__name-edit")
+                     .value,
+                  purpose: document.querySelector(
+                     ".dentist-option__purpose-edit"
+                  ).value,
+                  description: document.querySelector(
+                     ".dentist-option__description-edit"
+                  ).value,
+                  urgency: document.querySelector(
+                     ".dentist-option__select-edit"
+                  ).value,
+                  lastVisitData: document.querySelector(
+                     ".dentist-option__data-edit"
+                  ).value,
+               });
+               changedData.id = id;
 
-         document.querySelector('.dentist-save__changes').addEventListener('click', function (e) {
-            const changedData = new VisitDentist({
-               patient: document.querySelector('.dentist-option__name-edit').value,
-               purpose: document.querySelector('.dentist-option__purpose-edit').value,
-               description: document.querySelector('.dentist-option__description-edit').value,
-               urgency: document.querySelector('.dentist-option__select-edit').value,
-               lastVisitData: document.querySelector('.dentist-option__data-edit').value,
-            })
-            changedData.id = id;
-
-            httpService
-                .updateCard(sessionStorage.getItem("token"), id, changedData)
-                .then(res => {
-                   if(res.ok) {
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-name').innerText = changedData.patient;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-purpose').innerText = changedData.purpose;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-description').innerText = changedData.description;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-urgency').innerText = changedData.urgency;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-last-visit').innerText = changedData.lastVisitData;
-                   }
-                })
-         })
-
+               httpService
+                  .updateCard(sessionStorage.getItem("token"), id, changedData)
+                  .then((res) => {
+                     if (res.ok) {
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-name").innerText =
+                           changedData.patient;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-purpose").innerText =
+                           changedData.purpose;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-description").innerText =
+                           changedData.description;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-urgency").innerText =
+                           changedData.urgency;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-last-visit").innerText =
+                           changedData.lastVisitData;
+                     }
+                  });
+            });
       }
 
       if (
@@ -935,57 +998,120 @@ function editCard(e) {
          "Cardiologist Card"
       ) {
          const id = e.target
-             .closest(".card-footer")
-             .closest(".patient-card")
-             .getAttribute("data-id");
+            .closest(".card-footer")
+            .closest(".patient-card")
+            .getAttribute("data-id");
 
-         const name = e.target.closest(".patient-card").querySelector('.patient-name').innerText;
-         const age = e.target.closest(".patient-card").querySelector('.patient-age').innerText;
-         const purpose = e.target.closest(".patient-card").querySelector('.patient-purpose').innerText;
-         const description = e.target.closest(".patient-card").querySelector('.patient-description').innerText;
-         const urgency = e.target.closest(".patient-card").querySelector('.patient-urgency').innerText;
-         const diseases = e.target.closest(".patient-card").querySelector('.patient-diseases').innerText;
-         const pressure = e.target.closest(".patient-card").querySelector('.patient-pressure').innerText;
-         const massIndex = e.target.closest(".patient-card").querySelector('.patient-mass-index').innerText;
+         const name = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-name").innerText;
+         const age = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-age").innerText;
+         const purpose = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-purpose").innerText;
+         const description = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-description").innerText;
+         const urgency = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-urgency").innerText;
+         const diseases = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-diseases").innerText;
+         const pressure = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-pressure").innerText;
+         const massIndex = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-mass-index").innerText;
 
-         document.querySelector('.cardiologist-option__purpose-edit').value = purpose;
-         document.querySelector('.cardiologist-option__description-edit').value = description;
-         document.querySelector('.cardiologist-option__select-edit').value = urgency;
-         document.querySelector('.cardiologist-option__name-edit').value = name;
-         document.querySelector('.cardiologist-option__pressure-edit').value = pressure;
-         document.querySelector('.cardiologist-option__massIndex-edit').value = massIndex;
-         document.querySelector('.cardiologist-option__diseases-edit').value = diseases;
-         document.querySelector('.cardiologist-option__age-edit').value = age;
+         document.querySelector(".cardiologist-option__purpose-edit").value =
+            purpose;
+         document.querySelector(
+            ".cardiologist-option__description-edit"
+         ).value = description;
+         document.querySelector(".cardiologist-option__select-edit").value =
+            urgency;
+         document.querySelector(".cardiologist-option__name-edit").value = name;
+         document.querySelector(".cardiologist-option__pressure-edit").value =
+            pressure;
+         document.querySelector(".cardiologist-option__massIndex-edit").value =
+            massIndex;
+         document.querySelector(".cardiologist-option__diseases-edit").value =
+            diseases;
+         document.querySelector(".cardiologist-option__age-edit").value = age;
 
-         document.querySelector('.cardiologist-save__changes').addEventListener('click', function (e) {
-            const changedData = new VisitCardiologist({
-                   patient: document.querySelector('.cardiologist-option__name-edit').value,
-                   purpose: document.querySelector('.cardiologist-option__purpose-edit').value,
-                   description: document.querySelector('.cardiologist-option__description-edit').value,
-                   urgency: document.querySelector('.cardiologist-option__select-edit').value,
-                   pressure: document.querySelector('.cardiologist-option__pressure-edit').value,
-                   massIndex: document.querySelector('.cardiologist-option__massIndex-edit').value,
-                   diseases: document.querySelector('.cardiologist-option__diseases-edit').value,
-                   age: document.querySelector('.cardiologist-option__age-edit').value,
-                })
-            changedData.id = id;
+         document
+            .querySelector(".cardiologist-save__changes")
+            .addEventListener("click", function (e) {
+               const changedData = new VisitCardiologist({
+                  patient: document.querySelector(
+                     ".cardiologist-option__name-edit"
+                  ).value,
+                  purpose: document.querySelector(
+                     ".cardiologist-option__purpose-edit"
+                  ).value,
+                  description: document.querySelector(
+                     ".cardiologist-option__description-edit"
+                  ).value,
+                  urgency: document.querySelector(
+                     ".cardiologist-option__select-edit"
+                  ).value,
+                  pressure: document.querySelector(
+                     ".cardiologist-option__pressure-edit"
+                  ).value,
+                  massIndex: document.querySelector(
+                     ".cardiologist-option__massIndex-edit"
+                  ).value,
+                  diseases: document.querySelector(
+                     ".cardiologist-option__diseases-edit"
+                  ).value,
+                  age: document.querySelector(".cardiologist-option__age-edit")
+                     .value,
+               });
+               changedData.id = id;
 
-            httpService
-                .updateCard(sessionStorage.getItem("token"), id, changedData)
-                .then(res => {
-                   if(res.ok) {
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-name').innerText = changedData.patient;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-purpose').innerText = changedData.purpose;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-description').innerText = changedData.description;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-urgency').innerText = changedData.urgency;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-age').innerText = changedData.age;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-pressure').innerText = changedData.pressure;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-mass-index').innerText = changedData.massIndex;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-diseases').innerText = changedData.diseases;
-                   }
-                })
-
-         })
+               httpService
+                  .updateCard(sessionStorage.getItem("token"), id, changedData)
+                  .then((res) => {
+                     if (res.ok) {
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-name").innerText =
+                           changedData.patient;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-purpose").innerText =
+                           changedData.purpose;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-description").innerText =
+                           changedData.description;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-urgency").innerText =
+                           changedData.urgency;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-age").innerText =
+                           changedData.age;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-pressure").innerText =
+                           changedData.pressure;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-mass-index").innerText =
+                           changedData.massIndex;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-diseases").innerText =
+                           changedData.diseases;
+                     }
+                  });
+            });
       }
 
       if (
@@ -993,47 +1119,83 @@ function editCard(e) {
          "Therapist Card"
       ) {
          const id = e.target
-             .closest(".card-footer")
-             .closest(".patient-card")
-             .getAttribute("data-id");
+            .closest(".card-footer")
+            .closest(".patient-card")
+            .getAttribute("data-id");
 
-         const name = e.target.closest(".patient-card").querySelector('.patient-name').innerText;
-         const age = e.target.closest(".patient-card").querySelector('.patient-age').innerText;
-         const purpose = e.target.closest(".patient-card").querySelector('.patient-purpose').innerText;
-         const description = e.target.closest(".patient-card").querySelector('.patient-description').innerText;
-         const urgency = e.target.closest(".patient-card").querySelector('.patient-urgency').innerText;
+         const name = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-name").innerText;
+         const age = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-age").innerText;
+         const purpose = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-purpose").innerText;
+         const description = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-description").innerText;
+         const urgency = e.target
+            .closest(".patient-card")
+            .querySelector(".patient-urgency").innerText;
 
+         document.querySelector(".therapist-option__purpose-edit").value =
+            purpose;
+         document.querySelector(".therapist-option__age-edit").value = age;
+         document.querySelector(".therapist-option__description-edit").value =
+            description;
+         document.querySelector(".therapist-option__select-edit").value =
+            urgency;
+         document.querySelector(".therapist-option__name-edit").value = name;
 
-         document.querySelector('.therapist-option__purpose-edit').value = purpose;
-         document.querySelector('.therapist-option__age-edit').value = age;
-         document.querySelector('.therapist-option__description-edit').value = description;
-         document.querySelector('.therapist-option__select-edit').value = urgency;
-         document.querySelector('.therapist-option__name-edit').value = name;
+         document
+            .querySelector(".therapist-save__changes")
+            .addEventListener("click", function (e) {
+               const changedData = new VisitTherapist({
+                  patient: document.querySelector(
+                     ".therapist-option__name-edit"
+                  ).value,
+                  purpose: document.querySelector(
+                     ".therapist-option__purpose-edit"
+                  ).value,
+                  description: document.querySelector(
+                     ".therapist-option__description-edit"
+                  ).value,
+                  urgency: document.querySelector(
+                     ".therapist-option__select-edit"
+                  ).value,
+                  age: document.querySelector(".therapist-option__age-edit")
+                     .value,
+               });
+               changedData.id = id;
 
-         document.querySelector('.therapist-save__changes').addEventListener('click', function (e) {
-            const changedData = new VisitTherapist({
-               patient: document.querySelector('.therapist-option__name-edit').value,
-               purpose: document.querySelector('.therapist-option__purpose-edit').value,
-               description: document.querySelector('.therapist-option__description-edit').value,
-               urgency: document.querySelector('.therapist-option__select-edit').value,
-               age: document.querySelector('.therapist-option__age-edit').value,
-            })
-            changedData.id = id;
-
-            httpService
-                .updateCard(sessionStorage.getItem("token"), id, changedData)
-                .then(res => {
-                   if(res.ok) {
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-name').innerText = changedData.patient;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-purpose').innerText = changedData.purpose;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-description').innerText = changedData.description;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-urgency').innerText = changedData.urgency;
-                      document.querySelector(`[data-id="${id}"]`).querySelector('.patient-age').innerText = changedData.age;
-                   }
-                })
-         })
+               httpService
+                  .updateCard(sessionStorage.getItem("token"), id, changedData)
+                  .then((res) => {
+                     if (res.ok) {
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-name").innerText =
+                           changedData.patient;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-purpose").innerText =
+                           changedData.purpose;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-description").innerText =
+                           changedData.description;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-urgency").innerText =
+                           changedData.urgency;
+                        document
+                           .querySelector(`[data-id="${id}"]`)
+                           .querySelector(".patient-age").innerText =
+                           changedData.age;
+                     }
+                  });
+            });
       }
    }
 }
-
-

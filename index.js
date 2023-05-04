@@ -879,7 +879,7 @@ function dddd() {
 // dddd()
 
 
-document.querySelector(".cards-content").addEventListener("click", editCard);
+document.querySelector("body").addEventListener("click", editCard);
 
 function editCard(e) {
    if (e.target.classList.contains("btn-edit")) {
@@ -1034,7 +1034,6 @@ function editCard(e) {
          })
       }
    }
-
 }
 
 

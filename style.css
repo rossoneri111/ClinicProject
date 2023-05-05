@@ -1,0 +1,26 @@
+body {
+    background-image: url("../img/backgroundclinic.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.bg-success-subtle {
+    background-color: #839de580!important;
+}
+
+.btn__delete {
+    cursor: pointer;
+}
+
+.card {
+    background-image: url("../img/cardbg6.png");
+
+}
+
+.card-header {
+    font-weight: 800;
+}
+
+.card-text {
+    font-weight: 500;
+}

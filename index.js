@@ -1197,7 +1197,7 @@ function editTherapist(
                      .querySelector(".patient-age").innerText = changedData.age;
                   document
                      .querySelector(`[data-id="${id}"]`)
-                     .querySelector(".patient-urgency").innerText =
+                     .querySelector(".patient-status").innerText =
                      changedData.status;
                }
             });

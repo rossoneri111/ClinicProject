@@ -1,4 +1,4 @@
-import { clearForm, createVisitCard } from "./modalWindowfunction.js";
+import { clearForm } from "./modalWindowfunction.js";
 
 class HttpService {
    constructor() {

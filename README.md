@@ -7,5 +7,6 @@
  - JS: Classes division, ClinicApp, HTTP service, Handlers, Cards
  - Layout: Sign In / Sign Out modals, Error pop-up, Filters
 
-Дарина - стилі. Потім клас картки запису до лікаря. 
+3. **Бекчанова Дарина** - class Visit і класи, які наслідуються від нього, валідація на стороні сервера, class VisitCard, видалення картки, часткова стилізація сторінки.
+
 

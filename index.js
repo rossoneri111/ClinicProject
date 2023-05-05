@@ -583,19 +583,6 @@ class CreateVisitModal {
    }
 }
 
-// document.addEventListener("click", showFullCardInfo);
-//
-// function showFullCardInfo(e) {
-//    if (e.target.classList.contains("showMore")) {
-//       const card = e.target.closest(".patient-card");
-//       const children = card.children;
-//       for (let i = 0; i < children.length; i++) {
-//          children[i].classList.remove("d-none");
-//       }
-//       e.target.classList.add("d-none");
-//    }
-// }
-
 const httpService = new HttpService();
 const clinicApp = new ClinicApp(httpService);
 
@@ -715,9 +702,6 @@ class VisitCard {
    /** @param {VisitDentist | VisitCardiologist | VisitTherapist} visit */
 
    constructor(visit) {
-      // if (!VisitDentist.validateVisitDentist()) {
-      //    throw new Error(`visit should be a validate visit`);
-      // }
       this.visit = visit;
       const { patient, purpose, description, urgency, id, doctor, status } =
          visit;
@@ -749,11 +733,6 @@ class VisitCard {
          console.log(e.message);
       }
 
-      //
-      // const buttonEdit = div.querySelector(".btn__edit");
-      // buttonEdit.addEventListener("click", this.openEditModal);
-
-      // document.querySelector(".cards-content").append(div);
       return div;
    }
 
@@ -853,65 +832,11 @@ class VisitCard {
          div.classList.add("border-danger", "border-5");
       }
    }
-
-   appendToDesk() {
-      const desk = document.getElementById(`desk`);
-      const visitCardHtml = this.renderHtml();
-      desk.innerHTML = desk.innerHTML + visitCardHtml;
-   }
-
-   buttonEditListener() {
-      //...
-   }
-
-   editVisitListener() {
-      document.appendChild(new EditVisitDialog(this.visit));
-      //...
-      this.editVisit({});
-   }
-
-   editVisit(newFields = {}) {
-      const visitApi = new VisitApi();
-      const httpRequest = visitApi.update(this.visit.id, newFields);
-   }
-}
-
-class VisitDentistCard extends VisitCard {
-   constructor(visit) {
-      super(visit);
-      this.lastVisitData = visit.lastVisitData;
-   }
-}
-
-class VisitTherapistCard extends VisitCard {
-   constructor(visit) {
-      super(visit);
-      this.age = visit.age;
-   }
-}
-
-class VisitCardiologistCard extends VisitCard {
-   constructor(visit) {
-      super(visit);
-      const { age, diseases, pressure, massIndex } = visit;
-
-      this.age = age;
-      this.diseases = diseases;
-      this.pressure = pressure;
-      this.massIndex = massIndex;
-   }
 }
 
 import { dragnDrop } from "./DragnDropFunction.js";
 
 dragnDrop();
-
-function dddd() {
-   const f = new HttpService();
-   f.deleteCard(sessionStorage.getItem("token"), 169941);
-}
-
-// dddd()
 
 document.querySelector("body").addEventListener("click", editCard);
 

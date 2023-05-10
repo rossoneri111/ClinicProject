@@ -293,6 +293,7 @@ class Cards {
       const resetBtn = filterForm.querySelector(".btn-danger");
 
       if (filterBtn.disabled) {
+         filterForm.classList.remove("d-none");
          filterBtn.disabled = false;
          filterForm.addEventListener("submit", (e) => {
             e.preventDefault();
